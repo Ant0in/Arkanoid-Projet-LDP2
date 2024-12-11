@@ -32,21 +32,6 @@ enum class BrickType{
 };
 
 
-enum class BrickHp{
-    NONE = 0,
-    WHITE = 1,
-    ORANGE = 1,
-    CYAN = 1,
-    GREEN = 1,
-    RED = 1,
-    BLUE = 1,
-    MAGENTA = 1,
-    YELLOW = 1,
-    SILVER = 2,
-    GOLD = std::numeric_limits<int>::infinity()
-};
-
-
 enum class Action{
     NONE = 0,
     LEFT = 1,
