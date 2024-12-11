@@ -7,7 +7,7 @@ For more details, please refer to `./pdf/project-2024.pdf`.
 
 ## Usage
 
-Make sure you have `Python >= 3.11` installed.
+...
 
 
 ### Running the Project
@@ -15,13 +15,13 @@ Make sure you have `Python >= 3.11` installed.
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/Ant0in/Breakout-Python.git
+   git clone https://github.com/Ant0in/Arkanoid-Projet-LDP2.git
    ```
 
 2. Navigate to the project directory:
 
    ```bash
-   cd Breakout-Python/
+   cd Arkanoid-Projet-LDP2/
    ```
 
 3. Install dependencies:
