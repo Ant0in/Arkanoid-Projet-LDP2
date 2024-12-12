@@ -5,50 +5,51 @@ class Brick{
         Position2D position;
         float width, height;
         BrickType btype;
-        SolidCircle hitbox = SolidRectangle(position, height, width);
-        int hp = attributeBrickHpByType(btype);
+        SolidRectangle hitbox;
+        int hp;
     public:
-        Brick(Position2D position, float width, float height, BrickType btype): position{position}, width{width}, height{height}{};
+        Brick(const Position2D& position, float width, float height, BrickType btype): position{position}, width{width}, height{height}, btype{btype}, hitbox{SolidRectangle(position, width, height)}, hp{attributeBrickHpByType(btype)}{};
 
         static int attributeBrickHpByType(BrickType type){
-            switch (btype) {
+            switch (type) {
                 case BrickType::GOLD:
-                    return std::numeric_limits<int>::infinity();
+                    return std::numeric_limits<int>::max();
                 case BrickType::SILVER:
                     return 2; 
                 default:
                     return 1; 
-    }
+            }
         }
 
-        Position2D getPosition() {return position;}
-        void setPosition(Position2D pos) {position = pos;}
+        Position2D getPosition() const {return position;}
+        void setPosition(const Position2D& pos) {position = pos;}
 
-        float getHeight() {return height;}
-        float getWidth() {return width;}
+        float getHeight() const {return height;}
+        float getWidth() const {return width;}
 
         void setHeight(float h) {height = h;}
         void setWidth(float w) {width = w;}
 
-        BrickType getBrickType() {return btype;}
+        BrickType getBrickType() const {return btype;}
         
-        int getHP() {return hp;}
+        int getHP() const {return hp;}
         void setHP(int v) {hp =v;}
 
-        SolidRectangle getHitbox() {return hitbox;}
+        SolidRectangle& getHitbox() {return hitbox;}
+        const SolidRectangle& getHitbox() const {return hitbox;}
 
-        void moveToCoordinates(Position2D coord){
+        void moveToCoordinates(const Position2D& coord){
             // Move brick with its hitbox
             setPosition(coord);
             getHitbox().setPosition(coord);
         }
 
-        void makeBrickLooseHP(int loss){
+        void makeBrickLoseHP(int loss){
             int new_hp = getHP() - loss;
             setHP(new_hp);
         }
 
-        bool isBroken(){
+        bool isBroken() const {
             return getHP() <= 0;
         }
 
@@ -65,10 +66,11 @@ class Brick{
                 case BrickType::SILVER: return 200;
                 default: 
                     std::cerr << "Brick type not implemented" << std::endl;
-                    return 1;
+                    return 0;
+            }
         }
 
-        bool operator==(Brick other){
-            return (getPositon().getX() == other.getPosition().getX()) && (getPositon().getY() == other.getPosition().getY());
+        bool operator==(const Brick& other) const {
+            return (getPosition().getX() == other.getPosition().getX()) && (getPosition().getY() == other.getPosition().getY());
         }
 };

@@ -8,23 +8,24 @@ class Racket{
         SolidCircle hitbox;
         float sensibility;
     public:
-        Racket(Position2D position, float width, float height, float sensibility);
+        Racket(const Position2D& position, float width, float height, float sensibility);
 
-        Position2D getPosition();
-        void setPosition(Position2D pos);
+        Position2D getPosition() const;
+        void setPosition(const Position2D& pos);
 
-        float getHeight();
-        float getWidth();
+        float getHeight() const;
+        float getWidth() const;
 
         void setHeight(float h);
         void setWidth(float w);
 
-        SolidRectangle getHitbox();
+        SolidRectangle& getHitbox();
+        const SolidRectangle& getHitbox() const;
 
-        float getSensibility();
+        float getSensibility() const;
         void setSensitivity(float s);
 
-        Position2D calculateCenterPosition();
+        Position2D calculateCenterPosition() const;
 
-        void moveToCoordinates(Position2D coord);
+        void moveToCoordinates(const Position2D& coord);
 };

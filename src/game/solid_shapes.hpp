@@ -4,44 +4,50 @@
 
 class SolidInterface{
     public:
-        virtual bool isPointInSolid();
+        virtual ~SolidInterface();
+        virtual bool isPointInSolid(const Position2D& point) const = 0;
+        virtual bool operator==(const SolidInterface& other) const = 0;
 };
 
 
-class SolidRectangle: SolidInterface{
+class SolidRectangle: public SolidInterface{
     private:
         Position2D position;
         float width, height;
     public:
-        SolidRectangle(Position2D position, float width, float height);
+        SolidRectangle(const Position2D& position, float width, float height);
 
-        Position2D getPosition();
-        void setPosition(Position2D pos);
+        Position2D getPosition() const;
+        void setPosition(const Position2D& pos);
 
-        float getHeight();
-        float getWidth();
+        float getHeight() const;
+        float getWidth() const;
 
         void setHeight(float h);
         void setWidth(float w);
 
-        std::vector<Position2D> getCorners();
+        std::vector<Position2D> getCorners() const;
 
-        bool isPointInSolid(Position2D point);
+        bool isPointInSolid(const Position2D& point) const;
+
+        bool operator==(const SolidInterface& other) const;
 };
 
 
-class SolidCircle: SolidInterface{
+class SolidCircle: public SolidInterface{
     private:
         Position2D position;
         float radius;
     public:
-        SolidCircle(Position2D position, float radius);
+        SolidCircle(const Position2D& position, float radius);
 
-        Position2D getPosition();
-        void setPosition(Position2D pos);
+        Position2D getPosition() const;
+        void setPosition(const Position2D& pos);
 
-        float getRadius();
+        float getRadius() const;
         void setRadius(float radius);
 
-        bool isPointInSolid(Position2D point);
+        bool isPointInSolid(const Position2D& point) const;
+
+        bool operator==(const SolidInterface& other) const;
 };

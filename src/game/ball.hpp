@@ -14,19 +14,20 @@ class Ball{
     public:
         Ball(Position2D center, float radius, float speed);
 
-        Position2D getCenterPosition();
+        Position2D getCenterPosition() const;
         void setCenterPosition(Position2D pos);
 
-        float getRadius();
+        float getRadius() const;
         void setRadius(float r);
 
-        SolidCircle getHitbox();
+        SolidCircle& getHitbox();
+        const SolidCircle& getHitbox() const;
 
-        std::tuple<float, float> getVelocity();
+        std::tuple<float, float> getVelocity() const;
         void setVelocity(float xv = 0.0, float yv = 0.0);
 
-        float getSpeed();
+        float getSpeed() const;
         void setSpeed(float s);
 
-        void moveToCoordinates(Position2D coord);
+        void moveToCoordinates(const Position2D& coord);
 };

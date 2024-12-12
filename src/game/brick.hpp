@@ -10,33 +10,34 @@ class Brick{
         SolidCircle hitbox;
         int hp;
     public:
-        Brick(Position2D position, float width, float height, BrickType btype);
+        Brick(const Position2D& position, float width, float height, BrickType btype);
 
         static int attributeBrickHpByType(BrickType btype);
 
-        Position2D getPosition();
-        void setPosition(Position2D pos);
+        Position2D getPosition() const;
+        void setPosition(const Position2D& pos);
 
-        float getHeight();
-        float getWidth();
+        float getHeight() const;
+        float getWidth() const;
 
         void setHeight(float h);
         void setWidth(float w);
 
-        BrickType getBrickType();
+        BrickType getBrickType() const;
         
-        int getHP();
+        int getHP() const;
         void setHP(int v);
 
-        SolidRectangle getHitbox();
+        SolidRectangle& getHitbox();
+        const SolidRectangle& getHitbox() const;
 
-        void moveToCoordinates(Position2D coord);
+        void moveToCoordinates(const Position2D& coord);
 
-        void makeBrickLooseHP(int loss);
+        void makeBrickLoseHP(int loss);
 
-        bool isBroken();
+        bool isBroken() const;
 
         int getBrickValue();
 
-        bool operator==(Brick other);
+        bool operator==(const Brick& other) const;
 };

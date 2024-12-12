@@ -6,6 +6,7 @@
 #include "common.hpp"
 #include <vector>
 #include <cmath>
+#include <tuple>
 
 class GameBox{
     private:
@@ -19,31 +20,31 @@ class GameBox{
     public:
         GameBox(Position2D position, float width, float height, std::vector<Ball> balls, Racket racket, std::vector<SolidInterface> entities);
 
-        Position2D getPosition();
+        Position2D getPosition() const;
 
-        float getWidth();
+        float getWidth() const;
 
-        float getHeight();
+        float getHeight() const;
 
-        std::vector<Brick> getBricks();
+        std::vector<Brick> getBricks() const;
 
         void addBrick(Brick brick);
         void removeBrick(Brick brick);
 
-        std::vector<Ball> getBalls();
+        std::vector<Ball> getBalls() const;
 
-        Racket getRacket();
+        Racket getRacket() const;
 
-        std::vector<SolidInterface> getEntities();
+        std::vector<SolidInterface> getEntities() const;
 
         void addEntity(SolidInterface entity);
         void removeEntity(SolidInterface entity);
 
-        bool tryMoveRacket(Position2D p);
+        bool tryMoveRacket(const Position2D& p);
 
-        std::vector<bool> tryMoveBalls(std::vector<Position2D> p_vec);
+        std::vector<bool> tryMoveBalls(const std::vector<Position2D>& p_vec);
 
         void checkCollisionWithWalls();
 
-        std::vector<Brick> checkCollisionsWithRaquetteAndBricks();
+        std::vector<Brick*> checkCollisionsWithRacketAndBricks();
 };

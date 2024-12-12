@@ -2,22 +2,22 @@
 
 class Score{
     private:
-        float value;
+        int value;
     public:
-        Score(float value): float{float}{};
+        Score(int value): value{value}{};
 
-        float getValue() {return value;}
-        void setValue() {value = v;}
+        int getValue() const {return value;}
+        void setValue(int v) {value = v;}
 
         void addScore(int increment){
-            float new_value = getValue() + increment;
+            int new_value = getValue() + increment;
             setValue(new_value);
         }
 
-        friend std::ostream& operator<<(std::ostream& os, float& value);
+        friend std::ostream& operator<<(std::ostream& os, Score& score);
 };
 
-std::ostream& operator<<(std::ostream& os, float& value) {
-        std::cout<< "Score: " << getValue();
+std::ostream& operator<<(std::ostream& os, Score& score) {
+        os << "Score: " << score.getValue();
         return os;
     }

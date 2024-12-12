@@ -8,10 +8,12 @@ class Position2D{
     public:
         Position2D(float x, float y);
 
-        float getX();
-        float getY();
+        float getX() const;
+        float getY() const;
 
         std::tuple<float, float> coords();
+
+        bool operator==(const Position2D& other);
 
         friend std::ostream& operator<<(std::ostream& os, Position2D& pos);
 };

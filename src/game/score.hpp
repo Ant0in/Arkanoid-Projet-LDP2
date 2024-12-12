@@ -4,12 +4,12 @@ class Score{
     private:
         float value;
     public:
-        Score(float value);
+        Score(int value);
 
-        float getValue();
-        void setValue(float v);
+        float getValue() const;
+        void setValue(int v);
 
         void addScore(int increment);
 
-        friend std::ostream& operator<<(std::ostream& os, float& value);
+        friend std::ostream& operator<<(std::ostream& os, Score& score);
 };
