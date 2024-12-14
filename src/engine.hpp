@@ -1,4 +1,11 @@
-#include "engine.hpp"
+#include "game/game_box.hpp"
+#include "game/ball.hpp"
+#include "game/racket.hpp"
+#include "game/brick.hpp"
+#include "game/score.hpp"
+#include "controller.hpp"
+#include "common.hpp"
+#include <vector>
 
 class GameEngine{
     static const Action handle_inputs(const GameController& controller);
@@ -13,3 +20,4 @@ class GameEngine{
 
     static const void handle_routine(const GameBox& gamebox, const GameController& controller, Score& score);
 };
+
