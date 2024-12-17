@@ -1,3 +1,5 @@
+#pragma once
+
 #include "game/game_box.hpp"
 #include "game/ball.hpp"
 #include "game/racket.hpp"
@@ -6,6 +8,7 @@
 #include "controller.hpp"
 #include "common.hpp"
 #include <vector>
+
 
 class GameEngine{
     static const Action handle_inputs(const GameController& controller);
@@ -18,6 +21,6 @@ class GameEngine{
 
     static const int handle_brick_destruction(GameBox& gamebox, const std::vector<Brick>& bricks);
 
-    static const void handle_routine(const GameBox& gamebox, const GameController& controller, Score& score);
+    static const void handle_routine(GameBox& gamebox, const GameController& controller, Score& score);
 };
 

@@ -113,8 +113,8 @@ class GameBox{
             }
         }
 
-        std::vector<Brick*> checkCollisionsWithRacketAndBricks(){
-            std::vector<Brick*> bricks_hit;
+        std::vector<Brick> checkCollisionsWithRacketAndBricks(){
+            std::vector<Brick> bricks_hit;
 
             for (auto& ball: getBalls()) {
                 auto [vx, vy] = ball.getVelocity();
@@ -139,7 +139,7 @@ class GameBox{
                     if (CollisionHelper::isColliding(ball.getHitbox(), brick.getHitbox()) &&
                         std::find(bricks_hit.begin(), bricks_hit.end(), brick) == bricks_hit.end()) {
                             ball.setVelocity(-vx, -vy);
-                            bricks_hit.push_back(&brick);
+                            bricks_hit.push_back(brick);
                     }
                 }
             }

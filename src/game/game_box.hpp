@@ -1,3 +1,5 @@
+#pragma once
+
 #include "collision_helper.hpp"
 #include "solid_shapes.hpp"
 #include "ball.hpp"
@@ -46,5 +48,5 @@ class GameBox{
 
         void checkCollisionWithWalls();
 
-        std::vector<Brick*> checkCollisionsWithRacketAndBricks();
+        std::vector<Brick> checkCollisionsWithRacketAndBricks();
 };

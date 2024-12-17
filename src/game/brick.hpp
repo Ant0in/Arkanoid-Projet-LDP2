@@ -1,3 +1,5 @@
+#pragma once
+
 #include "solid_shapes.hpp"
 #include "common.hpp"
 #include <iostream>
