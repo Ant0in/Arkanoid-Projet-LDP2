@@ -9,10 +9,10 @@ class Brick{
         Position2D position;
         float width, height;
         BrickType btype;
-        SolidCircle hitbox;
+        SolidRectangle hitbox;
         int hp;
     public:
-        Brick(const Position2D& position, float width, float height, BrickType btype);
+        Brick(const Position2D& position, float width, float height, BrickType btype): position{position}, width{width}, height{height}, btype{btype}, hitbox{SolidRectangle(position, width, height)}, hp{attributeBrickHpByType(btype)}{};
 
         static int attributeBrickHpByType(BrickType btype);
 

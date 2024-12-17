@@ -4,11 +4,11 @@
 
 class Score{
     private:
-        float value;
+        int value;
     public:
-        Score(int value);
+        Score(int value): value{value}{}
 
-        float getValue() const;
+        int getValue() const;
         void setValue(int v);
 
         void addScore(int increment);

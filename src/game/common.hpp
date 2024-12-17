@@ -8,7 +8,7 @@ class Position2D{
     private:
         float x, y;
     public:
-        Position2D(float x, float y);
+        Position2D(float x, float y): x{x}, y{y}{}
 
         float getX() const;
         float getY() const;

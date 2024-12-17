@@ -18,9 +18,9 @@ class GameBox{
         std::vector<Ball> balls;
         Racket racket;
         std::vector<Brick> bricks;
-        std::vector<SolidInterface> entities;
+        std::vector<SolidInterface*> entities;
     public:
-        GameBox(Position2D position, float width, float height, std::vector<Ball> balls, Racket racket, std::vector<SolidInterface> entities);
+        GameBox(Position2D position, float width, float height, std::vector<Ball> balls, Racket racket, std::vector<SolidInterface*> entities): position{position}, width{width}, height{height}, balls{balls}, racket{racket}, entities{entities}{};
 
         Position2D getPosition() const;
 
@@ -37,10 +37,13 @@ class GameBox{
 
         Racket getRacket() const;
 
-        std::vector<SolidInterface> getEntities() const;
+        std::vector<SolidInterface*> getEntities() const;
 
-        void addEntity(SolidInterface entity);
-        void removeEntity(SolidInterface entity);
+        void addEntity(SolidRectangle& entity);
+        void addEntity(SolidCircle& entity);
+
+        void removeEntity(SolidRectangle& entity);
+        void removeEntity(SolidCircle& entity);
 
         bool tryMoveRacket(const Position2D& p);
 

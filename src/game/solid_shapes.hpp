@@ -6,7 +6,7 @@
 
 class SolidInterface{
     public:
-        virtual ~SolidInterface();
+        virtual ~SolidInterface() = default;
         virtual bool isPointInSolid(const Position2D& point) const = 0;
         virtual bool operator==(const SolidInterface& other) const = 0;
 };
@@ -17,7 +17,7 @@ class SolidRectangle: public SolidInterface{
         Position2D position;
         float width, height;
     public:
-        SolidRectangle(const Position2D& position, float width, float height);
+        SolidRectangle(const Position2D& position, float width, float height):position{position}, width{width}, height{height}{}
 
         Position2D getPosition() const;
         void setPosition(const Position2D& pos);
@@ -41,7 +41,7 @@ class SolidCircle: public SolidInterface{
         Position2D position;
         float radius;
     public:
-        SolidCircle(const Position2D& position, float radius);
+        SolidCircle(const Position2D& position, float radius): position{position}, radius{radius}{}
 
         Position2D getPosition() const;
         void setPosition(const Position2D& pos);

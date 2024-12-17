@@ -4,46 +4,18 @@ CXXFLAGS += -std=c++2b -pedantic -Wall -Wextra -Walloc-zero -Wcast-align -Wconve
 CXXFLAGS += $(shell pkg-config allegro-5 allegro_font-5 --cflags)
 LDLIBS += $(shell pkg-config allegro-5 allegro_font-5 allegro_primitives-5 --libs)
 
-SRCS := $(shell find src -name '*.cpp')
-TARGETS := $(patsubst %.cpp,%,$(SRCS))
-ALL_SOURCES := $(filter-out example.cpp, $(wildcard *.cpp))
-ALL_HEADERS := $(shell find src -name '*.hpp')
-
+SRCS := $(shell find . -name '*.cpp')   # Trouve tous les fichiers .cpp
+HEADERS := $(shell find . -name '*.hpp')
+TARGET := main                         # Nom de l'exécutable final
 
 .PHONY: all
-all: LSanSuppress.supp $(TARGETS)
-	@echo '==> To hide memory leaks from GLX, export LSAN_OPTIONS="suppressions=LSanSuppress.supp" <=='
+all: $(TARGET)
 
-LSanSuppress.supp:
-	@echo 'leak:libGLX' >>  LSanSuppress.supp
-	@sort -u LSanSuppress.supp > LSSSorted
-	@mv LSSSorted LSanSuppress.supp
-
-$(TARGETS): %:%.cpp
-	${CXX} ${CXXFLAGS} -o $@ $<  $$(pkg-config allegro-5 allegro_font-5 allegro_primitives-5 --libs --cflags) -lallegro_main -lstdc++
-
-########### Format
-
-FORMATTER = clang-format -i
-
-.PHONY: format
-format: ${ALL_SOURCES} ${ALL_HEADERS}
-	${FORMATTER} $+
-
-########### Check
-
-CLANG_CHECK=clang-check-18
-CLANG_TIDY=clang-tidy-18
-SCAN_BUILD=scan-build-18
-
-.PHONY: check
-check: ${ALL_SOURCES} ${ALL_HEADERS}
-	# -cppcheck --language='c++' --enable=all --platform=unix64 --suppress=unusedFunction --suppress=ctuOneDefinitionRuleViolation ${SOLUTION_SOURCES}
-	-cpplint --verbose=3 --filter=-legal,-build ${SOLUTION_SOURCES}
-	-${CLANG_CHECK} ${SOLUTION_SOURCES}
-	-${CLANG_TIDY} ${SOLUTION_SOURCES}
-	${SCAN_BUILD} ${MAKE} all
+# Compilation de l'exécutable principal
+$(TARGET): $(SRCS) $(HEADERS)
+	$(CXX) $(CXXFLAGS) -o $@ $(SRCS) $(LDLIBS)
 
 .PHONY: clean
 clean:
-	-rm -rf $(TARGETS)
+	-rm -f $(TARGET)
+

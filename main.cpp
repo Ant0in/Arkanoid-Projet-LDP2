@@ -60,6 +60,7 @@ int main(int /* argc */, char** /* argv */) {
         switch (event.type) {
         case ALLEGRO_KEY_LEFT:
             controller.getUserAction(ALLEGRO_KEY_LEFT);
+            done = true;
             break;
         case ALLEGRO_EVENT_DISPLAY_CLOSE:
             done = true;

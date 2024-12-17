@@ -14,7 +14,7 @@ class Ball{
         float x_velocity;
         float y_velocity;
     public:
-        Ball(Position2D center, float radius, float speed);
+        Ball(const Position2D& center, float radius, float speed): center{center}, radius{radius}, speed{speed}, hitbox{SolidCircle(center, radius)}, x_velocity{0.0}, y_velocity{1.0}{}
 
         Position2D getCenterPosition() const;
         void setCenterPosition(Position2D pos);

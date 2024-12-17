@@ -1,22 +1,13 @@
 #include "game/common.hpp"
 
-class Position2D{
-    private:
-        float x, y;
-    public:
-        Position2D(float x, float y): x{x}, y{y}{}
+float Position2D::getX() const {return x;}
+float Position2D::getY() const {return y;}
 
-        float getX() const {return x;}
-        float getY() const {return y;}
+std::tuple<float, float> Position2D::coords() {return std::make_tuple(getX(), getY());}
 
-        std::tuple<float, float> coords() {return std::make_tuple(getX(), getY());}
-
-        bool operator==(const Position2D& other){
-            return (getX() == other.getX()) && (getY() == other.getY());
-        }
-
-        friend std::ostream& operator<<(std::ostream& os, Position2D& pos);
-};
+bool Position2D::operator==(const Position2D& other){
+    return (getX() == other.getX()) && (getY() == other.getY());
+}
 
 std::ostream& operator<<(std::ostream& os, Position2D& pos) {
     auto [x,y] = pos.coords();
