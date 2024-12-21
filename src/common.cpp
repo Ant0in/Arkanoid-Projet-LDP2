@@ -1,4 +1,4 @@
-#include "game/common.hpp"
+#include "common.hpp"
 
 float Position2D::getX() const {return x;}
 float Position2D::getY() const {return y;}
@@ -14,5 +14,4 @@ std::ostream& operator<<(std::ostream& os, Position2D& pos) {
     os << "{" << x << "," << y << "}";
     return os;
 }
-
 

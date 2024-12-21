@@ -4,7 +4,7 @@
 #include <allegro5/allegro5.h>
 #include <unordered_map>
 #include <string>
-#include "game/common.hpp"
+#include "../common.hpp"
 
 class GameController{
     private:
@@ -12,7 +12,12 @@ class GameController{
         std::unordered_map<int, Action> config;
     public:
         GameController(const std::unordered_map<int, Action>& userConfig): config{userConfig}{}
-        GameController();
+        GameController(){
+            DEFAULT[ALLEGRO_KEY_LEFT] = Action::LEFT;
+            DEFAULT[ALLEGRO_KEY_RIGHT] = Action::RIGHT;
+            config = DEFAULT;
+        }
+        ~GameController() = default;
 
         const std::unordered_map<int, Action>& getConfig() const;
 

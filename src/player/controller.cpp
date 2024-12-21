@@ -1,11 +1,5 @@
 #include "controller.hpp"
 
-GameController::GameController(){
-    DEFAULT[ALLEGRO_KEY_LEFT] = Action::LEFT;
-    DEFAULT[ALLEGRO_KEY_RIGHT] = Action::RIGHT;
-    config = DEFAULT;
-}
-
 const std::unordered_map<int, Action>& GameController::getConfig() const {return config;}
 
 const Action GameController::getUserAction(int keyCode) const{

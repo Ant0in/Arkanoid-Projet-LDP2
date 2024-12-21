@@ -26,6 +26,13 @@ bool SolidRectangle::isPointInSolid(const Position2D& point) const{
     );
 }
 
+Position2D SolidRectangle::getCenterPosition() const{
+    float cx = getPosition().getX() + (getWidth() / 2);
+    float cy = getPosition().getY() + (getHeight() / 2);
+    return Position2D(cx, cy);
+}
+
+
 bool SolidRectangle::operator==(const SolidInterface& other) const {
     const SolidRectangle* rect = dynamic_cast<const SolidRectangle*>(&other);
     if (!rect) return false;

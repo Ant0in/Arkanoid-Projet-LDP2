@@ -1,16 +1,5 @@
 #include "brick.hpp"
 
-int Brick::attributeBrickHpByType(BrickType type){
-    switch (type) {
-        case BrickType::GOLD:
-            return std::numeric_limits<int>::max();
-        case BrickType::SILVER:
-            return 2; 
-        default:
-            return 1; 
-    }
-}
-
 Position2D Brick::getPosition() const {return position;}
 void Brick::setPosition(const Position2D& pos) {position = pos;}
 
@@ -28,11 +17,12 @@ void Brick::setHP(int v) {hp =v;}
 SolidRectangle& Brick::getHitbox() {return hitbox;}
 const SolidRectangle& Brick::getHitbox() const {return hitbox;}
 
-void Brick::moveToCoordinates(const Position2D& coord){
-    // Move brick with its hitbox
-    setPosition(coord);
-    getHitbox().setPosition(coord);
-}
+BonusInterface Brick::getBonus() const{return bonus;}
+void Brick::setBonus(BonusInterface b) {bonus = b;}
+
+bool Brick::doesBrickContainBonus() const{return !(bonus.getPosition() == Position2D(0,0));}
+
+Position2D Brick::getCenterPosition() const{return getHitbox().getCenterPosition();}
 
 void Brick::makeBrickLoseHP(int loss){
     int new_hp = getHP() - loss;

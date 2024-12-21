@@ -57,20 +57,23 @@ int main(int /* argc */, char** /* argv */) {
     al_start_timer(timer);
     while (!done) {
         al_wait_for_event(queue, &event);
+
         switch (event.type) {
-        case ALLEGRO_KEY_LEFT:
-            controller.getUserAction(ALLEGRO_KEY_LEFT);
-            done = true;
-            break;
-        case ALLEGRO_EVENT_DISPLAY_CLOSE:
-            done = true;
-            break;
-        case ALLEGRO_EVENT_TIMER:
-            al_clear_to_color(al_map_rgb(255, 255, 255));
-            al_flip_display();
-            break;
-        default: { /* Nothing, normal */
-        }
+            case ALLEGRO_EVENT_KEY_DOWN: 
+                switch (event.keyboard.keycode) {
+                    case ALLEGRO_KEY_LEFT:
+                        controller.getUserAction(ALLEGRO_KEY_LEFT);
+                        done = true;
+                        break;
+                    case ALLEGRO_KEY_RIGHT:
+                        controller.getUserAction(ALLEGRO_KEY_RIGHT);
+                        break;
+                }
+                break;
+
+            case ALLEGRO_EVENT_DISPLAY_CLOSE:  // Si la fenêtre est fermée
+                done = true;
+                break;
         }
     }
 

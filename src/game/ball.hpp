@@ -13,8 +13,10 @@ class Ball{
         float speed;
         float x_velocity;
         float y_velocity;
+        bool is_alive;
     public:
-        Ball(const Position2D& center, float radius, float speed): center{center}, radius{radius}, speed{speed}, hitbox{SolidCircle(center, radius)}, x_velocity{0.0}, y_velocity{1.0}{}
+        Ball(const Position2D& center, float radius, float speed = 1.0): center{center}, radius{radius}, speed{speed}, hitbox{SolidCircle(center, radius)}, x_velocity{0.0}, y_velocity{1.0}, is_alive{true}{}
+        ~Ball() = default;
 
         Position2D getCenterPosition() const;
         void setCenterPosition(Position2D pos);
@@ -31,5 +33,10 @@ class Ball{
         float getSpeed() const;
         void setSpeed(float s);
 
-        void moveToCoordinates(const Position2D& coord);
+        bool isAlive() const;
+        void setAlive(bool flag);
+
+        Position2D calculateNewPosition();
+
+        bool operator==(const Ball& other) const;
 };

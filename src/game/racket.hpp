@@ -11,7 +11,8 @@ class Racket{
         float sensibility;
     public:
         Racket(const Position2D& position, float width, float height, float sensibility): position{position}, width{width}, height{height}, sensibility{sensibility}, hitbox{SolidRectangle(position, width, height)}{}
-
+        ~Racket() = default;
+        
         Position2D getPosition() const;
         void setPosition(const Position2D& pos);
 
@@ -27,7 +28,7 @@ class Racket{
         float getSensibility() const;
         void setSensitivity(float s);
 
-        Position2D calculateCenterPosition() const;
+        Position2D getCenterPosition() const;
 
-        void moveToCoordinates(const Position2D& coord);
+        Position2D calculateNewPosition(const Action& action);
 };

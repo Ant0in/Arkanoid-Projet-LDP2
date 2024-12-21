@@ -18,6 +18,7 @@ class SolidRectangle: public SolidInterface{
         float width, height;
     public:
         SolidRectangle(const Position2D& position, float width, float height):position{position}, width{width}, height{height}{}
+        ~SolidRectangle() = default;
 
         Position2D getPosition() const;
         void setPosition(const Position2D& pos);
@@ -32,6 +33,8 @@ class SolidRectangle: public SolidInterface{
 
         bool isPointInSolid(const Position2D& point) const;
 
+        Position2D getCenterPosition() const;
+
         bool operator==(const SolidInterface& other) const;
 };
 
@@ -42,6 +45,7 @@ class SolidCircle: public SolidInterface{
         float radius;
     public:
         SolidCircle(const Position2D& position, float radius): position{position}, radius{radius}{}
+        ~SolidCircle() = default;
 
         Position2D getPosition() const;
         void setPosition(const Position2D& pos);

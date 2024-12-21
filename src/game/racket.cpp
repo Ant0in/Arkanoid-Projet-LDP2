@@ -16,14 +16,21 @@ const SolidRectangle& Racket::getHitbox() const {return hitbox;}
 float Racket::getSensibility() const {return sensibility;}
 void Racket::setSensitivity(float s) {sensibility = s;}
 
-Position2D Racket::calculateCenterPosition() const {
-    float cx = getPosition().getX() + getWidth() / 2;
-    float cy = getPosition().getY() + getHeight() / 2;
-    return Position2D(cx, cy);
-}
+Position2D Racket::getCenterPosition() const{return getHitbox().getCenterPosition();}
 
-void Racket::moveToCoordinates(const Position2D& coord){
-    // Move racket with its hitbox
-    setPosition(coord);
-    getHitbox().setPosition(coord);
+Position2D Racket::calculateNewPosition(const Action& action){
+    float x = getPosition().getX();
+    float y = getPosition().getY();
+    float sens = getSensibility();
+
+    switch (action) {
+        case Action::LEFT:
+            return Position2D(x - sens, y);
+        case Action::RIGHT:
+            return Position2D(x + sens, y);
+        case Action::NONE:
+            return Position2D(x, y);
+        default:
+            throw std::runtime_error("Action not implemented");
+    }
 }

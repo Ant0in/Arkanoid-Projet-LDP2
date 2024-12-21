@@ -1,7 +1,8 @@
 #pragma once
 
 #include "solid_shapes.hpp"
-#include "common.hpp"
+#include "../common.hpp"
+#include "bonus.hpp"
 #include <iostream>
 
 class Brick{
@@ -9,12 +10,14 @@ class Brick{
         Position2D position;
         float width, height;
         BrickType btype;
+        BonusInterface bonus;
         SolidRectangle hitbox;
         int hp;
     public:
-        Brick(const Position2D& position, float width, float height, BrickType btype): position{position}, width{width}, height{height}, btype{btype}, hitbox{SolidRectangle(position, width, height)}, hp{attributeBrickHpByType(btype)}{};
-
-        static int attributeBrickHpByType(BrickType btype);
+        Brick(const Position2D& position, float width, float height, BrickType btype, BonusInterface bonus = BonusInterface(Position2D(0,0), 0, 0, 0)): position{position}, width{width}, height{height}, btype{btype}, bonus{bonus}, hitbox{SolidRectangle(position, width, height)}, hp{getBrickHpByType(btype)}{};
+        ~Brick() = default;
+        
+        static int getBrickHpByType(BrickType btype);
 
         Position2D getPosition() const;
         void setPosition(const Position2D& pos);
@@ -33,7 +36,12 @@ class Brick{
         SolidRectangle& getHitbox();
         const SolidRectangle& getHitbox() const;
 
-        void moveToCoordinates(const Position2D& coord);
+        BonusInterface getBonus() const;
+        void setBonus(BonusInterface b);
+
+        bool doesBrickContainBonus() const;
+
+        Position2D getCenterPosition() const;
 
         void makeBrickLoseHP(int loss);
 

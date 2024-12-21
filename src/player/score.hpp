@@ -7,6 +7,7 @@ class Score{
         int value;
     public:
         Score(int value): value{value}{}
+        ~Score() = default;
 
         int getValue() const;
         void setValue(int v);
