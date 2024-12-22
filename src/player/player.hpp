@@ -23,11 +23,11 @@ class Player{
 
         bool isDead() const;
 
-        GameController getController() const;
+        GameController& getController();
 
-        Score getScore() const;
+        Score& getScore();
 
-        std::vector<BonusInterface> getBonus() const;
-        void addBonus(BonusInterface b);
-        void removeBonus(BonusInterface b);
+        std::vector<BonusInterface>& getBonus();
+        void addBonus(const BonusInterface& b);
+        void removeBonus(const BonusInterface& b);
 };

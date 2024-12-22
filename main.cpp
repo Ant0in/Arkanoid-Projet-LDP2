@@ -1,4 +1,4 @@
-#include "src/controller.hpp"
+#include "src/player/controller.hpp"
 #include <allegro5/allegro5.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_primitives.h>
@@ -10,8 +10,8 @@
 #include "src/game/ball.hpp"
 #include "src/game/racket.hpp"
 #include "src/game/brick.hpp"
-#include "src/game/score.hpp"
-#include "src/game/common.hpp"
+#include "src/player/score.hpp"
+#include "src/common.hpp"
 
 using namespace std;
 
