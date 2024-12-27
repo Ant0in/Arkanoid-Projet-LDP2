@@ -1,12 +1,15 @@
 #pragma once
 
 #include "ball.hpp"
-#include "solid_shapes.hpp"
-#include "common.hpp"
+#include "../physics/solid_shapes.hpp"
+#include "../common.hpp"
 #include "game_box.hpp"
 #include "../player/player.hpp"
 #include <tuple>
 #include <cmath>
+
+class GameBox;
+class Player;
 
 class BonusInterface{
     private:
@@ -52,8 +55,6 @@ class BonusInterface{
         bool hasBonusDurationExpired() const;
 
         virtual void applyLogic(GameBox& gb, Player& player);
-
-        virtual bool operator==(const BonusInterface& other);
 };
 
 class DuplicationBonus: public BonusInterface{

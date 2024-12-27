@@ -1,5 +1,15 @@
 #include "brick.hpp"
 
+
+int Brick::getBrickHpByType(const BrickType& btype){
+    auto it = BRICK_HP.find(static_cast<int>(btype));
+    if (it != BRICK_HP.end()) {
+        return it->second;
+    } else {
+        throw std::runtime_error("[E] Error for brick type: " + std::to_string(static_cast<int>(btype)));
+    }
+}
+
 Position2D Brick::getPosition() const {return position;}
 void Brick::setPosition(const Position2D& pos) {position = pos;}
 
@@ -17,10 +27,10 @@ void Brick::setHP(int v) {hp =v;}
 SolidRectangle& Brick::getHitbox() {return hitbox;}
 const SolidRectangle& Brick::getHitbox() const {return hitbox;}
 
-BonusInterface Brick::getBonus() const{return bonus;}
-void Brick::setBonus(BonusInterface b) {bonus = b;}
+BonusInterface* Brick::getBonus() const{return bonus;}
+void Brick::setBonus(BonusInterface* b) {bonus = b;}
 
-bool Brick::doesBrickContainBonus() const{return !(bonus.getPosition() == Position2D(0,0));}
+bool Brick::doesBrickContainBonus() const{return !((*bonus).getPosition() == Position2D(0,0));}
 
 Position2D Brick::getCenterPosition() const{return getHitbox().getCenterPosition();}
 

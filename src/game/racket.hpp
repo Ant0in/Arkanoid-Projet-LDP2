@@ -1,7 +1,7 @@
 #pragma once
 
-#include "solid_shapes.hpp"
-#include "common.hpp"
+#include "../physics/solid_shapes.hpp"
+#include "../common.hpp"
 
 class Racket{
     private:
@@ -10,7 +10,7 @@ class Racket{
         SolidRectangle hitbox;
         float sensibility;
     public:
-        Racket(const Position2D& position, float width, float height, float sensibility): position{position}, width{width}, height{height}, sensibility{sensibility}, hitbox{SolidRectangle(position, width, height)}{}
+        Racket(const Position2D& position, float width, float height, float sensibility): position{position}, width{width}, height{height}, hitbox{SolidRectangle(position, width, height)}, sensibility{sensibility}{}
         ~Racket() = default;
         
         Position2D getPosition() const;

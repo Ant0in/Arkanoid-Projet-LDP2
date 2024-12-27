@@ -5,14 +5,16 @@
 #include "../game/bonus.hpp"
 #include <vector>
 
+class BonusInterface;
+
 class Player{
     private:
         int hp;
         GameController controller;
         Score score;
-        std::vector<BonusInterface> bonus;
+        std::vector<BonusInterface*> bonus;
     public:
-        Player(int hp = 3, const GameController& controller = GameController(), const Score& score = Score(0), const std::vector<BonusInterface>& bonus = std::vector<BonusInterface>{})
+        Player(int hp = 3, const GameController& controller = GameController(), const Score& score = Score(0), const std::vector<BonusInterface*>& bonus = {})
         : hp{hp}, controller{controller}, score{score}, bonus{bonus}{}
         ~Player() = default;
 
@@ -27,7 +29,7 @@ class Player{
 
         Score& getScore();
 
-        std::vector<BonusInterface>& getBonus();
-        void addBonus(const BonusInterface& b);
-        void removeBonus(const BonusInterface& b);
+        std::vector<BonusInterface*>& getBonus();
+        void addBonus(BonusInterface* b);
+        void removeBonus(BonusInterface* b);
 };

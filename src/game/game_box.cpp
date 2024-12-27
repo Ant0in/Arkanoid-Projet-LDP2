@@ -19,15 +19,15 @@ void GameBox::initializeWalls(){
 SolidRectangle& GameBox::getHitbox(){return hitbox;}
 const SolidRectangle& GameBox::getHitbox() const{return hitbox;}
 
-std::vector<BonusInterface> GameBox::getBonuses() const{
+std::vector<BonusInterface*> GameBox::getBonuses() const{
     return bonuses;
 }
 
-void GameBox::addBonus(BonusInterface& b){
+void GameBox::addBonus(BonusInterface* b){
     getBonuses().push_back(b);
 }
 
-void GameBox::removeBonus(const BonusInterface& b){
+void GameBox::removeBonus(BonusInterface* b){
     for (auto it = getBonuses().begin(); it != getBonuses().end(); ++it) {
         if (*it == b) { 
             getBonuses().erase(it); 
@@ -36,13 +36,13 @@ void GameBox::removeBonus(const BonusInterface& b){
     }
 }
 
-std::vector<Brick> GameBox::getBricks() const {return bricks;}
+std::vector<Brick*> GameBox::getBricks() const {return bricks;}
 
-void GameBox::addBrick(Brick& brick){
-    getBricks().push_back(brick);
+void GameBox::addBrick(Brick* brick){
+    bricks.push_back(brick);
 }
 
-void GameBox::removeBrick(const Brick& brick){
+void GameBox::removeBrick(Brick* brick){
     for (auto it = getBricks().begin(); it != getBricks().end(); ++it) {
         if (*it == brick) { 
             getBricks().erase(it); 
@@ -84,14 +84,17 @@ bool GameBox::isPositionOutOfBounds(const Position2D& pos) const{
 bool GameBox::isObjectOutOfBounds(const Racket& object) const{
     // checks if object is colliding with  gamebox, if not -> returns true
     bool outOfBounds = (! CollisionHelper::isColliding(getHitbox(), object.getHitbox()));
+    return outOfBounds;
 }
 bool GameBox::isObjectOutOfBounds(const Ball& object) const{
     // checks if object is colliding with  gamebox, if not -> returns true
     bool outOfBounds = (! CollisionHelper::isColliding(getHitbox(), object.getHitbox()));
+    return outOfBounds;
 }
 bool GameBox::isObjectOutOfBounds(const BonusInterface& object) const{
     // checks if object is colliding with  gamebox, if not -> returns true
     bool outOfBounds = (! CollisionHelper::isColliding(getHitbox(), object.getHitbox()));
+    return outOfBounds;
 }
 
 WallType GameBox::isObjectCollidingWithWalls(const Racket& object) const{
@@ -198,8 +201,8 @@ std::vector<bool> GameBox::tryMoveBalls(){
 
 bool GameBox::isWin() const{
     // If any not gold bricks are left, we didn't win yet
-    for (auto it = getBricks().begin(); it != getBricks().end(); ++it) {
-        if ((!it->isBroken()) && (it->getBrickType() != BrickType::GOLD)){
+    for (Brick* brick : getBricks()) {
+        if ((!brick->isBroken()) && (brick->getBrickType() != BrickType::GOLD)){
             return false;
         }
     }

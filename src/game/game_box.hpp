@@ -1,14 +1,18 @@
 #pragma once
 
-#include "collision_helper.hpp"
-#include "solid_shapes.hpp"
+#include "../physics/collision_helper.hpp"
+#include "../physics/solid_shapes.hpp"
 #include "ball.hpp"
 #include "racket.hpp"
+#include "bonus.hpp"
 #include "brick.hpp"
-#include "common.hpp"
+#include "../common.hpp"
 #include <vector>
 #include <cmath>
 #include <tuple>
+
+class Brick;
+class BonusInterface;
 
 class GameBox{
     private:
@@ -18,8 +22,8 @@ class GameBox{
         std::vector<Ball> balls;
         Racket racket;
         SolidRectangle hitbox;
-        std::vector<Brick> bricks;
-        std::vector<BonusInterface> bonuses;
+        std::vector<Brick*> bricks;
+        std::vector<BonusInterface*> bonuses;
 
         // Walls
         SolidRectangle leftWall;
@@ -28,8 +32,8 @@ class GameBox{
         SolidRectangle bottomWall;
 
     public:
-        GameBox(Position2D position, float width, float height, std::vector<Ball> balls, Racket racket, std::vector<BonusInterface> bonuses = std::vector<BonusInterface>{}, std::vector<Brick> bricks = std::vector<Brick>{})
-        : position{position}, width{width}, height{height}, balls{balls}, racket{racket}, bonuses{bonuses}, hitbox{SolidRectangle(position, height, width)}, leftWall{SolidRectangle(Position2D(0, 0), 0, 0)}, rightWall{SolidRectangle(Position2D(0, 0), 0, 0)}, topWall{SolidRectangle(Position2D(0, 0), 0, 0)}, bottomWall{SolidRectangle(Position2D(0, 0), 0, 0)}{initializeWalls();};
+        GameBox(Position2D position, float width, float height, std::vector<Ball> balls, Racket racket,  std::vector<Brick*> bricks = {}, std::vector<BonusInterface*> bonuses = {})
+        : position{position}, width{width}, height{height}, balls{balls}, racket{racket}, hitbox{SolidRectangle(position, height, width)}, bricks{bricks}, bonuses{bonuses}, leftWall{SolidRectangle(Position2D(0, 0), 0, 0)}, rightWall{SolidRectangle(Position2D(0, 0), 0, 0)}, topWall{SolidRectangle(Position2D(0, 0), 0, 0)}, bottomWall{SolidRectangle(Position2D(0, 0), 0, 0)}{initializeWalls();};
         ~GameBox() = default;
 
         SolidRectangle& getHitbox();
@@ -43,13 +47,13 @@ class GameBox{
 
         void initializeWalls();
 
-        std::vector<BonusInterface> getBonuses() const;
-        void addBonus(BonusInterface& b);
-        void removeBonus(const BonusInterface& b);
+        std::vector<BonusInterface*> getBonuses() const;
+        void addBonus(BonusInterface* b);
+        void removeBonus(BonusInterface* b);
 
-        std::vector<Brick> getBricks() const;
-        void addBrick(Brick& brick);
-        void removeBrick(const Brick& brick);
+        std::vector<Brick*> getBricks() const;
+        void addBrick(Brick* brick);
+        void removeBrick(Brick* brick);
 
         std::vector<Ball> getBalls() const;
         bool isBallVectorEmpty() const;

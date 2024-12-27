@@ -1,6 +1,6 @@
 #pragma once
 
-#include "common.hpp"
+#include "../common.hpp"
 #include "solid_shapes.hpp"
 #include <iostream>
 #include <cmath>

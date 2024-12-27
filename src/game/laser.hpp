@@ -1,8 +1,8 @@
 #pragma once
 
 #include "racket.hpp"
-#include "solid_shapes.hpp"
-#include "common.hpp"
+#include "../physics/solid_shapes.hpp"
+#include "../common.hpp"
 
 class Laser{
     private:

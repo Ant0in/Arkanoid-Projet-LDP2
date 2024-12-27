@@ -6,6 +6,8 @@
 #include <unordered_map>
 #include <string>
 #include <limits>
+#include <allegro5/allegro.h>
+#include <allegro5/allegro_primitives.h>
 
 class Position2D{
     private:
@@ -54,57 +56,17 @@ enum class WallType{
     TOP = 4
 };
 
-const std::unordered_map<int, const std::string> BRICK_COLORS = {
-    {static_cast<int>(BrickType::NONE), "#000000"},
-    {static_cast<int>(BrickType::WHITE), "#FFFFFF"},
-    {static_cast<int>(BrickType::ORANGE), "#FFA500"},
-    {static_cast<int>(BrickType::CYAN), "#00FFFF"},
-    {static_cast<int>(BrickType::GREEN), "#008000"},
-    {static_cast<int>(BrickType::RED), "#FF0000"},
-    {static_cast<int>(BrickType::BLUE), "#0000FF"},
-    {static_cast<int>(BrickType::MAGENTA), "#FF00FF"},
-    {static_cast<int>(BrickType::YELLOW), "#FFFF00"},
-    {static_cast<int>(BrickType::SILVER), "#C0C0C0"},
-    {static_cast<int>(BrickType::GOLD), "#FFD700"}
-};
+extern const std::unordered_map<int, ALLEGRO_COLOR> BRICK_COLORS;
+extern const std::unordered_map<int, int> BRICK_HP;
+extern const std::unordered_map<int, int> BRICK_VALUE;
 
-const std::unordered_map<int, int> BRICK_HP{
-    {static_cast<int>(BrickType::NONE), NULL},
-    {static_cast<int>(BrickType::WHITE), 1},
-    {static_cast<int>(BrickType::ORANGE), 1},
-    {static_cast<int>(BrickType::CYAN), 1},
-    {static_cast<int>(BrickType::GREEN), 1},
-    {static_cast<int>(BrickType::RED), 1},
-    {static_cast<int>(BrickType::BLUE), 1},
-    {static_cast<int>(BrickType::MAGENTA), 1},
-    {static_cast<int>(BrickType::YELLOW), 1},
-    {static_cast<int>(BrickType::SILVER), 2},
-    {static_cast<int>(BrickType::GOLD), std::numeric_limits<int>::max()}
-};
-
-const std::unordered_map<int, int> BRICK_VALUE{
-    {static_cast<int>(BrickType::WHITE), 50},
-    {static_cast<int>(BrickType::ORANGE), 60},
-    {static_cast<int>(BrickType::CYAN), 70},
-    {static_cast<int>(BrickType::GREEN), 80},
-    {static_cast<int>(BrickType::RED), 90},
-    {static_cast<int>(BrickType::BLUE), 100},
-    {static_cast<int>(BrickType::MAGENTA), 110},
-    {static_cast<int>(BrickType::YELLOW), 120},
-    {static_cast<int>(BrickType::SILVER), 200}
-};
-
-int GAME_FRAMERATE = 60;
-
-float BOX_WALLS_THICKNESS = 10.0;
-
-float BALL_RADIUS = 10.0;
-float BALL_SPEED = 15.0;
-
-float LASER_THICKNESS = 10.0;
-float LASER_LENGTH = 1000.0;
-
-float BONUS_SIZE = 25.0;
-Position2D BONUS_DEFAULT_POS = Position2D(0, 0);
-float BONUS_FALLING_SPEED = 10.0;
-float BONUS_RESIZE_FACTOR = 1.5;
+extern int GAME_FRAMERATE;
+extern float BOX_WALLS_THICKNESS;
+extern float BALL_RADIUS;
+extern float BALL_SPEED;
+extern float LASER_THICKNESS;
+extern float LASER_LENGTH;
+extern float BONUS_SIZE;
+extern Position2D BONUS_DEFAULT_POS;
+extern float BONUS_FALLING_SPEED;
+extern float BONUS_RESIZE_FACTOR;

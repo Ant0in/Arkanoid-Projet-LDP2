@@ -1,86 +1,93 @@
 #include "src/player/controller.hpp"
-#include <allegro5/allegro5.h>
-#include <allegro5/allegro_font.h>
-#include <allegro5/allegro_primitives.h>
-#include <allegro5/color.h>
-#include <cmath>
-#include <iostream>
-#include <vector>
 #include "src/game/game_box.hpp"
 #include "src/game/ball.hpp"
 #include "src/game/racket.hpp"
 #include "src/game/brick.hpp"
-#include "src/player/score.hpp"
 #include "src/common.hpp"
+#include "src/gui/gui.hpp"
+#include "src/player/player.hpp"
+#include "src/physics/engine.hpp"
+#include <allegro5/allegro.h>
+#include <allegro5/allegro_primitives.h>
+#include <vector>
 
-using namespace std;
+int main() {
 
-void must_init(bool test, const char* description) {
-  if (test) return;
+    if (!al_init()) {
+        fprintf(stderr, "Erreur : Impossible d'initialiser Allegro.\n");
+        return -1;
+    }
+    
+    al_init_primitives_addon();
+    al_install_keyboard();
 
-  std::cerr << "couldn't initialize" << description << '\n';
-  exit(1);
-}
+    const int WIDTH = 800, HEIGHT = 800;
 
-int main(int /* argc */, char** /* argv */) {
+    ALLEGRO_DISPLAY* display = al_create_display(WIDTH, HEIGHT);
+    if (!display) {
+        fprintf(stderr, "Erreur : Impossible de créer la fenêtre.\n");
+        return -1;
+    }
 
-    must_init(al_init(), "allegro");
-    must_init(al_install_keyboard(), "keyboard");
-    must_init(al_install_mouse(), "mouse");
+    ALLEGRO_EVENT_QUEUE* event_queue = al_create_event_queue();
+    ALLEGRO_TIMER* timer = al_create_timer(1.0 / 60.0);
 
-    ALLEGRO_TIMER* timer = al_create_timer(1.0 / 60);
-    must_init(timer, "timer");
+    if (!event_queue || !timer) {
+        fprintf(stderr, "Erreur : Problème avec Allegro (timer ou event queue).\n");
+        al_destroy_display(display);
+        return -1;
+    }
 
-    ALLEGRO_EVENT_QUEUE* queue = al_create_event_queue();
-    must_init(queue, "queue");
-
-    al_set_new_display_option(ALLEGRO_SAMPLE_BUFFERS, 1, ALLEGRO_SUGGEST);
-    al_set_new_display_option(ALLEGRO_SAMPLES, 8, ALLEGRO_SUGGEST);
-    al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR | ALLEGRO_MAG_LINEAR);
-
-    ALLEGRO_DISPLAY* disp = al_create_display(800, 800);
-    must_init(disp, "display");
-
-    ALLEGRO_FONT* font = al_create_builtin_font();
-    must_init(font, "font");
-
-    must_init(al_init_primitives_addon(), "primitives");
-
-    al_register_event_source(queue, al_get_keyboard_event_source());
-    al_register_event_source(queue, al_get_display_event_source(disp));
-    al_register_event_source(queue, al_get_timer_event_source(timer));
-
-    bool          done = false;
-    ALLEGRO_EVENT event;
-    GameController controller;
+    al_register_event_source(event_queue, al_get_display_event_source(display));
+    al_register_event_source(event_queue, al_get_timer_event_source(timer));
+    al_register_event_source(event_queue, al_get_keyboard_event_source());
 
     al_start_timer(timer);
-    while (!done) {
-        al_wait_for_event(queue, &event);
 
-        switch (event.type) {
-            case ALLEGRO_EVENT_KEY_DOWN: 
-                switch (event.keyboard.keycode) {
-                    case ALLEGRO_KEY_LEFT:
-                        controller.getUserAction(ALLEGRO_KEY_LEFT);
-                        done = true;
-                        break;
-                    case ALLEGRO_KEY_RIGHT:
-                        controller.getUserAction(ALLEGRO_KEY_RIGHT);
-                        break;
-                }
-                break;
+    GameBox gamebox = GameBox(Position2D(0, 0), WIDTH, HEIGHT,
+        std::vector<Ball>{Ball(Position2D(400, 350), 10, 15)},
+        Racket(Position2D(300, 700), 200, 20, 10));
 
-            case ALLEGRO_EVENT_DISPLAY_CLOSE:  // Si la fenêtre est fermée
-                done = true;
-                break;
+    for (int i = 0; i < 12; ++i) {
+        for (int y = 50 + i * 25, x = 50; x < WIDTH; x += 62) {
+            DuplicationBonus* bonus = new DuplicationBonus(Position2D(x, y), 10, 10, 5);
+            Brick* b = new Brick(Position2D(x, y), 60, 20, BrickType((i % 10) + 1), bonus);
+            gamebox.addBrick(b);
         }
     }
 
-    al_destroy_font(font);
-    al_destroy_display(disp);
+    Player player = Player();
+    GameGUI gui = GameGUI(display, gamebox);
+    GameController controller = GameController();
+
+    bool running = true;
+
+    while (running) {
+        ALLEGRO_EVENT event;
+        al_wait_for_event(event_queue, &event);
+
+        if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
+            running = false;
+        } else if (event.type == ALLEGRO_EVENT_KEY_DOWN) {
+            if (event.keyboard.keycode == ALLEGRO_KEY_LEFT) {
+                controller.getUserAction(ALLEGRO_KEY_LEFT); 
+            } else if (event.keyboard.keycode == ALLEGRO_KEY_RIGHT) {
+                controller.getUserAction(ALLEGRO_KEY_RIGHT); 
+            }
+        } else if (event.type == ALLEGRO_EVENT_KEY_UP) {
+            if (event.keyboard.keycode == ALLEGRO_KEY_LEFT || event.keyboard.keycode == ALLEGRO_KEY_RIGHT) {
+                controller.getUserAction(0); 
+            }
+        } else if (event.type == ALLEGRO_EVENT_TIMER) {
+            GameEngine::handleRoutine(gamebox, player);
+            gui.updateGUI();
+            al_flip_display();
+        }
+    }
+
+    al_destroy_event_queue(event_queue);
     al_destroy_timer(timer);
-    al_destroy_event_queue(queue);
+    al_destroy_display(display);
 
     return 0;
 }
