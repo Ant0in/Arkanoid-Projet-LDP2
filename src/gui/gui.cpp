@@ -29,7 +29,7 @@ void GameGUI::updateGUI(){
     drawRectangle(gamebox.getRacket().getHitbox(), al_map_rgb(0, 0, 255));
 
     for (auto& ball : gamebox.getBalls()) {
-        drawCircle(ball.getHitbox(), al_map_rgb(255, 0, 0));
+        drawCircle(ball->getHitbox(), al_map_rgb(255, 0, 0));
     }
 
     for (auto& brick : gamebox.getBricks()) {

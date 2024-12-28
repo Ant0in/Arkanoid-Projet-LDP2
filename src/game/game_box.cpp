@@ -51,14 +51,14 @@ void GameBox::removeBrick(Brick* brick){
     }
 }
 
-std::vector<Ball> GameBox::getBalls() const {return balls;}
+std::vector<Ball*> GameBox::getBalls() const {return balls;}
 bool GameBox::isBallVectorEmpty() const {return getBalls().size() == 0;}
 bool GameBox::doesPlayerHaveMultipleBalls() const {return getBalls().size() > 1;}
 
-void GameBox::addBall(Ball& b){
+void GameBox::addBall(Ball* b){
     getBalls().push_back(b);
 }
-void GameBox::removeBall(const Ball& b){
+void GameBox::removeBall(Ball* b){
     for (auto it = getBalls().begin(); it != getBalls().end(); ++it) {
     if (*it == b) { 
         getBalls().erase(it); 
@@ -159,37 +159,37 @@ void GameBox::resizeRacket(float factor){
 
 
 std::vector<bool> GameBox::tryMoveBalls(){
-    std::vector<Ball> balls = getBalls();
+    std::vector<Ball*> balls = getBalls();
     std::vector<bool> could_move(balls.size(), false);
 
     for (size_t idx = 0; idx < balls.size(); ++idx) {
-        Ball& ball = balls[idx];
+        Ball* ball = balls[idx];
 
-        Position2D np = ball.calculateNewPosition();
-        Ball temp = Ball(np, ball.getRadius(), ball.getSpeed());
+        Position2D np = (*ball).calculateNewPosition();
+        Ball temp = Ball(np, (*ball).getRadius(), (*ball).getSpeed());
 
         WallType wallCollision = isObjectCollidingWithWalls(temp);
 
         if (wallCollision == WallType::NONE) {
-            ball.setCenterPosition(np);
+            (*ball).setCenterPosition(np);
             could_move[idx] = true;
         } 
         else {
             could_move[idx] = false;
-            auto [vx, vy] = ball.getVelocity();
+            auto [vx, vy] = (*ball).getVelocity();
 
             switch (wallCollision) {
                 case WallType::LEFT:
-                    ball.setVelocity(-vx, vy);
+                    (*ball).setVelocity(-vx, vy);
                     break;
                 case WallType::RIGHT:
-                    ball.setVelocity(-vx, vy);
+                    (*ball).setVelocity(-vx, vy);
                     break;
                 case WallType::TOP:
-                    ball.setVelocity(vx, -vy);
+                    (*ball).setVelocity(vx, -vy);
                     break;
                 case WallType::BOTTOM:
-                    ball.setAlive(false);
+                    (*ball).setAlive(false);
                     break;
                 default:
                     break;
