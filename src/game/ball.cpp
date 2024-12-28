@@ -2,7 +2,7 @@
 
 
 Position2D Ball::getCenterPosition() const {return center;}
-void Ball::setCenterPosition(Position2D pos) {center = pos;}
+void Ball::setCenterPosition(const Position2D& pos) {center = pos;}
 
 float Ball::getRadius() const {return radius;}
 void Ball::setRadius(float r) {radius = r;}

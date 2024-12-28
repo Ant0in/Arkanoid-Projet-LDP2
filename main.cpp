@@ -45,7 +45,7 @@ int main() {
     al_start_timer(timer);
 
     GameBox gamebox = GameBox(Position2D(0, 0), WIDTH, HEIGHT,
-        std::vector<Ball>{Ball(Position2D(400, 350), 10, 15)},
+        std::vector<Ball*>{new Ball(Position2D(400, 450), 10, 15)},
         Racket(Position2D(300, 700), 200, 20, 10));
 
     for (int i = 0; i < 12; ++i) {

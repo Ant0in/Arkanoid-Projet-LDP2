@@ -7,23 +7,23 @@ const void GameEngine::handleActions(GameBox& gamebox, const Action& action){
 }
 
 const void GameEngine::handleCollisionsWithRacket(const GameBox& gamebox){
-    for (Ball& ball : gamebox.getBalls()) {
+    for (Ball* ball : gamebox.getBalls()) {
 
-        if (CollisionHelper::isColliding(ball.getHitbox(), gamebox.getRacket().getHitbox())) {
+        if (CollisionHelper::isColliding((*ball).getHitbox(), gamebox.getRacket().getHitbox())) {
 
-            auto [vx, vy] = ball.getVelocity();
+            auto [vx, vy] = (*ball).getVelocity();
             float total_velocity = std::sqrt((vx * vx) + (vy * vy));
 
             float L = gamebox.getRacket().getWidth();
-            float x = ball.getCenterPosition().getX() - gamebox.getRacket().getCenterPosition().getX();
+            float x = (*ball).getCenterPosition().getX() - gamebox.getRacket().getCenterPosition().getX();
 
             float alpha = (M_PI / 6.0f) + ((5.0f * M_PI) / 6.0f) * (1.0f - (x / L));
 
             float dvx = total_velocity * std::sin(alpha);
             float dvy = total_velocity * std::cos(alpha);
 
-            ball.setVelocity(dvx, dvy);
-            ball.setCenterPosition(Position2D(ball.getCenterPosition().getX(), gamebox.getRacket().getPosition().getY() - ball.getRadius()));
+            (*ball).setVelocity(dvx, dvy);
+            (*ball).setCenterPosition(Position2D((*ball).getCenterPosition().getX(), gamebox.getRacket().getPosition().getY() - (*ball).getRadius()));
         }
     }
 }
@@ -31,11 +31,11 @@ const void GameEngine::handleCollisionsWithRacket(const GameBox& gamebox){
 const std::vector<Brick> GameEngine::handleCollisionsWithBricks(const GameBox& gamebox){
     std::vector<Brick> bricks_hit;
 
-    for (Ball& ball : gamebox.getBalls()){
-        auto [vx, vy] = ball.getVelocity();
+    for (Ball* ball : gamebox.getBalls()){
+        auto [vx, vy] = (*ball).getVelocity();
         for (Brick* brick : gamebox.getBricks()){
-            if (std::find(bricks_hit.begin(), bricks_hit.end(), *brick) == bricks_hit.end() && CollisionHelper::isColliding(ball.getHitbox(), (*brick).getHitbox())) {
-                ball.setVelocity(-vx, -vy);
+            if (std::find(bricks_hit.begin(), bricks_hit.end(), *brick) == bricks_hit.end() && CollisionHelper::isColliding((*ball).getHitbox(), (*brick).getHitbox())) {
+                (*ball).setVelocity(-vx, -vy);
                 bricks_hit.push_back(*brick);
             }
         }
@@ -65,8 +65,8 @@ const void GameEngine::handleBricks(GameBox& gamebox, Player& player, const std:
 }
 
 const void GameEngine::handleDeadBalls(GameBox& gamebox){
-    for (Ball& ball : gamebox.getBalls()){
-        if (!ball.isAlive()){
+    for (Ball* ball : gamebox.getBalls()){
+        if (!(*ball).isAlive()){
             gamebox.removeBall(ball);
         }
     }
@@ -116,7 +116,7 @@ const void GameEngine::handleBonus(GameBox& gamebox, Player& player){
 
 const void GameEngine::handleBallSpawn(GameBox& gamebox){
     // Position2D center = gamebox.getCenterPosition();
-    Ball b = Ball(Position2D(0,0), BALL_RADIUS, BALL_SPEED);
+    Ball* b = new Ball(Position2D(0,0), BALL_RADIUS, BALL_SPEED);
     gamebox.addBall(b);
 
 }

@@ -19,7 +19,7 @@ class Ball{
         ~Ball() = default;
 
         Position2D getCenterPosition() const;
-        void setCenterPosition(Position2D pos);
+        void setCenterPosition(const Position2D& pos);
 
         float getRadius() const;
         void setRadius(float r);

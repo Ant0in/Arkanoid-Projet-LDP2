@@ -56,16 +56,16 @@ void DuplicationBonus::applyLogic(GameBox& gb, Player& player){
     
     // If bonus is active and not expired, we will proceed to apply logic for a frame 
     // (usually making the bonus vanish) and then decrement TTL
-    Ball ref = gb.getBalls()[0];
-    auto [vx, vy] = ref.getVelocity();
+    Ball* ref = gb.getBalls()[0];
+    auto [vx, vy] = (*ref).getVelocity();
 
-    Ball b1 = Ball(ref.getCenterPosition(), ref.getRadius(), ref.getSpeed());
-    Ball b2 = Ball(ref.getCenterPosition(), ref.getRadius(), ref.getSpeed());
+    Ball* b1 = new Ball((*ref).getCenterPosition(), (*ref).getRadius(), (*ref).getSpeed());
+    Ball* b2 = new Ball((*ref).getCenterPosition(), (*ref).getRadius(), (*ref).getSpeed());
 
     auto [vx1, vy1] = rotate_velocity(vx, vy, 120);
     auto [vx2, vy2] = rotate_velocity(vx, vy, -120);
-    b1.setVelocity(vx1, vy1);
-    b2.setVelocity(vx2, vy2);
+    (*b1).setVelocity(vx1, vy1);
+    (*b2).setVelocity(vx2, vy2);
 
     gb.addBall(b1);
     gb.addBall(b2);
