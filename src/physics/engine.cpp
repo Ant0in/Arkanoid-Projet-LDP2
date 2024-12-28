@@ -1,6 +1,6 @@
 #include "engine.hpp"
 
-const Action GameEngine::handleInputs(const GameController& controller){return controller.getUserAction();}
+const Action GameEngine::handleInputs(GameController& controller){return controller.getCurrentAction();}
 
 const void GameEngine::handleActions(GameBox& gamebox, const Action& action){
     gamebox.tryMoveRacket(gamebox.getRacket().calculateNewPosition(action));

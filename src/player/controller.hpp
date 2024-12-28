@@ -10,6 +10,7 @@ class GameController{
     private:
         std::unordered_map<int, Action> DEFAULT;
         std::unordered_map<int, Action> config;
+        Action currentAction;
     public:
         GameController(const std::unordered_map<int, Action>& userConfig): config{userConfig}{}
         GameController(){
@@ -19,7 +20,10 @@ class GameController{
         }
         ~GameController() = default;
 
+        Action& getCurrentAction();
+        void setCurrentAction(const Action& action);
+
         const std::unordered_map<int, Action>& getConfig() const;
 
-        const Action getUserAction(int keyCode = 0) const;
+        void updateUserAction(int keyCode = 0);
 };  

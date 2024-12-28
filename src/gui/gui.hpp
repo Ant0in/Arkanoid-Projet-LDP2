@@ -11,10 +11,10 @@
 class GameGUI{
     private:
         ALLEGRO_DISPLAY* display;
-        GameBox gamebox;
+        GameBox* gamebox;
         std::chrono::high_resolution_clock::time_point last_update;
     public:
-        GameGUI(ALLEGRO_DISPLAY* display, const GameBox& gamebox): display{display}, gamebox{gamebox}, last_update{std::chrono::high_resolution_clock::now()}{}
+        GameGUI(ALLEGRO_DISPLAY* display, GameBox* gamebox): display{display}, gamebox{gamebox}, last_update{std::chrono::high_resolution_clock::now()}{}
         ~GameGUI() = default;
 
         void drawRectangle(const SolidRectangle& rect, ALLEGRO_COLOR color);

@@ -1,14 +1,13 @@
 #include "ball.hpp"
 
-
-Position2D Ball::getCenterPosition() const {return center;}
-void Ball::setCenterPosition(const Position2D& pos) {center = pos;}
-
-float Ball::getRadius() const {return radius;}
-void Ball::setRadius(float r) {radius = r;}
-
 SolidCircle& Ball::getHitbox() {return hitbox;}
 const SolidCircle& Ball::getHitbox() const {return hitbox;}
+
+Position2D Ball::getCenterPosition() const {return getHitbox().getPosition();}
+void Ball::setCenterPosition(const Position2D& pos) {getHitbox().setPosition(pos);}
+
+float Ball::getRadius() const {return getHitbox().getRadius();}
+void Ball::setRadius(float r) {getHitbox().setRadius(r);}
 
 std::tuple<float, float> Ball::getVelocity() const {return std::make_tuple(x_velocity, y_velocity);}
 void Ball::setVelocity(float xv, float yv) {x_velocity = xv; y_velocity = yv;}

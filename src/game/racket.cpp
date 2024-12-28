@@ -1,16 +1,16 @@
 #include "racket.hpp"
 
-Position2D Racket::getPosition() const {return position;}
-void Racket::setPosition(const Position2D& pos) {position = pos;}
-
-float Racket::getHeight() const {return height;}
-float Racket::getWidth() const {return width;}
-
-void Racket::setHeight(float h) {height = h;}
-void Racket::setWidth(float w) {width = w;}
-
 SolidRectangle& Racket::getHitbox() {return hitbox;}
 const SolidRectangle& Racket::getHitbox() const {return hitbox;}
+
+Position2D Racket::getPosition() const {return getHitbox().getPosition();}
+void Racket::setPosition(const Position2D& pos) {getHitbox().setPosition(pos);}
+
+float Racket::getHeight() const {return getHitbox().getHeight();}
+float Racket::getWidth() const {return getHitbox().getWidth();}
+
+void Racket::setHeight(float h) {getHitbox().setHeight(h);}
+void Racket::setWidth(float w) {getHitbox().setWidth(w);}
 
 
 float Racket::getSensibility() const {return sensibility;}

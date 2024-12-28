@@ -57,7 +57,7 @@ int main() {
     }
 
     Player player = Player();
-    GameGUI gui = GameGUI(display, gamebox);
+    GameGUI gui = GameGUI(display, &gamebox);
     GameController controller = GameController();
 
     bool running = true;
@@ -70,13 +70,13 @@ int main() {
             running = false;
         } else if (event.type == ALLEGRO_EVENT_KEY_DOWN) {
             if (event.keyboard.keycode == ALLEGRO_KEY_LEFT) {
-                controller.getUserAction(ALLEGRO_KEY_LEFT); 
+                controller.updateUserAction(ALLEGRO_KEY_LEFT); 
             } else if (event.keyboard.keycode == ALLEGRO_KEY_RIGHT) {
-                controller.getUserAction(ALLEGRO_KEY_RIGHT); 
+                controller.updateUserAction(ALLEGRO_KEY_RIGHT); 
             }
         } else if (event.type == ALLEGRO_EVENT_KEY_UP) {
             if (event.keyboard.keycode == ALLEGRO_KEY_LEFT || event.keyboard.keycode == ALLEGRO_KEY_RIGHT) {
-                controller.getUserAction(0); 
+                controller.updateUserAction(0); 
             }
         } else if (event.type == ALLEGRO_EVENT_TIMER) {
             GameEngine::handleRoutine(gamebox, player);

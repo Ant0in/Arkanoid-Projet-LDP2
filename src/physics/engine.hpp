@@ -13,7 +13,7 @@
 
 class GameEngine{
     public:
-        static const Action handleInputs(const GameController& controller);
+        static const Action handleInputs(GameController& controller);
 
         static const void handleActions(GameBox& gamebox, const Action& action);
 
