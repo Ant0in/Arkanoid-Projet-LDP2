@@ -12,21 +12,22 @@ float Racket::getWidth() const {return getHitbox().getWidth();}
 void Racket::setHeight(float h) {getHitbox().setHeight(h);}
 void Racket::setWidth(float w) {getHitbox().setWidth(w);}
 
-
 float Racket::getSensibility() const {return sensibility;}
 void Racket::setSensitivity(float s) {sensibility = s;}
 
 Position2D Racket::getCenterPosition() const{return getHitbox().getCenterPosition();}
 
-Position2D Racket::calculateNewPosition(const Action& action){
+Position2D Racket::calculateNewPosition(Action action){
     float x = getPosition().getX();
     float y = getPosition().getY();
     float sens = getSensibility();
 
     switch (action) {
         case Action::LEFT:
+            std::cout<<"left"<<std::endl;
             return Position2D(x - sens, y);
         case Action::RIGHT:
+            std::cout<<"right"<<std::endl;
             return Position2D(x + sens, y);
         case Action::NONE:
             return Position2D(x, y);

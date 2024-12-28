@@ -3,19 +3,19 @@
 const Action GameEngine::handleInputs(GameController& controller){return controller.getCurrentAction();}
 
 const void GameEngine::handleActions(GameBox& gamebox, const Action& action){
-    gamebox.tryMoveRacket(gamebox.getRacket().calculateNewPosition(action));
+    gamebox.tryMoveRacket(gamebox.getRacket()->calculateNewPosition(action));
 }
 
 const void GameEngine::handleCollisionsWithRacket(const GameBox& gamebox){
     for (Ball* ball : gamebox.getBalls()) {
 
-        if (CollisionHelper::isColliding((*ball).getHitbox(), gamebox.getRacket().getHitbox())) {
+        if (CollisionHelper::isColliding((*ball).getHitbox(), gamebox.getRacket()->getHitbox())) {
 
             auto [vx, vy] = (*ball).getVelocity();
             float total_velocity = std::sqrt((vx * vx) + (vy * vy));
 
-            float L = gamebox.getRacket().getWidth();
-            float x = (*ball).getCenterPosition().getX() - gamebox.getRacket().getCenterPosition().getX();
+            float L = gamebox.getRacket()->getWidth();
+            float x = (*ball).getCenterPosition().getX() - gamebox.getRacket()->getCenterPosition().getX();
 
             float alpha = (M_PI / 6.0f) + ((5.0f * M_PI) / 6.0f) * (1.0f - (x / L));
 
@@ -23,7 +23,7 @@ const void GameEngine::handleCollisionsWithRacket(const GameBox& gamebox){
             float dvy = total_velocity * std::cos(alpha);
 
             (*ball).setVelocity(dvx, dvy);
-            (*ball).setCenterPosition(Position2D((*ball).getCenterPosition().getX(), gamebox.getRacket().getPosition().getY() - (*ball).getRadius()));
+            (*ball).setCenterPosition(Position2D((*ball).getCenterPosition().getX(), gamebox.getRacket()->getPosition().getY() - (*ball).getRadius()));
         }
     }
 }
@@ -89,7 +89,7 @@ const void GameEngine::handleCollisionWithEntities(GameBox& gamebox, Player& pla
         Position2D falling_pos = (*bonus).getGravityPosition();
         (*bonus).setPosition(falling_pos);
 
-        if (CollisionHelper::isColliding((*bonus).getHitbox(), gamebox.getRacket().getHitbox())){
+        if (CollisionHelper::isColliding((*bonus).getHitbox(), gamebox.getRacket()->getHitbox())){
             player.addBonus(bonus);
             (*bonus).setActive(true);
             gamebox.removeBonus(bonus);

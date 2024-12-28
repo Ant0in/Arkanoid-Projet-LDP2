@@ -20,7 +20,7 @@ class GameBox{
         float width, height;
 
         std::vector<Ball*> balls;
-        Racket racket;
+        Racket* racket;
         SolidRectangle hitbox;
         std::vector<Brick*> bricks;
         std::vector<BonusInterface*> bonuses;
@@ -32,7 +32,7 @@ class GameBox{
         SolidRectangle bottomWall;
 
     public:
-        GameBox(Position2D position, float width, float height, std::vector<Ball*> balls, Racket racket,  std::vector<Brick*> bricks = {}, std::vector<BonusInterface*> bonuses = {})
+        GameBox(Position2D position, float width, float height, std::vector<Ball*> balls, Racket* racket,  std::vector<Brick*> bricks = {}, std::vector<BonusInterface*> bonuses = {})
         : position{position}, width{width}, height{height}, balls{balls}, racket{racket}, hitbox{SolidRectangle(position, height, width)}, bricks{bricks}, bonuses{bonuses}, leftWall{SolidRectangle(Position2D(0, 0), 0, 0)}, rightWall{SolidRectangle(Position2D(0, 0), 0, 0)}, topWall{SolidRectangle(Position2D(0, 0), 0, 0)}, bottomWall{SolidRectangle(Position2D(0, 0), 0, 0)}{initializeWalls();};
         ~GameBox() = default;
 
@@ -61,8 +61,8 @@ class GameBox{
         void addBall(Ball* b);
         void removeBall(Ball* b);
 
-        Racket getRacket() const;
-        void setRacket(Racket& r);
+        Racket* getRacket() const;
+        void setRacket(Racket* r);
 
         SolidRectangle getLeftWall() const;
         SolidRectangle getRightWall() const;

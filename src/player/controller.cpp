@@ -2,8 +2,8 @@
 
 const std::unordered_map<int, Action>& GameController::getConfig() const {return config;}
 
-Action& GameController::getCurrentAction() {return currentAction;}
-void GameController::setCurrentAction(const Action& action){currentAction = action;}
+Action GameController::getCurrentAction() {return currentAction;}
+void GameController::setCurrentAction(const Action& action){currentAction = action; std::cout<<static_cast<int>(currentAction)<<std::endl;}
 
 void GameController::updateUserAction(int keyCode){
     // Called when a key is pressed to get the action

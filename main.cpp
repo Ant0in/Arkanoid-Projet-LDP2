@@ -46,7 +46,7 @@ int main() {
 
     GameBox gamebox = GameBox(Position2D(0, 0), WIDTH, HEIGHT,
         std::vector<Ball*>{new Ball(Position2D(400, 450), 10, 15)},
-        Racket(Position2D(300, 700), 200, 20, 10));
+        new Racket(Position2D(300, 700), 200, 20, 10));
 
     for (int i = 0; i < 12; ++i) {
         for (int y = 50 + i * 25, x = 50; x < WIDTH; x += 62) {
@@ -56,9 +56,9 @@ int main() {
         }
     }
 
-    Player player = Player();
-    GameGUI gui = GameGUI(display, &gamebox);
     GameController controller = GameController();
+    Player player = Player(3, controller);
+    GameGUI gui = GameGUI(display, &gamebox);
 
     bool running = true;
 

@@ -67,8 +67,8 @@ void GameBox::removeBall(Ball* b){
 }
 }
 
-Racket GameBox::getRacket() const {return racket;}
-void GameBox::setRacket(Racket& r) {racket = r;}
+Racket* GameBox::getRacket() const {return racket;}
+void GameBox::setRacket(Racket* r) {racket = r;}
 
 SolidRectangle GameBox::getLeftWall() const{return leftWall;}
 SolidRectangle GameBox::getRightWall() const{return rightWall;}
@@ -120,11 +120,11 @@ WallType GameBox::isObjectCollidingWithWalls(const BonusInterface& object) const
 }
 
 bool GameBox::tryMoveRacket(const Position2D& p){
-    Racket rk = getRacket();
-    Racket temp = Racket(p, rk.getWidth(), rk.getHeight(), rk.getSensibility());
+    Racket* rk = getRacket();
+    Racket temp = Racket(p, rk->getWidth(), rk->getHeight(), rk->getSensibility());
 
     if (isObjectCollidingWithWalls(temp) == WallType::NONE){
-        getRacket().setPosition(p);
+        getRacket()->setPosition(p);
         return true;
     }
     else {
@@ -133,22 +133,22 @@ bool GameBox::tryMoveRacket(const Position2D& p){
 }
 
 void GameBox::resizeRacket(float factor){
-    Racket rk = getRacket();
-    Racket temp = Racket(rk.getPosition(), rk.getWidth() * factor, rk.getHeight(), rk.getSensibility());
+    Racket* rk = getRacket();
+    Racket* temp = new Racket(rk->getPosition(), rk->getWidth() * factor, rk->getHeight(), rk->getSensibility());
 
-    WallType collisionWithWall = isObjectCollidingWithWalls(temp);
+    WallType collisionWithWall = isObjectCollidingWithWalls(*temp);
 
     // first case : no collision, replace racket by temp
     if (collisionWithWall == WallType::NONE){setRacket(temp);}
     // second case : racket too big to fit screen -> pass
-    else if (temp.getWidth() > getWidth()){}
+    else if (temp->getWidth() > getWidth()){}
     // third case: collision with 1 wall
     else {
         if (collisionWithWall == WallType::LEFT){
-            temp.setPosition(Position2D(getPosition().getX(), temp.getPosition().getY()));
+            temp->setPosition(Position2D(getPosition().getX(), temp->getPosition().getY()));
         }
         else if (collisionWithWall == WallType::RIGHT){
-            temp.setPosition(Position2D(getPosition().getX() + getWidth() - temp.getWidth(), temp.getPosition().getY()));
+            temp->setPosition(Position2D(getPosition().getX() + getWidth() - temp->getWidth(), temp->getPosition().getY()));
         }
         else{
             std::cerr << "Not Implemented Error" << std::endl;

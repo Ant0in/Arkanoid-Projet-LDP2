@@ -26,7 +26,7 @@ void GameGUI::updateFPS(){
 void GameGUI::updateGUI(){
     al_clear_to_color(al_map_rgb(0, 0, 0));
 
-    drawRectangle(gamebox->getRacket().getHitbox(), al_map_rgb(0, 0, 255));
+    drawRectangle(gamebox->getRacket()->getHitbox(), al_map_rgb(0, 0, 255));
 
     for (auto& ball : gamebox->getBalls()) {
         drawCircle(ball->getHitbox(), al_map_rgb(255, 0, 0));
