@@ -51,7 +51,7 @@ class GameBox{
         void addBonus(BonusInterface* b);
         void removeBonus(BonusInterface* b);
 
-        std::vector<Brick*> getBricks() const;
+        std::vector<Brick*>& getBricks();
         void addBrick(Brick* brick);
         void removeBrick(Brick* brick);
 
@@ -64,10 +64,10 @@ class GameBox{
         Racket* getRacket() const;
         void setRacket(Racket* r);
 
-        SolidRectangle getLeftWall() const;
-        SolidRectangle getRightWall() const;
-        SolidRectangle getTopWall() const;
-        SolidRectangle getBottomWall() const;
+        SolidRectangle& getLeftWall();
+        SolidRectangle& getRightWall();
+        SolidRectangle& getTopWall();
+        SolidRectangle& getBottomWall();
 
         bool isPositionOutOfBounds(const Position2D& pos) const;
 
@@ -75,14 +75,14 @@ class GameBox{
         bool isObjectOutOfBounds(const Ball& object) const;
         bool isObjectOutOfBounds(const BonusInterface& object) const;
 
-        WallType isObjectCollidingWithWalls(const Racket& object) const;
-        WallType isObjectCollidingWithWalls(const Ball& object) const;
-        WallType isObjectCollidingWithWalls(const BonusInterface& object) const;
+        WallType isObjectCollidingWithWalls(const Racket& object);
+        WallType isObjectCollidingWithWalls(const Ball& object);
+        WallType isObjectCollidingWithWalls(const BonusInterface& object);
 
         bool tryMoveRacket(const Position2D& p);
         void resizeRacket(float factor);
 
         std::vector<bool> tryMoveBalls();
 
-        bool isWin() const;
+        bool isWin();
 };

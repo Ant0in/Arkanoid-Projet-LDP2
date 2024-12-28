@@ -51,5 +51,5 @@ class Brick{
 
         int getBrickValue();
 
-        bool operator==(const Brick& other) const;
+        bool operator==(Brick* other) const;
 };

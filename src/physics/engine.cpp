@@ -28,15 +28,15 @@ const void GameEngine::handleCollisionsWithRacket(const GameBox& gamebox){
     }
 }
 
-const std::vector<Brick> GameEngine::handleCollisionsWithBricks(const GameBox& gamebox){
-    std::vector<Brick> bricks_hit;
+const std::vector<Brick*> GameEngine::handleCollisionsWithBricks(GameBox& gamebox){
+    std::vector<Brick*> bricks_hit;
 
     for (Ball* ball : gamebox.getBalls()){
         auto [vx, vy] = (*ball).getVelocity();
         for (Brick* brick : gamebox.getBricks()){
-            if (std::find(bricks_hit.begin(), bricks_hit.end(), *brick) == bricks_hit.end() && CollisionHelper::isColliding((*ball).getHitbox(), (*brick).getHitbox())) {
+            if ((std::find(bricks_hit.begin(), bricks_hit.end(), brick) == bricks_hit.end()) && CollisionHelper::isColliding((*ball).getHitbox(), (*brick).getHitbox())) {
                 (*ball).setVelocity(-vx, -vy);
-                bricks_hit.push_back(*brick);
+                bricks_hit.push_back(brick);
             }
         }
     }
@@ -49,17 +49,17 @@ const Position2D GameEngine::calculateBonusSpawnPosition(const Brick& brick, con
     return offset_center;
 }
 
-const void GameEngine::handleBricks(GameBox& gamebox, Player& player, const std::vector<Brick>& bricks){
-    for (Brick brick : bricks){
-        brick.makeBrickLoseHP(1);
-        if (brick.isBroken()){
-            gamebox.removeBrick(&brick);
-            if (brick.doesBrickContainBonus() && !gamebox.doesPlayerHaveMultipleBalls()){
-                BonusInterface* bonus = brick.getBonus();
+const void GameEngine::handleBricks(GameBox& gamebox, Player& player, std::vector<Brick*> bricks){
+    for (Brick* brick : bricks){
+        brick->makeBrickLoseHP(1);
+        if (brick->isBroken()){
+            gamebox.removeBrick(brick);
+            if (brick->doesBrickContainBonus() && !gamebox.doesPlayerHaveMultipleBalls()){
+                BonusInterface* bonus = brick->getBonus();
                 gamebox.addBonus(bonus);
-                (*bonus).spawnBonus(calculateBonusSpawnPosition(brick, (*bonus)));
+                (*bonus).spawnBonus(calculateBonusSpawnPosition((*brick), (*bonus)));
             }
-            player.getScore().addScore(brick.getBrickValue());
+            player.getScore().addScore(brick->getBrickValue());
         }
     }
 }
@@ -77,7 +77,7 @@ const void GameEngine::handleBalls(GameBox& gamebox, Player& player){
     gamebox.tryMoveBalls();
     // 2) verify collisions
     handleCollisionsWithRacket(gamebox);
-    std::vector<Brick> b = handleCollisionsWithBricks(gamebox);
+    std::vector<Brick*> b = handleCollisionsWithBricks(gamebox);
     // 3) Manage bricks
     handleBricks(gamebox, player, b);
     // 4) get rid of dead balls

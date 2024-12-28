@@ -10,9 +10,12 @@ void GameController::updateUserAction(int keyCode){
     switch (keyCode) {
         case ALLEGRO_KEY_LEFT:
             setCurrentAction(Action::LEFT);
+            break;
         case ALLEGRO_KEY_RIGHT:
             setCurrentAction(Action::RIGHT);
+            break;
         default:             
             setCurrentAction(Action::NONE);
+            break;
     }
 }

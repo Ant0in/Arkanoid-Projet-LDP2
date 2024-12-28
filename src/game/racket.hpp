@@ -30,5 +30,5 @@ class Racket{
 
         Position2D getCenterPosition() const;
 
-        Position2D calculateNewPosition(Action action);
+        Position2D calculateNewPosition(const Action& action);
 };

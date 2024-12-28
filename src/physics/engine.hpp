@@ -19,11 +19,11 @@ class GameEngine{
 
         static const void handleCollisionsWithRacket(const GameBox& gamebox);
 
-        static const std::vector<Brick> handleCollisionsWithBricks(const GameBox& gamebox);
+        static const std::vector<Brick*> handleCollisionsWithBricks(GameBox& gamebox);
 
         static const Position2D calculateBonusSpawnPosition(const Brick& brick, const BonusInterface& bonus);
 
-        static const void handleBricks(GameBox& gamebox, Player& player, const std::vector<Brick>& bricks);
+        static const void handleBricks(GameBox& gamebox, Player& player, std::vector<Brick*> bricks);
 
         static const void handleDeadBalls(GameBox& gamebox);
 

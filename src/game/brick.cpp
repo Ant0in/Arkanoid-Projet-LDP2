@@ -60,6 +60,6 @@ int Brick::getBrickValue(){
     }
 }
 
-bool Brick::operator==(const Brick& other) const {
-    return (getPosition().getX() == other.getPosition().getX()) && (getPosition().getY() == other.getPosition().getY());
+bool Brick::operator==(Brick* other) const {
+    return (getPosition().getX() == other->getPosition().getX()) && (getPosition().getY() == other->getPosition().getY());
 }

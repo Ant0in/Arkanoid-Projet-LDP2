@@ -10,6 +10,8 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
 #include <vector>
+#include <cstdlib>
+#include <ctime>
 
 int main() {
 
@@ -44,21 +46,24 @@ int main() {
 
     al_start_timer(timer);
 
-    GameBox gamebox = GameBox(Position2D(0, 0), WIDTH, HEIGHT,
+    GameBox* gamebox = new GameBox(Position2D(0, 0), WIDTH, HEIGHT,
         std::vector<Ball*>{new Ball(Position2D(400, 450), 10, 15)},
         new Racket(Position2D(300, 700), 200, 20, 10));
 
+    std::srand(std::time(nullptr));
+
     for (int i = 0; i < 12; ++i) {
-        for (int y = 50 + i * 25, x = 50; x < WIDTH; x += 62) {
+        for (int y = 50 + i * 25, x = 30; x < 770; x += 50) {
+            int randomType = (std::rand() % 10) + 1;
             DuplicationBonus* bonus = new DuplicationBonus(Position2D(x, y), 10, 10, 5);
-            Brick* b = new Brick(Position2D(x, y), 60, 20, BrickType((i % 10) + 1), bonus);
-            gamebox.addBrick(b);
+            Brick* b = new Brick(Position2D(x, y), 48, 20, BrickType(randomType), bonus);
+            gamebox->addBrick(b);
         }
     }
 
     GameController controller = GameController();
     Player player = Player(3, controller);
-    GameGUI gui = GameGUI(display, &gamebox);
+    GameGUI gui = GameGUI(display, gamebox);
 
     bool running = true;
 
@@ -70,16 +75,16 @@ int main() {
             running = false;
         } else if (event.type == ALLEGRO_EVENT_KEY_DOWN) {
             if (event.keyboard.keycode == ALLEGRO_KEY_LEFT) {
-                controller.updateUserAction(ALLEGRO_KEY_LEFT); 
+                player.getController().updateUserAction(ALLEGRO_KEY_LEFT); 
             } else if (event.keyboard.keycode == ALLEGRO_KEY_RIGHT) {
-                controller.updateUserAction(ALLEGRO_KEY_RIGHT); 
+                player.getController().updateUserAction(ALLEGRO_KEY_RIGHT); 
             }
         } else if (event.type == ALLEGRO_EVENT_KEY_UP) {
             if (event.keyboard.keycode == ALLEGRO_KEY_LEFT || event.keyboard.keycode == ALLEGRO_KEY_RIGHT) {
-                controller.updateUserAction(0); 
+                player.getController().updateUserAction(0); 
             }
         } else if (event.type == ALLEGRO_EVENT_TIMER) {
-            GameEngine::handleRoutine(gamebox, player);
+            GameEngine::handleRoutine(*gamebox, player);
             gui.updateGUI();
             al_flip_display();
         }

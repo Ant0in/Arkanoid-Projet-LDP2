@@ -17,7 +17,7 @@ void Racket::setSensitivity(float s) {sensibility = s;}
 
 Position2D Racket::getCenterPosition() const{return getHitbox().getCenterPosition();}
 
-Position2D Racket::calculateNewPosition(Action action){
+Position2D Racket::calculateNewPosition(const Action& action){
     float x = getPosition().getX();
     float y = getPosition().getY();
     float sens = getSensibility();
