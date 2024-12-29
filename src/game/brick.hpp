@@ -21,6 +21,9 @@ class Brick{
         
         static int getBrickHpByType(const BrickType& btype);
 
+        SolidRectangle& getHitbox();
+        const SolidRectangle& getHitbox() const;
+
         Position2D getPosition() const;
         void setPosition(const Position2D& pos);
 
@@ -34,9 +37,6 @@ class Brick{
         
         int getHP() const;
         void setHP(int v);
-
-        SolidRectangle& getHitbox();
-        const SolidRectangle& getHitbox() const;
 
         BonusInterface* getBonus() const;
         void setBonus(BonusInterface* b);

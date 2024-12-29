@@ -3,11 +3,17 @@
 SolidRectangle& BonusInterface::getHitbox(){return hitbox;}
 const SolidRectangle& BonusInterface::getHitbox() const{return hitbox;}
 
-float BonusInterface::getSize() const{return size;}
-void BonusInterface::setSize(float s){size = s;}
+float BonusInterface::getSize() const{
+    assert (getHitbox().getHeight() == getHitbox().getWidth()); 
+    return getHitbox().getHeight();
+}
+void BonusInterface::setSize(float s){
+    getHitbox().setHeight(s);
+    getHitbox().setWidth(s);
+}
 
-Position2D BonusInterface::getPosition() const{return pos;}
-void BonusInterface::setPosition(Position2D p){pos = p;}
+Position2D BonusInterface::getPosition() const{return getHitbox().getPosition();}
+void BonusInterface::setPosition(Position2D p){getHitbox().setPosition(p);}
 
 bool BonusInterface::isSpawned() const{return is_spawned;}
 void BonusInterface::setSpawned(bool flag){is_spawned = flag;}
@@ -37,6 +43,11 @@ Position2D BonusInterface::getGravityPosition() const{
 }
 
 bool BonusInterface::hasBonusDurationExpired() const{return getDuration() <= 0;}
+
+bool BonusInterface::operator==(BonusInterface* other) const {
+    return (getPosition() == other->getPosition()) && (getHitbox() == other->getHitbox()) && (getSize() == other->getSize()) &&
+        (getDuration() == other->getDuration()) && (getFallingSpeed() == other->getFallingSpeed());
+}
 
 void BonusInterface::applyLogic(GameBox& gb, Player& player){
     throw std::runtime_error("Not Implemented Error");
@@ -74,12 +85,6 @@ void DuplicationBonus::applyLogic(GameBox& gb, Player& player){
     incrementDuration(-1);
 }
 
-bool DuplicationBonus::operator==(const BonusInterface& other){
-    const DuplicationBonus* bonus = dynamic_cast<const DuplicationBonus*>(&other);
-    if (!bonus) return false;
-    return (getPosition() == bonus->getPosition());
-}
-
 
 void PlayerBonus::applyLogic(GameBox& gb, Player& player){
     // If bonus is not active or has expired, we skip logic
@@ -91,12 +96,6 @@ void PlayerBonus::applyLogic(GameBox& gb, Player& player){
     incrementDuration(-1);
 }
 
-bool PlayerBonus::operator==(const BonusInterface& other){
-    const PlayerBonus* bonus = dynamic_cast<const PlayerBonus*>(&other);
-    if (!bonus) return false;
-    return (getPosition() == bonus->getPosition());
-}
-
 
 void ResizeBonus::applyLogic(GameBox& gb, Player& player){
     // If bonus is not active or has expired, we skip logic
@@ -106,10 +105,4 @@ void ResizeBonus::applyLogic(GameBox& gb, Player& player){
 
     // decrement TTL (for player bonus, 1 logic cycle will be applied since it has TTL of 1)
     incrementDuration(-1);
-}
-
-bool ResizeBonus::operator==(const BonusInterface& other){
-    const ResizeBonus* bonus = dynamic_cast<const ResizeBonus*>(&other);
-    if (!bonus) return false;
-    return (getPosition() == bonus->getPosition());
 }

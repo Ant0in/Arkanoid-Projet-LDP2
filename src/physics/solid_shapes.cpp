@@ -33,12 +33,8 @@ Position2D SolidRectangle::getCenterPosition() const{
 }
 
 
-bool SolidRectangle::operator==(const SolidInterface& other) const {
-    const SolidRectangle* rect = dynamic_cast<const SolidRectangle*>(&other);
-    if (!rect) return false;
-    return (getPosition() == rect->getPosition()) && 
-        (getWidth() == rect->getWidth()) && 
-        (getHeight() == rect->getHeight());
+bool SolidRectangle::operator==(const SolidRectangle& other) const{
+    return (getPosition() == other.getPosition()) && (getWidth() == other.getWidth()) && (getHeight() == other.getHeight());
 }
 
 
@@ -54,8 +50,6 @@ bool SolidCircle::isPointInSolid(const Position2D& point) const {
     return distance_squared <= pow(getRadius(), 2);
 }
 
-bool SolidCircle::operator==(const SolidInterface& other) const {
-    const SolidCircle* circle = dynamic_cast<const SolidCircle*>(&other);
-    if (!circle) return false;
-    return (getPosition() == circle->getPosition()) && (getRadius() == circle->getRadius());
+bool SolidCircle::operator==(const SolidCircle& other) const {
+    return (getPosition() == other.getPosition()) && (getRadius() == other.getRadius());
 }

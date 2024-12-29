@@ -54,6 +54,8 @@ class BonusInterface{
 
         bool hasBonusDurationExpired() const;
 
+        bool operator==(BonusInterface* other) const;
+
         virtual void applyLogic(GameBox& gb, Player& player);
 };
 
@@ -66,9 +68,6 @@ class DuplicationBonus: public BonusInterface{
         static std::tuple<float, float> rotate_velocity(float vx, float vy, float alpha);
 
         void applyLogic(GameBox& gb, Player& player);
-
-        bool operator==(const BonusInterface& other);
-
 };
 
 class PlayerBonus: public BonusInterface{
@@ -78,8 +77,6 @@ class PlayerBonus: public BonusInterface{
         ~PlayerBonus() = default;
 
         void applyLogic(GameBox& gb, Player& player);
-
-        bool operator==(const BonusInterface& other);
 };
 
 class ResizeBonus: public BonusInterface{
@@ -89,6 +86,4 @@ class ResizeBonus: public BonusInterface{
         ~ResizeBonus() = default;
     
         void applyLogic(GameBox& gb, Player& player);
-
-        bool operator==(const BonusInterface& other);
 };

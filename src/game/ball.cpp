@@ -29,5 +29,6 @@ Position2D Ball::calculateNewPosition(){
 }
 
 bool Ball::operator==(Ball* other) const{
-    return (getCenterPosition() == other->getCenterPosition());
+    return (getCenterPosition() == other->getCenterPosition()) && (getRadius() == other->getRadius()) && (getHitbox() == other->getHitbox())
+        && (getVelocity() == other->getVelocity()) && (getSpeed() == other->getSpeed());
 }
