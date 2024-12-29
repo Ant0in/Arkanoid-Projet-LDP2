@@ -61,5 +61,10 @@ int Brick::getBrickValue(){
 }
 
 bool Brick::operator==(Brick* other) const {
-    return (getPosition() == other->getPosition()) && (getPosition().getY() == other->getPosition().getY());
+    return  (getPosition() == other->getPosition()) &&
+            (getWidth() == other->getWidth()) &&
+            (getHeight() == other->getHeight()) &&
+            (getBrickType() == other->getBrickType()) &&
+            (getHP() == other->getHP()) &&
+            (getBonus() == other->getBonus());
 }
