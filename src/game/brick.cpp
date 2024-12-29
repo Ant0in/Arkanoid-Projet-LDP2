@@ -61,5 +61,5 @@ int Brick::getBrickValue(){
 }
 
 bool Brick::operator==(Brick* other) const {
-    return (getPosition().getX() == other->getPosition().getX()) && (getPosition().getY() == other->getPosition().getY());
+    return (getPosition() == other->getPosition()) && (getPosition().getY() == other->getPosition().getY());
 }

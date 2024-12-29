@@ -9,8 +9,9 @@ bool Position2D::operator==(const Position2D& other){
     return (getX() == other.getX()) && (getY() == other.getY());
 }
 
-std::ostream& operator<<(std::ostream& os, Position2D& pos) {
-    auto [x,y] = pos.coords();
+std::ostream& operator<<(std::ostream& os, const Position2D& pos) {
+    float x = pos.getX();
+    float y = pos.getY();
     os << "{" << x << "," << y << "}";
     return os;
 }

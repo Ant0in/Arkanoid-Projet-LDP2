@@ -28,6 +28,6 @@ Position2D Ball::calculateNewPosition(){
     return Position2D(dx, dy);
 }
 
-bool Ball::operator==(const Ball& other) const{
-    return (getCenterPosition() == other.getCenterPosition()) && (getRadius() == other.getRadius());
+bool Ball::operator==(Ball* other) const{
+    return (getCenterPosition() == other->getCenterPosition());
 }

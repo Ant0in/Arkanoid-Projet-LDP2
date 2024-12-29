@@ -23,7 +23,7 @@ class Position2D{
 
         bool operator==(const Position2D& other);
 
-        friend std::ostream& operator<<(std::ostream& os, Position2D& pos);
+        friend std::ostream& operator<<(std::ostream& os, const Position2D& pos);
 };
 
 

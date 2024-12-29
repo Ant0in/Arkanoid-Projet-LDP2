@@ -38,5 +38,5 @@ class Ball{
 
         Position2D calculateNewPosition();
 
-        bool operator==(const Ball& other) const;
+        bool operator==(Ball* other) const;
 };
