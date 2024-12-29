@@ -47,7 +47,7 @@ class GameBox{
 
         void initializeWalls();
 
-        std::vector<BonusInterface*> getBonuses() const;
+        std::vector<BonusInterface*>& getBonuses();
         void addBonus(BonusInterface* b);
         void removeBonus(BonusInterface* b);
 
@@ -55,9 +55,9 @@ class GameBox{
         void addBrick(Brick* brick);
         void removeBrick(Brick* brick);
 
-        std::vector<Ball*> getBalls() const;
-        bool isBallVectorEmpty() const;
-        bool doesPlayerHaveMultipleBalls() const;
+        std::vector<Ball*>& getBalls();
+        bool isBallVectorEmpty();
+        bool doesPlayerHaveMultipleBalls();
         void addBall(Ball* b);
         void removeBall(Ball* b);
 

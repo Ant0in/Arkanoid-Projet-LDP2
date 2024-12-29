@@ -17,7 +17,7 @@ class GameEngine{
 
         static const void handleActions(GameBox& gamebox, const Action& action);
 
-        static const void handleCollisionsWithRacket(const GameBox& gamebox);
+        static const void handleCollisionsWithRacket(GameBox& gamebox);
 
         static const std::vector<Brick*> handleCollisionsWithBricks(GameBox& gamebox);
 

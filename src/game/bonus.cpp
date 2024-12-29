@@ -1,7 +1,7 @@
 #include "bonus.hpp"
 
 SolidRectangle& BonusInterface::getHitbox(){return hitbox;}
-const SolidRectangle& BonusInterface::getHitbox() const{return hitbox;}
+const SolidRectangle& BonusInterface::getHitbox() const {return hitbox;}
 
 float BonusInterface::getSize() const{
     assert (getHitbox().getHeight() == getHitbox().getWidth()); 
