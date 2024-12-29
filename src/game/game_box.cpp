@@ -19,7 +19,7 @@ void GameBox::initializeWalls(){
 SolidRectangle& GameBox::getHitbox(){return hitbox;}
 const SolidRectangle& GameBox::getHitbox() const{return hitbox;}
 
-std::vector<BonusInterface*> GameBox::getBonuses() const{
+std::vector<BonusInterface*>& GameBox::getBonuses() {
     return bonuses;
 }
 
@@ -29,7 +29,7 @@ void GameBox::addBonus(BonusInterface* b){
 
 void GameBox::removeBonus(BonusInterface* b){
     for (auto it = getBonuses().begin(); it != getBonuses().end(); ++it) {
-        if (*it == b) { 
+        if (*it == b) {
             getBonuses().erase(it); 
             break;
         }
@@ -51,16 +51,16 @@ void GameBox::removeBrick(Brick* brick){
     }
 }
 
-std::vector<Ball*> GameBox::getBalls() const {return balls;}
-bool GameBox::isBallVectorEmpty() const {return getBalls().size() == 0;}
-bool GameBox::doesPlayerHaveMultipleBalls() const {return getBalls().size() > 1;}
+std::vector<Ball*>& GameBox::getBalls() {return balls;}
+bool GameBox::isBallVectorEmpty() {return getBalls().size() == 0;}
+bool GameBox::doesPlayerHaveMultipleBalls() {return getBalls().size() > 1;}
 
 void GameBox::addBall(Ball* b){
     getBalls().push_back(b);
 }
+
 void GameBox::removeBall(Ball* b){
     for (auto it = getBalls().begin(); it != getBalls().end(); ++it) {
-        // std::cout << (*it)->getCenterPosition().getX() << std::endl;
         if (*it == b) {
             getBalls().erase(it); 
             break;
@@ -100,10 +100,10 @@ bool GameBox::isObjectOutOfBounds(const BonusInterface& object) const{
 
 WallType GameBox::isObjectCollidingWithWalls(const Racket& object) {
     // std::cout << getLeftWall().getPosition() << std::endl;
-    if (CollisionHelper::isColliding(object.getHitbox(), getLeftWall())){std::cout<<"collision"<<std::endl; return WallType::LEFT;}
-    else if (CollisionHelper::isColliding(object.getHitbox(), getRightWall())){std::cout<<"collision"<<std::endl; return WallType::RIGHT;}
-    else if (CollisionHelper::isColliding(object.getHitbox(), getTopWall())){std::cout<<"collision"<<std::endl; return WallType::TOP;}
-    else if (CollisionHelper::isColliding(object.getHitbox(), getBottomWall())){std::cout<<"collision"<<std::endl; return WallType::BOTTOM;}
+    if (CollisionHelper::isColliding(object.getHitbox(), getLeftWall())){return WallType::LEFT;}
+    else if (CollisionHelper::isColliding(object.getHitbox(), getRightWall())){return WallType::RIGHT;}
+    else if (CollisionHelper::isColliding(object.getHitbox(), getTopWall())){return WallType::TOP;}
+    else if (CollisionHelper::isColliding(object.getHitbox(), getBottomWall())){return WallType::BOTTOM;}
     else {return WallType::NONE;}
 }
 WallType GameBox::isObjectCollidingWithWalls(const Ball& object) {

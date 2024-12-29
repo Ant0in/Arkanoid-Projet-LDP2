@@ -55,7 +55,7 @@ int main() {
     for (int i = 0; i < 12; ++i) {
         for (int y = 50 + i * 25, x = 30; x < 770; x += 50) {
             int randomType = (std::rand() % 10) + 1;
-            DuplicationBonus* bonus = new DuplicationBonus(Position2D(x, y), 10, 10, 5);
+            ResizeBonus* bonus = new ResizeBonus(Position2D(x, y));
             Brick* b = new Brick(Position2D(x, y), 48, 20, BrickType(randomType), bonus);
             gamebox->addBrick(b);
         }

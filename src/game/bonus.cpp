@@ -1,13 +1,13 @@
 #include "bonus.hpp"
 
 SolidRectangle& BonusInterface::getHitbox(){return hitbox;}
-const SolidRectangle& BonusInterface::getHitbox() const{return hitbox;}
+const SolidRectangle& BonusInterface::getHitbox() const {return hitbox;}
 
 float BonusInterface::getSize() const{return size;}
 void BonusInterface::setSize(float s){size = s;}
 
-Position2D BonusInterface::getPosition() const{return pos;}
-void BonusInterface::setPosition(Position2D p){pos = p;}
+Position2D BonusInterface::getPosition() const {return getHitbox().getPosition();}
+void BonusInterface::setPosition(Position2D p){getHitbox().setPosition(p);}
 
 bool BonusInterface::isSpawned() const{return is_spawned;}
 void BonusInterface::setSpawned(bool flag){is_spawned = flag;}

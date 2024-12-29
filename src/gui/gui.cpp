@@ -37,7 +37,7 @@ void GameGUI::updateGUI(){
     }
 
     for (auto& bonus : gamebox->getBonuses()) {
-        drawRectangle((*bonus).getHitbox(), al_map_rgb(0, 0, 0));
+        drawRectangle((*bonus).getHitbox(), al_map_rgb(74, 65, 42));
     }
 
     updateFPS();

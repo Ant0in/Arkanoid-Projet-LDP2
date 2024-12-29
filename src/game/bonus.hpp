@@ -22,7 +22,7 @@ class BonusInterface{
         SolidRectangle hitbox;
 
     public:
-        BonusInterface(const Position2D& pos, float size, int active_duration, float falling_speed, bool is_active = false, bool is_spawned = false): pos{pos}, size{size}, active_duration{active_duration}, is_active{is_active}, is_spawned{is_spawned}, hitbox{SolidRectangle(pos, size, size)}{}
+        BonusInterface(const Position2D& pos, float size, int active_duration, float falling_speed, bool is_active = false, bool is_spawned = false): pos{pos}, size{size}, active_duration{active_duration}, falling_speed{falling_speed}, is_active{is_active}, is_spawned{is_spawned}, hitbox{SolidRectangle(pos, size, size)}{}
         ~BonusInterface() = default;
 
         SolidRectangle& getHitbox();

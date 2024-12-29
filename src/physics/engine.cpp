@@ -6,7 +6,7 @@ const void GameEngine::handleActions(GameBox& gamebox, const Action& action){
     gamebox.tryMoveRacket(gamebox.getRacket()->calculateNewPosition(action));
 }
 
-const void GameEngine::handleCollisionsWithRacket(const GameBox& gamebox){
+const void GameEngine::handleCollisionsWithRacket(GameBox& gamebox){
     for (Ball* ball : gamebox.getBalls()) {
 
         if (CollisionHelper::isColliding((*ball).getHitbox(), gamebox.getRacket()->getHitbox())) {
@@ -85,7 +85,9 @@ const void GameEngine::handleBalls(GameBox& gamebox, Player& player){
 }
 
 const void GameEngine::handleCollisionWithEntities(GameBox& gamebox, Player& player){
+    
     for (BonusInterface* bonus : gamebox.getBonuses()){
+        
         Position2D falling_pos = (*bonus).getGravityPosition();
         (*bonus).setPosition(falling_pos);
 
@@ -116,7 +118,7 @@ const void GameEngine::handleBonus(GameBox& gamebox, Player& player){
 
 const void GameEngine::handleBallSpawn(GameBox& gamebox){
     // Position2D center = gamebox.getCenterPosition();
-    Ball* b = new Ball(Position2D(0,0), BALL_RADIUS, BALL_SPEED);
+    Ball* b = new Ball(Position2D(400, 350), BALL_RADIUS, BALL_SPEED);
     gamebox.addBall(b);
 
 }
