@@ -13,7 +13,7 @@ void BonusInterface::setSize(float s){
 }
 
 Position2D BonusInterface::getPosition() const{return getHitbox().getPosition();}
-void BonusInterface::setPosition(Position2D p){getHitbox().setPosition(p);}
+void BonusInterface::setPosition(const Position2D& p){getHitbox().setPosition(p);}
 
 bool BonusInterface::isSpawned() const{return is_spawned;}
 void BonusInterface::setSpawned(bool flag){is_spawned = flag;}
@@ -29,12 +29,12 @@ void BonusInterface::setFallingSpeed(float s){falling_speed = s;}
 
 void BonusInterface::incrementDuration(int incr){active_duration = getDuration() + incr;}
 
-void BonusInterface::spawnBonus(Position2D p){
+void BonusInterface::spawnBonus(const Position2D& p){
     setPosition(p);
     setSpawned(true);
 }
 
-Position2D BonusInterface::getGravityPosition() const{
+Position2D BonusInterface::getGravityPosition() {
     // using x(t) = x0 + velocity*t, for t=1 (bc calculated each frame)
     Position2D t1 = getPosition();
     float x = t1.getX();
@@ -54,7 +54,7 @@ void BonusInterface::applyLogic(GameBox& gb, Player& player){
 }
 
 
-std::tuple<float, float> DuplicationBonus::rotate_velocity(float vx, float vy, float alpha){
+std::tuple<float, float>DuplicationBonus::rotate_velocity(float vx, float vy, float alpha){
     float alpha_rad = alpha * M_PI / 180.0f;
     float nvx = static_cast<float>(vx * cos(alpha_rad) - vy * sin(alpha_rad));
     float nvy = static_cast<float>(vx * sin(alpha_rad) + vy * cos(alpha_rad));
@@ -68,15 +68,15 @@ void DuplicationBonus::applyLogic(GameBox& gb, Player& player){
     // If bonus is active and not expired, we will proceed to apply logic for a frame 
     // (usually making the bonus vanish) and then decrement TTL
     Ball* ref = gb.getBalls()[0];
-    auto [vx, vy] = (*ref).getVelocity();
+    auto [vx, vy] = ref->getVelocity();
 
-    Ball* b1 = new Ball((*ref).getCenterPosition(), (*ref).getRadius(), (*ref).getSpeed());
-    Ball* b2 = new Ball((*ref).getCenterPosition(), (*ref).getRadius(), (*ref).getSpeed());
+    Ball* b1 = new Ball(ref->getCenterPosition(), ref->getRadius(), ref->getSpeed());
+    Ball* b2 = new Ball(ref->getCenterPosition(), ref->getRadius(), ref->getSpeed());
 
     auto [vx1, vy1] = rotate_velocity(vx, vy, 120);
     auto [vx2, vy2] = rotate_velocity(vx, vy, -120);
-    (*b1).setVelocity(vx1, vy1);
-    (*b2).setVelocity(vx2, vy2);
+    b1->setVelocity(vx1, vy1);
+    b2->setVelocity(vx2, vy2);
 
     gb.addBall(b1);
     gb.addBall(b2);

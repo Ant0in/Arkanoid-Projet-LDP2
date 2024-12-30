@@ -37,7 +37,13 @@ void GameGUI::updateGUI(){
     }
 
     for (auto& bonus : gamebox->getBonuses()) {
-        drawRectangle((*bonus).getHitbox(), al_map_rgb(74, 65, 42));
+        if (dynamic_cast<ResizeBonus*>(bonus)) {
+            drawRectangle((*bonus).getHitbox(), al_map_rgb(0, 0, 255)); // Rouge pour ResizeBonus
+        } else if (dynamic_cast<PlayerBonus*>(bonus)) {
+            drawRectangle((*bonus).getHitbox(), al_map_rgb(128, 128, 128)); // Vert pour PlayerBonus
+        } else if (dynamic_cast<DuplicationBonus*>(bonus)) {
+            drawRectangle((*bonus).getHitbox(), al_map_rgb(43, 43, 255)); // Bleu pour DuplicationBonus
+        }
     }
 
     updateFPS();

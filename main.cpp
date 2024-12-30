@@ -61,11 +61,11 @@ int main() {
             if ((std::rand() % 100) < 40) { // 40% of chance to get a bonus
                 int bonusType = std::rand() % 3;
                 if (bonusType == 0) {
-                    bonus = new DuplicationBonus(Position2D(x, y), 10, 10, 5);
+                    bonus = new DuplicationBonus(Position2D(x, y));
                 } else if (bonusType == 1) {
-                    bonus = new PlayerBonus(Position2D(x, y), 10, 10, 5);
+                    bonus = new PlayerBonus(Position2D(x, y));
                 } else {
-                    bonus = new ResizeBonus(Position2D(x, y), 10, 10, 5);
+                    bonus = new ResizeBonus(Position2D(x, y));
                 }
             }
             // Create brick with or without bonus

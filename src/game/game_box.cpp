@@ -62,7 +62,6 @@ void GameBox::addBall(Ball* b){
 void GameBox::removeBall(Ball* b){
     for (auto it = getBalls().begin(); it != getBalls().end(); ++it) {
         if (*it == b) {
-            std::cout<<"ICI";
             getBalls().erase(it); 
             break;
         }
@@ -169,31 +168,31 @@ std::vector<bool> GameBox::tryMoveBalls(){
     for (size_t idx = 0; idx < balls.size(); ++idx) {
         Ball* ball = balls[idx];
 
-        Position2D np = (*ball).calculateNewPosition();
-        Ball temp = Ball(np, (*ball).getRadius(), (*ball).getSpeed());
+        Position2D np = ball->calculateNewPosition();
+        Ball temp = Ball(np, ball->getRadius(), ball->getSpeed());
 
         WallType wallCollision = isObjectCollidingWithWalls(temp);
 
         if (wallCollision == WallType::NONE) {
-            (*ball).setCenterPosition(np);
+            ball->setCenterPosition(np);
             could_move[idx] = true;
         } 
         else {
             could_move[idx] = false;
-            auto [vx, vy] = (*ball).getVelocity();
+            auto [vx, vy] = ball->getVelocity();
 
             switch (wallCollision) {
                 case WallType::LEFT:
-                    (*ball).setVelocity(-vx, vy);
+                    ball->setVelocity(-vx, vy);
                     break;
                 case WallType::RIGHT:
-                    (*ball).setVelocity(-vx, vy);
+                    ball->setVelocity(-vx, vy);
                     break;
                 case WallType::TOP:
-                    (*ball).setVelocity(vx, -vy);
+                    ball->setVelocity(vx, -vy);
                     break;
                 case WallType::BOTTOM:
-                    (*ball).setAlive(false);
+                    ball->setAlive(false);
                     break;
                 default:
                     break;

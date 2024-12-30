@@ -32,7 +32,7 @@ class BonusInterface{
         void setSize(float s);
 
         Position2D getPosition() const;
-        void setPosition(Position2D p);
+        void setPosition(const Position2D& p);
 
         bool isSpawned() const;
         void setSpawned(bool flag);
@@ -48,9 +48,9 @@ class BonusInterface{
 
         void incrementDuration(int incr);
 
-        void spawnBonus(Position2D p);
+        void spawnBonus(const Position2D& p);
 
-        Position2D getGravityPosition() const;
+        Position2D getGravityPosition();
 
         bool hasBonusDurationExpired() const;
 
