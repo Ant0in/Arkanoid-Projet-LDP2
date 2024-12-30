@@ -16,3 +16,6 @@ $(TARGET): $(SRCS) $(HEADERS)
 clean:
 	-rm -f $(TARGET)
 
+.PHONY: run
+run: $(TARGET)
+	./$(TARGET)
