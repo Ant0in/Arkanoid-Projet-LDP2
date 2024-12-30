@@ -1,9 +1,12 @@
 #include "game_box.hpp"
 
-Position2D GameBox::getPosition() const {return position;}
+SolidRectangle& GameBox::getHitbox(){return hitbox;}
+const SolidRectangle& GameBox::getHitbox() const{return hitbox;}
 
-float GameBox::getWidth() const {return width;}
-float GameBox::getHeight() const {return height;}
+Position2D GameBox::getPosition() const {return getHitbox().getPosition();}
+
+float GameBox::getWidth() const {return getHitbox().getWidth();}
+float GameBox::getHeight() const {return getHitbox().getHeight();}
 
 void GameBox::initializeWalls(){
     Position2D p = getPosition();
@@ -15,9 +18,6 @@ void GameBox::initializeWalls(){
     topWall = SolidRectangle(Position2D(p.getX(), p.getY() - BOX_WALLS_THICKNESS), w, BOX_WALLS_THICKNESS);
     bottomWall = SolidRectangle(Position2D(p.getX(), p.getY() + h), w, BOX_WALLS_THICKNESS);
 }
-
-SolidRectangle& GameBox::getHitbox(){return hitbox;}
-const SolidRectangle& GameBox::getHitbox() const{return hitbox;}
 
 std::vector<BonusInterface*>& GameBox::getBonuses() {
     return bonuses;
@@ -62,6 +62,7 @@ void GameBox::addBall(Ball* b){
 void GameBox::removeBall(Ball* b){
     for (auto it = getBalls().begin(); it != getBalls().end(); ++it) {
         if (*it == b) {
+            std::cout<<"ICI";
             getBalls().erase(it); 
             break;
         }

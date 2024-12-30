@@ -54,8 +54,21 @@ int main() {
 
     for (int i = 0; i < 12; ++i) {
         for (int y = 50 + i * 25, x = 30; x < 770; x += 50) {
-            int randomType = (std::rand() % 10) + 1;
-            ResizeBonus* bonus = new ResizeBonus(Position2D(x, y));
+            int randomType = (std::rand() % 10) + 1;  //random brick type
+
+            BonusInterface* bonus = nullptr;
+            if ((std::rand() % 100) < 40) { // 40% of chance to get a bonus
+                int bonusType = std::rand() % 3;
+                if (bonusType == 0) {
+                    bonus = new DuplicationBonus(Position2D(x, y), 10, 10, 5);
+                } else if (bonusType == 1) {
+                    bonus = new PlayerBonus(Position2D(x, y), 10, 10, 5);
+                } else {
+                    bonus = new ResizeBonus(Position2D(x, y), 10, 10, 5);
+                }
+            }
+
+            // Create brick with or without bonus
             Brick* b = new Brick(Position2D(x, y), 48, 20, BrickType(randomType), bonus);
             gamebox->addBrick(b);
         }
