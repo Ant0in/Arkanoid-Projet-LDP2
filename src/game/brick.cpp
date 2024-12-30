@@ -30,7 +30,7 @@ void Brick::setHP(int v) {hp =v;}
 BonusInterface* Brick::getBonus() const{return bonus;}
 void Brick::setBonus(BonusInterface* b) {bonus = b;}
 
-bool Brick::doesBrickContainBonus() const{return !((*bonus).getPosition() == Position2D(0,0));}
+bool Brick::doesBrickContainBonus() const{return (bonus);}
 
 Position2D Brick::getCenterPosition() const{return getHitbox().getCenterPosition();}
 
