@@ -37,12 +37,26 @@ void GameGUI::updateGUI(){
     }
 
     for (auto& bonus : gamebox->getBonuses()) {
+        ALLEGRO_FONT* font = al_create_builtin_font();
+        const char* letter = nullptr;
+
         if (dynamic_cast<ResizeBonus*>(bonus)) {
-            drawRectangle((*bonus).getHitbox(), al_map_rgb(0, 0, 255)); // Rouge pour ResizeBonus
+            drawRectangle((*bonus).getHitbox(), al_map_rgb(0, 0, 255)); 
+            letter = "R";
         } else if (dynamic_cast<PlayerBonus*>(bonus)) {
-            drawRectangle((*bonus).getHitbox(), al_map_rgb(128, 128, 128)); // Vert pour PlayerBonus
+            drawRectangle((*bonus).getHitbox(), al_map_rgb(128, 128, 128)); 
+            letter = "P";
         } else if (dynamic_cast<DuplicationBonus*>(bonus)) {
-            drawRectangle((*bonus).getHitbox(), al_map_rgb(43, 43, 255)); // Bleu pour DuplicationBonus
+            drawRectangle((*bonus).getHitbox(), al_map_rgb(43, 255, 255));
+            letter = "D";
+        }
+
+        if (letter) {
+            SolidRectangle hitbox = bonus->getHitbox();
+            float centerX = hitbox.getPosition().getX() + hitbox.getWidth() / 2;
+            float centerY = hitbox.getPosition().getY() + hitbox.getHeight() / 2;
+
+            al_draw_text(font, al_map_rgb(255, 255, 255), centerX, centerY, ALLEGRO_ALIGN_CENTER, letter);
         }
     }
 
