@@ -32,7 +32,7 @@ int main() {
     }
 
     ALLEGRO_EVENT_QUEUE* event_queue = al_create_event_queue();
-    ALLEGRO_TIMER* timer = al_create_timer(1.0 / 60.0);
+    ALLEGRO_TIMER* timer = al_create_timer(1.0 / GAME_FRAMERATE);
 
     if (!event_queue || !timer) {
         fprintf(stderr, "Erreur : Problème avec Allegro (timer ou event queue).\n");
@@ -47,7 +47,7 @@ int main() {
     al_start_timer(timer);
 
     GameBox* gamebox = new GameBox(Position2D(0, 0), WIDTH, HEIGHT,
-        std::vector<Ball*>{new Ball(Position2D(400, 450), 10, 15)},
+        std::vector<Ball*>{new Ball(Position2D(400, 450))},
         new Racket(Position2D(300, 700), 200, 20, 10));
 
     std::srand(std::time(nullptr));
@@ -58,7 +58,7 @@ int main() {
             int randomType = (std::rand() % 10) + 1;  //random brick type
             BonusInterface* bonus = nullptr;
 
-            if ((std::rand() % 100) < 40) { // 40% of chance to get a bonus
+            if ((std::rand() % 100) < 40) { // 40% chance to get a bonus
                 int bonusType = std::rand() % 3;
                 if (bonusType == 0) {
                     bonus = new DuplicationBonus(Position2D(x, y));
