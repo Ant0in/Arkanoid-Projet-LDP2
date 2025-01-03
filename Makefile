@@ -21,8 +21,8 @@ CXXFLAGS += -Wnon-virtual-dtor
 CXXFLAGS += -Woverloaded-virtual 
 
 # Memory sanitization flags
-CXXFLAGS += -fsanitize=address -fno-omit-frame-pointer
-LDFLAGS += -fsanitize=address
+#CXXFLAGS += -fsanitize=address -fno-omit-frame-pointer
+#LDFLAGS += -fsanitize=address
 
 # Allegro library configuration
 CXXFLAGS += $(shell pkg-config allegro-5 allegro_font-5 --cflags)

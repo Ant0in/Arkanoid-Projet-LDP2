@@ -7,9 +7,11 @@
 #include "src/gui/gui.hpp"
 #include "src/player/player.hpp"
 #include "src/physics/engine.hpp"
+#include "src/levels/level_reader.hpp"
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
 #include <vector>
+#include <string>
 #include <cstdlib>
 #include <ctime>
 
@@ -24,7 +26,7 @@ int main() {
     al_install_keyboard();
     al_install_mouse();
 
-    ALLEGRO_DISPLAY* display = al_create_display(GAME_WIDTH, GAME_HEIGHT);
+    ALLEGRO_DISPLAY* display = al_create_display(static_cast<int>(GAME_WIDTH), static_cast<int>(GAME_HEIGHT));
     if (!display) {
         fprintf(stderr, "Erreur : Impossible de créer la fenêtre.\n");
         return -1;
@@ -45,9 +47,10 @@ int main() {
     al_register_event_source(event_queue, al_get_keyboard_event_source());
     al_start_timer(timer);
 
-    GameBox* gamebox = new GameBox(DEFAULT_CORNER_POS, static_cast<float>(GAME_WIDTH), static_cast<float>(GAME_HEIGHT),
-        std::vector<Ball*>{new Ball(Position2D(400, 450))},
-        new Racket(Position2D(300, 700), 200, 20, 10));
+    GameBox* gamebox = new GameBox(
+        DEFAULT_CORNER_POS, GAME_WIDTH, GAME_HEIGHT,
+        std::vector<Ball*>{new Ball(DEFAULT_SPAWN_POSITION)},
+        new Racket(RACKET_DEFAULT_POSITION, RACKET_WIDTH, RACKET_HEIGHT, RACKET_DEFAULT_SENSIBILITY));
 
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
 
@@ -110,8 +113,9 @@ int main() {
             gui.updateGUI();
             al_flip_display();
         }
-
     }
+
+    std::cout << "reached here" << std::endl;
 
     // Destroying stuff at the end
     al_destroy_event_queue(event_queue);
@@ -121,7 +125,7 @@ int main() {
     al_uninstall_system();
 
     delete gamebox;
-    // delete player;
+    delete player;
 
     return 0;
 

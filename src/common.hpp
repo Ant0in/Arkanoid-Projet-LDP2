@@ -57,18 +57,26 @@ enum class WallType{
     TOP = 4
 };
 
+
 extern const std::unordered_map<int, Action> DEFAULT_CONFIG;
+
 extern const std::unordered_map<int, ALLEGRO_COLOR> BRICK_COLORS;
 extern const std::unordered_map<int, int> BRICK_HP;
 extern const std::unordered_map<int, int> BRICK_VALUE;
+extern const std::unordered_map<int, BrickType> BRICK_ID;
 
 extern const int GAME_FRAMERATE;
-extern const int GAME_WIDTH;
-extern const int GAME_HEIGHT;
+extern const float GAME_WIDTH;
+extern const float GAME_HEIGHT;
 
 extern const Position2D DEFAULT_CORNER_POS;
 extern const Position2D DEFAULT_MOUSE_POS;
 extern const int PLAYER_DEFAULT_HEALTH;
+
+extern const float RACKET_WIDTH;
+extern const float RACKET_HEIGHT;
+extern const Position2D RACKET_DEFAULT_POSITION;
+extern const float RACKET_DEFAULT_SENSIBILITY;
 
 extern const float BALL_X_VELOCITY_DEFAULT;
 extern const float BALL_Y_VELOCITY_DEFAULT;
@@ -86,13 +94,13 @@ extern const float BONUS_RESIZE_FACTOR;
 extern const float LASER_THICKNESS;
 extern const float LASER_LENGTH;
 
-extern const int WHITE_BRICK_HP;
-extern const int ORANGE_BRICK_HP;
-extern const int CYAN_BRICK_HP;
-extern const int GREEN_BRICK_HP;
-extern const int RED_BRICK_HP;
-extern const int BLUE_BRICK_HP;
-extern const int MAGENTA_BRICK_HP;
-extern const int YELLOW_BRICK_HP;
-extern const int SILVER_BRICK_HP;
+extern const int WHITE_BRICK_REWARD;
+extern const int ORANGE_BRICK_REWARD;
+extern const int CYAN_BRICK_REWARD;
+extern const int GREEN_BRICK_REWARD;
+extern const int RED_BRICK_REWARD;
+extern const int BLUE_BRICK_REWARD;
+extern const int MAGENTA_BRICK_REWARD;
+extern const int YELLOW_BRICK_REWARD;
+extern const int SILVER_BRICK_REWARD;
 
