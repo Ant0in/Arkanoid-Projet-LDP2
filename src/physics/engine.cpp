@@ -26,13 +26,13 @@ void GameEngine::handleActions(GameBox& gamebox, Player& player){
 void GameEngine::handleCollisionsWithRacket(GameBox& gamebox){
     for (Ball* ball : gamebox.getBalls()) {
 
-        if (CollisionHelper::isColliding((*ball).getHitbox(), gamebox.getRacket()->getHitbox())) {
+        if (CollisionHelper::isColliding(ball->getHitbox(), gamebox.getRacket()->getHitbox())) {
 
-            auto [vx, vy] = (*ball).getVelocity();
+            auto [vx, vy] = ball->getVelocity();
             float total_velocity = std::sqrt((vx * vx) + (vy * vy));
 
             float L = gamebox.getRacket()->getWidth();
-            float x = (*ball).getCenterPosition().getX() - gamebox.getRacket()->getCenterPosition().getX();
+            float x = ball->getCenterPosition().getX() - gamebox.getRacket()->getCenterPosition().getX();
 
             // formula used in the pdf
             float alpha = (static_cast<float>(M_PI) / 6.0f) + ((5.0f * static_cast<float>(M_PI)) / 6.0f) * (1.0f - (x / L));
@@ -40,8 +40,8 @@ void GameEngine::handleCollisionsWithRacket(GameBox& gamebox){
             float dvx = total_velocity * std::sin(alpha);
             float dvy = total_velocity * std::cos(alpha);
 
-            (*ball).setVelocity(dvx, dvy);
-            (*ball).setCenterPosition(Position2D((*ball).getCenterPosition().getX(), gamebox.getRacket()->getPosition().getY() - (*ball).getRadius()));
+            ball->setVelocity(dvx, dvy);
+            ball->setCenterPosition(Position2D(ball->getCenterPosition().getX(), gamebox.getRacket()->getPosition().getY() - ball->getRadius()));
         }
     }
 }
@@ -50,10 +50,10 @@ std::vector<Brick*> GameEngine::handleCollisionsWithBricks(GameBox& gamebox){
     std::vector<Brick*> bricks_hit;
 
     for (Ball* ball : gamebox.getBalls()){
-        auto [vx, vy] = (*ball).getVelocity();
+        auto [vx, vy] = ball->getVelocity();
         for (Brick* brick : gamebox.getBricks()){
-            if ((std::find(bricks_hit.begin(), bricks_hit.end(), brick) == bricks_hit.end()) && CollisionHelper::isColliding((*ball).getHitbox(), (*brick).getHitbox())) {
-                (*ball).setVelocity(-vx, -vy);
+            if ((std::find(bricks_hit.begin(), bricks_hit.end(), brick) == bricks_hit.end()) && CollisionHelper::isColliding(ball->getHitbox(), brick->getHitbox())) {
+                ball->setVelocity(-vx, -vy);
                 bricks_hit.push_back(brick);
             }
         }
@@ -75,7 +75,7 @@ void GameEngine::handleBricks(GameBox& gamebox, Player& player, std::vector<Bric
             if (brick->doesBrickContainBonus() && !gamebox.doesPlayerHaveMultipleBalls()){
                 BonusInterface* bonus = brick->getBonus()->clone();
                 gamebox.addBonus(bonus);
-                (*bonus).spawnBonus(calculateBonusSpawnPosition((*brick), (*bonus)));
+                bonus->spawnBonus(calculateBonusSpawnPosition((*brick), (*bonus)));
             }
             player.getScore().addScore(brick->getBrickValue());
             gamebox.removeBrick(brick);
@@ -86,7 +86,7 @@ void GameEngine::handleBricks(GameBox& gamebox, Player& player, std::vector<Bric
 
 void GameEngine::handleDeadBalls(GameBox& gamebox){
     for (Ball* ball : gamebox.getBalls()){
-        if (!(*ball).isAlive()){
+        if (!ball->isAlive()){
             gamebox.removeBall(ball);
         }
     }
@@ -108,12 +108,12 @@ void GameEngine::handleCollisionWithEntities(GameBox& gamebox, Player& player){
     
     for (BonusInterface* bonus : gamebox.getBonuses()){
         
-        Position2D falling_pos = (*bonus).getGravityPosition();
-        (*bonus).setPosition(falling_pos);
+        Position2D falling_pos = bonus->getGravityPosition();
+        bonus->setPosition(falling_pos);
 
-        if (CollisionHelper::isColliding((*bonus).getHitbox(), gamebox.getRacket()->getHitbox())){
+        if (CollisionHelper::isColliding(bonus->getHitbox(), gamebox.getRacket()->getHitbox())){
             player.addBonus(bonus);
-            (*bonus).setActive(true);
+            bonus->setActive(true);
         }
         else if (gamebox.isObjectOutOfBounds(*bonus)){
             gamebox.removeBonus(bonus);
@@ -123,8 +123,8 @@ void GameEngine::handleCollisionWithEntities(GameBox& gamebox, Player& player){
 
 void GameEngine::handleBonusLogic(GameBox& gamebox, Player& player){
     for (BonusInterface* bonus : player.getBonus()){
-        (*bonus).applyLogic(gamebox, player);
-        if ((*bonus).hasBonusDurationExpired()){
+        bonus->applyLogic(gamebox, player);
+        if (bonus->hasBonusDurationExpired()){
             player.removeBonus(bonus);
         }
     }

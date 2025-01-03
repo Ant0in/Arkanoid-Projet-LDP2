@@ -31,8 +31,10 @@ const std::unordered_map<int, ALLEGRO_COLOR> BRICK_COLORS = {
 };
 
 const std::unordered_map<int, Action> DEFAULT_CONFIG{
-    {static_cast<int>(ALLEGRO_KEY_LEFT), Action::LEFT},
-    {static_cast<int>(ALLEGRO_KEY_RIGHT), Action::RIGHT},
+    {static_cast<int>(ALLEGRO_KEY_A), Action::LEFT},
+    {static_cast<int>(ALLEGRO_KEY_D), Action::RIGHT},
+    {static_cast<int>(ALLEGRO_KEY_Q), Action::LEFT},
+    {static_cast<int>(ALLEGRO_KEY_P), Action::RIGHT}
 };
 
 const std::unordered_map<int, int> BRICK_HP{
