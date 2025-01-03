@@ -69,19 +69,29 @@ GameBox* LevelReader::initializeGameBoard(const std::vector<std::vector<std::str
     for (int y = 0; y < brickRowSize; ++y) {
         for (int x = 0; x < brickLineSize; ++x) {
 
-            // (x, y) is the relative position, not in term of pixels. useful to get btype in "tiles"
-            BonusInterface* bonus = nullptr;
-
+            // (x, y) is the relative position, not in term of pixels. we will calculate abs x, y.
             float abs_x = static_cast<float>(x) * (BRICK_WIDTH + horizontalOffset) + horizontalOffset;
-            float abs_y = static_cast<float>(y) * (BRICK_HEIGHT + verticalOffset) + verticalOffset + UPPER_BORDER_HEIGHT;
+            float abs_y = static_cast<float>(y) * (BRICK_HEIGHT + verticalOffset) + verticalOffset;
 
-            int btype = tiles[y][x][0] - '0';
+            BrickType brickType = BRICK_ID.at(tiles[y][x][0] - '0');
+
+            BonusInterface* bonus = nullptr;
+            char bonusID = tiles[y][x][1];
+
+            switch (bonusID) {
+
+                case 'D': bonus = new DuplicationBonus(Position2D(abs_x, abs_y)); break;
+                case 'P': bonus = new PlayerBonus(Position2D(abs_x, abs_y)); break;
+                case 'R': bonus = new ResizeBonus(Position2D(abs_x, abs_y)); break;
+
+                default: break;
+            }
 
             Brick* b = new Brick(
                 Position2D(abs_x, abs_y),
                 BRICK_WIDTH,
                 BRICK_HEIGHT,
-                BrickType(BRICK_ID.at(btype)),
+                brickType,
                 bonus);
             
             gamebox->addBrick(b);
