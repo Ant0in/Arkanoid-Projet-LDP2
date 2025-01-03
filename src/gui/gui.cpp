@@ -3,6 +3,7 @@
 
 ALLEGRO_DISPLAY* GameGUI::getAllegroDisplay() {return _display;}
 GameBox* GameGUI::getGameBox() {return _gamebox;}
+Player* GameGUI::getPlayer() {return _player;}
 std::chrono::high_resolution_clock::time_point GameGUI::getLastUpdate() {return _last_update;}
 
 void GameGUI::drawRectangle(const SolidRectangle& rect, ALLEGRO_COLOR color){
@@ -31,6 +32,17 @@ void GameGUI::updateFPS(){
 void GameGUI::updateGUI(){
 
     al_clear_to_color(al_map_rgb(0, 0, 0));
+
+    ALLEGRO_FONT* font = al_create_builtin_font();
+    if (!font) {
+        fprintf(stderr, "Erreur : Impossible de créer la police.\n");
+        return;
+    }
+    std::string score = "Score: " + std::to_string(getPlayer()->getScore().getValue());
+    std::string lives = "Lives: " + std::to_string(getPlayer()->getHp());
+    al_draw_text(font, al_map_rgb(255, 255, 255), 350, 10, ALLEGRO_ALIGN_CENTER, score.c_str());
+    al_draw_text(font, al_map_rgb(255, 255, 255), 250, 10, ALLEGRO_ALIGN_CENTER, lives.c_str()); 
+
     drawRectangle(getGameBox()->getRacket()->getHitbox(), al_map_rgb(0, 0, 255));
 
     for (auto& ball : getGameBox()->getBalls()) {
@@ -40,7 +52,6 @@ void GameGUI::updateGUI(){
     for (auto& brick : getGameBox()->getBricks()) {
         drawRectangle((*brick).getHitbox(), BRICK_COLORS.at(static_cast<int>((*brick).getBrickType())));
 
-        ALLEGRO_FONT* font = al_create_builtin_font();
         const char* letter = nullptr;
 
         if (dynamic_cast<ResizeBonus*>(brick->getBonus())) {

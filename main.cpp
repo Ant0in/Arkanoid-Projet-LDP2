@@ -76,8 +76,8 @@ int main() {
     }
 
     GameController controller = GameController();
-    Player player = Player(3, controller);
-    GameGUI gui = GameGUI(display, gamebox);
+    Player* player = new Player(3, controller);
+    GameGUI gui = GameGUI(display, gamebox, player);
 
     bool running = true;
 
@@ -91,13 +91,13 @@ int main() {
             running = false;
         } else if (event.type == ALLEGRO_EVENT_MOUSE_AXES) {
             if (event.mouse.x > lastMouseX) {
-            player.getController().updateUserAction(ALLEGRO_KEY_RIGHT);
+            player->getController().updateUserAction(ALLEGRO_KEY_RIGHT);
             } else if (event.mouse.x < lastMouseX) {
-                player.getController().updateUserAction(ALLEGRO_KEY_LEFT);
+                player->getController().updateUserAction(ALLEGRO_KEY_LEFT);
             }
             lastMouseX = event.mouse.x;
         } else if (event.type == ALLEGRO_EVENT_TIMER) {
-            GameEngine::handleRoutine(*gamebox, player);
+            GameEngine::handleRoutine(*gamebox, *player);
             gui.updateGUI();
             al_flip_display();
         }
