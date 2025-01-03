@@ -18,8 +18,8 @@ class GameBox{
 
     private:
 
-        std::vector<Ball*> _balls;
         Racket* _racket;
+        std::vector<Ball*> _balls;
         SolidRectangle _hitbox;
         std::vector<Brick*> _bricks;
         std::vector<BonusInterface*> _bonuses;
@@ -32,9 +32,10 @@ class GameBox{
 
     public:
 
-        GameBox(Position2D position, float width, float height, std::vector<Ball*> balls, Racket* racket,  std::vector<Brick*> bricks = {}, std::vector<BonusInterface*> bonuses = {}):
-            _balls{balls},
+        GameBox(Position2D position, float width, float height, Racket* racket, std::vector<Ball*> balls = {}, std::vector<Brick*> bricks = {}, std::vector<BonusInterface*> bonuses = {}):
+            
             _racket{racket},
+            _balls{balls},
             _hitbox{SolidRectangle(position, height, width)},
             _bricks{bricks},
             _bonuses{bonuses},

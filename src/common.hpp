@@ -84,6 +84,9 @@ extern const float BALL_RADIUS;
 extern const float BALL_SPEED;
 extern const Position2D DEFAULT_SPAWN_POSITION;
 
+extern const float BRICK_WIDTH;
+extern const float BRICK_HEIGHT;
+
 extern const float BOX_WALLS_THICKNESS;
 
 extern const int BONUS_DEFAULT_DURATION;

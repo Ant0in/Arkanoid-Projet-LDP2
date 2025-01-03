@@ -95,6 +95,9 @@ const float BALL_RADIUS = 10.0;
 const float BALL_SPEED = 15.0;
 const Position2D DEFAULT_SPAWN_POSITION = Position2D(GAME_WIDTH / 2, GAME_HEIGHT / 2);
 
+const float BRICK_WIDTH = 50.0;
+const float BRICK_HEIGHT = 20.0;
+
 const int BONUS_DEFAULT_DURATION = 1;
 const float BONUS_SIZE = 25.0;
 const float BONUS_FALLING_SPEED = 10.0;

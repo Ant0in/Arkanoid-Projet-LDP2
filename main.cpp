@@ -49,8 +49,9 @@ int main() {
 
     GameBox* gamebox = new GameBox(
         DEFAULT_CORNER_POS, GAME_WIDTH, GAME_HEIGHT,
-        std::vector<Ball*>{new Ball(DEFAULT_SPAWN_POSITION)},
-        new Racket(RACKET_DEFAULT_POSITION, RACKET_WIDTH, RACKET_HEIGHT, RACKET_DEFAULT_SENSIBILITY));
+        new Racket(RACKET_DEFAULT_POSITION, RACKET_WIDTH, RACKET_HEIGHT, RACKET_DEFAULT_SENSIBILITY),
+        std::vector<Ball*>{new Ball(DEFAULT_SPAWN_POSITION)});
+        
 
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
 
@@ -79,6 +80,10 @@ int main() {
     GameController controller = GameController();
     Player* player = new Player(PLAYER_DEFAULT_HEALTH, controller);
     GameGUI gui = GameGUI(display, gamebox, player);
+
+
+    LevelReader::initializeGameBoard({{"1"}, {"1"}, {"1"}});
+
 
     bool running = true;
     while (running) {

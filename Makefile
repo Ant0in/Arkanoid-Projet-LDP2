@@ -2,7 +2,7 @@
 CXXFLAGS += -std=c++2b -Wall -Werror -Wextra
 
 # All warnings being treated as errors and debugging flags
-CXXFLAGS += -fmax-errors=1 -g
+#CXXFLAGS += -fmax-errors=1 -g
 
 # Additional warning flags for robust code
 CXXFLAGS += -Wpedantic
