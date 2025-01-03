@@ -52,6 +52,8 @@ class BonusInterface{
         bool hasBonusDurationExpired() const;
         bool operator==(BonusInterface* other) const;
         virtual void applyLogic(GameBox& gb, Player& player);
+        virtual BonusInterface* clone() const = 0;  
+
 };
 
 class DuplicationBonus: public BonusInterface{
@@ -63,6 +65,7 @@ class DuplicationBonus: public BonusInterface{
         virtual ~DuplicationBonus() = default;
 
         static std::tuple<float, float> rotate_velocity(float vx, float vy, float alpha);
+        BonusInterface* clone() const override {return new DuplicationBonus(*this);}
         void applyLogic(GameBox& gb, Player& player);
 };
 
@@ -74,6 +77,7 @@ class PlayerBonus: public BonusInterface{
             BonusInterface(pos, size, active_duration, falling_speed, is_active, is_spawned){}
         virtual ~PlayerBonus() = default;
 
+        BonusInterface* clone() const override {return new PlayerBonus(*this);}
         void applyLogic(GameBox& gb, Player& player);
 };
 
@@ -85,5 +89,6 @@ class ResizeBonus: public BonusInterface{
             BonusInterface(pos, size, active_duration, falling_speed, is_active, is_spawned){}
         virtual ~ResizeBonus() = default;
     
+        BonusInterface* clone() const override {return new ResizeBonus(*this);}
         void applyLogic(GameBox& gb, Player& player);
 };

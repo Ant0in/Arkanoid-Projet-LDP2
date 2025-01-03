@@ -11,8 +11,10 @@ int Brick::getBrickHpByType(const BrickType& btype){
 }
 
 Brick::~Brick() {
-    delete _bonus;
-}
+    if (_bonus) {
+        delete _bonus;
+    }
+};
 
 SolidRectangle& Brick::getHitbox() {return _hitbox;}
 const SolidRectangle& Brick::getHitbox() const {return _hitbox;}
@@ -29,10 +31,13 @@ void Brick::setWidth(float w) {getHitbox().setWidth(w);}
 BrickType Brick::getBrickType() const {return _btype;}
 
 int Brick::getHP() const {return _hp;}
-void Brick::setHP(int v) {_hp =v;}
+void Brick::setHP(int v) {_hp = v;}
 
 BonusInterface* Brick::getBonus() const{return _bonus;}
-void Brick::setBonus(BonusInterface* b) {_bonus = b;}
+void Brick::setBonus(BonusInterface* b) {
+    if (_bonus) {delete _bonus;}
+    _bonus = b;
+}
 
 bool Brick::doesBrickContainBonus() const{return (_bonus);}
 

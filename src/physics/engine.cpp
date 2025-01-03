@@ -51,16 +51,18 @@ Position2D GameEngine::calculateBonusSpawnPosition(const Brick& brick, const Bon
 }
 
 void GameEngine::handleBricks(GameBox& gamebox, Player& player, std::vector<Brick*> bricks){
+    
     for (Brick* brick : bricks){
         brick->makeBrickLoseHP(1);
         if (brick->isBroken()){
-            gamebox.removeBrick(brick);
             if (brick->doesBrickContainBonus() && !gamebox.doesPlayerHaveMultipleBalls()){
-                BonusInterface* bonus = brick->getBonus();
+                BonusInterface* bonus = brick->getBonus()->clone();
                 gamebox.addBonus(bonus);
                 (*bonus).spawnBonus(calculateBonusSpawnPosition((*brick), (*bonus)));
             }
             player.getScore().addScore(brick->getBrickValue());
+            gamebox.removeBrick(brick);
+            delete brick;
         }
     }
 }
@@ -95,7 +97,6 @@ void GameEngine::handleCollisionWithEntities(GameBox& gamebox, Player& player){
         if (CollisionHelper::isColliding((*bonus).getHitbox(), gamebox.getRacket()->getHitbox())){
             player.addBonus(bonus);
             (*bonus).setActive(true);
-            gamebox.removeBonus(bonus);
         }
         else if (gamebox.isObjectOutOfBounds(*bonus)){
             gamebox.removeBonus(bonus);

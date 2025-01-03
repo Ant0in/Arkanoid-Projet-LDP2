@@ -5,6 +5,7 @@ GameBox::~GameBox() {
     delete getRacket();
     for (auto ball : getBalls()) {delete ball;}
     for (auto brick : getBricks()) {delete brick;}
+    for (auto bonus : getBonuses()) {delete bonus;}
 }
 
 SolidRectangle& GameBox::getHitbox(){return _hitbox;}
@@ -51,7 +52,7 @@ void GameBox::addBrick(Brick* brick){
 
 void GameBox::removeBrick(Brick* brick){
     for (auto it = getBricks().begin(); it != getBricks().end(); ++it) {
-        if (*it == brick) { 
+        if (*it == brick) {
             getBricks().erase(it); 
             break;
         }
@@ -69,14 +70,18 @@ void GameBox::addBall(Ball* b){
 void GameBox::removeBall(Ball* b){
     for (auto it = getBalls().begin(); it != getBalls().end(); ++it) {
         if (*it == b) {
-            getBalls().erase(it); 
+            delete *it;
+            getBalls().erase(it);
             break;
         }
     }
 }
 
 Racket* GameBox::getRacket() const {return _racket;}
-void GameBox::setRacket(Racket* r) {_racket = r;}
+void GameBox::setRacket(Racket* r) {
+    if (_racket) {delete _racket;}
+    _racket = r;
+}
 
 SolidRectangle& GameBox::getLeftWall() {return _leftWall;}
 SolidRectangle& GameBox::getRightWall() {return _rightWall;}
@@ -142,6 +147,7 @@ bool GameBox::tryMoveRacket(const Position2D& p){
 }
 
 void GameBox::resizeRacket(float factor){
+    
     Racket* rk = getRacket();
     Racket* temp = new Racket(rk->getPosition(), rk->getWidth() * factor, rk->getHeight(), rk->getSensibility());
 
@@ -164,6 +170,7 @@ void GameBox::resizeRacket(float factor){
         }
         setRacket(temp);
     }
+
 }
 
 

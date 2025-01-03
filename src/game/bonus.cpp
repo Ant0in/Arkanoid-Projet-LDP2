@@ -115,3 +115,5 @@ void ResizeBonus::applyLogic(GameBox& gb, Player& player){
     // decrement TTL (for player bonus, 1 logic cycle will be applied since it has TTL of 1)
     incrementDuration(-1);
 }
+
+
