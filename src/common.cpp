@@ -1,7 +1,7 @@
 #include "common.hpp"
 
-float Position2D::getX() const {return x;}
-float Position2D::getY() const {return y;}
+float Position2D::getX() const {return _x;}
+float Position2D::getY() const {return _y;}
 
 std::tuple<float, float> Position2D::coords() {return std::make_tuple(getX(), getY());}
 

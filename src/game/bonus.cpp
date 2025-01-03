@@ -50,6 +50,8 @@ bool BonusInterface::operator==(BonusInterface* other) const {
 }
 
 void BonusInterface::applyLogic(GameBox& gb, Player& player){
+    (void) gb;
+    (void) player;
     throw std::runtime_error("Not Implemented Error");
 }
 
@@ -65,6 +67,8 @@ void DuplicationBonus::applyLogic(GameBox& gb, Player& player){
     // If bonus is not active or has expired, we skip logic
     if (! isActive() || hasBonusDurationExpired()){return;}
     
+    (void) player;
+
     // If bonus is active and not expired, we will proceed to apply logic for a frame 
     // (usually making the bonus vanish) and then decrement TTL
     Ball* ref = gb.getBalls()[0];
@@ -89,6 +93,8 @@ void DuplicationBonus::applyLogic(GameBox& gb, Player& player){
 void PlayerBonus::applyLogic(GameBox& gb, Player& player){
     // If bonus is not active or has expired, we skip logic
     if (! isActive() || hasBonusDurationExpired()){return;}
+    
+    (void) gb;
 
     player.incrementHp(1);
 
@@ -101,6 +107,8 @@ void ResizeBonus::applyLogic(GameBox& gb, Player& player){
     // If bonus is not active or has expired, we skip logic
     if (! isActive() || hasBonusDurationExpired()){return;}
 
+    (void) player;
+    
     gb.resizeRacket(BONUS_RESIZE_FACTOR);
 
     // decrement TTL (for player bonus, 1 logic cycle will be applied since it has TTL of 1)

@@ -1,9 +1,9 @@
-CXXFLAGS += -std=c++2b 
+CXXFLAGS += -std=c++2b -fmax-errors=100 -g
 # all warnings being treated as errors -> max 20
-#CXXFLAGS += -Wall -Werror -Wextra -fmax-errors=1 -g
+CXXFLAGS += -Wall -Werror -Wextra
 #CXXFLAGS += -Wpedantic
 #CXXFLAGS += -Wconversion
-# CXXFLAGS += -Wshadow 
+CXXFLAGS += -Wshadow 
 #CXXFLAGS += -Wnon-virtual-dtor 
 #CXXFLAGS += -Wold-style-cast 
 #CXXFLAGS += -Wcast-align 

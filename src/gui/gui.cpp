@@ -1,5 +1,10 @@
 #include "gui.hpp"
 
+
+ALLEGRO_DISPLAY* GameGUI::getAllegroDisplay() {return _display;}
+GameBox* GameGUI::getGameBox() {return _gamebox;}
+std::chrono::high_resolution_clock::time_point GameGUI::getLastUpdate() {return _last_update;}
+
 void GameGUI::drawRectangle(const SolidRectangle& rect, ALLEGRO_COLOR color){
     float x1 = rect.getPosition().getX();
     float y1 = rect.getPosition().getY();
@@ -16,27 +21,27 @@ void GameGUI::drawCircle(const SolidCircle& circle, ALLEGRO_COLOR color){
 
 void GameGUI::updateFPS(){
     auto currentTime = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<float> delta = currentTime - last_update;
+    std::chrono::duration<float> delta = currentTime - getLastUpdate();
     float fps = 0;
-    if (delta.count() > 0){fps = 1/delta.count();}
-    al_set_window_title(display, ("Arkanoid - FPS: " + std::to_string(fps)).c_str());
-    last_update = currentTime;
+    if (delta.count() > 0){fps = 1 / delta.count();}
+    al_set_window_title(getAllegroDisplay(), ("Arkanoid - FPS: " + std::to_string(fps)).c_str());
+    _last_update = currentTime;  // FIX THIS TODO PLEASE MAKE A SETTER
 }
 
 void GameGUI::updateGUI(){
+
     al_clear_to_color(al_map_rgb(0, 0, 0));
+    drawRectangle(getGameBox()->getRacket()->getHitbox(), al_map_rgb(0, 0, 255));
 
-    drawRectangle(gamebox->getRacket()->getHitbox(), al_map_rgb(0, 0, 255));
-
-    for (auto& ball : gamebox->getBalls()) {
+    for (auto& ball : getGameBox()->getBalls()) {
         drawCircle(ball->getHitbox(), al_map_rgb(255, 0, 0));
     }
 
-    for (auto& brick : gamebox->getBricks()) {
+    for (auto& brick : getGameBox()->getBricks()) {
         drawRectangle((*brick).getHitbox(), BRICK_COLORS.at(static_cast<int>((*brick).getBrickType())));
     }
 
-    for (auto& bonus : gamebox->getBonuses()) {
+    for (auto& bonus : getGameBox()->getBonuses()) {
         ALLEGRO_FONT* font = al_create_builtin_font();
         const char* letter = nullptr;
 

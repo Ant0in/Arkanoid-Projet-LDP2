@@ -9,20 +9,20 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
 
+
 class Position2D{
+
     private:
-        float x, y;
+        float _x, _y;
+
     public:
-        Position2D(float x, float y): x{x}, y{y}{}
+        Position2D(float x, float y): _x{x}, _y{y} {}
         ~Position2D() = default;
 
         float getX() const;
         float getY() const;
-
         std::tuple<float, float> coords();
-
         bool operator==(const Position2D& other);
-
         friend std::ostream& operator<<(std::ostream& os, const Position2D& pos);
 };
 

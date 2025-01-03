@@ -13,37 +13,37 @@
 
 class GameEngine{
     public:
-        static const Action handleInputs(GameController& controller);
+        static Action handleInputs(GameController& controller);
 
-        static const void handleActions(GameBox& gamebox, const Action& action);
+        static void handleActions(GameBox& gamebox, const Action& action);
 
-        static const void handleCollisionsWithRacket(GameBox& gamebox);
+        static void handleCollisionsWithRacket(GameBox& gamebox);
 
-        static const std::vector<Brick*> handleCollisionsWithBricks(GameBox& gamebox);
+        static std::vector<Brick*> handleCollisionsWithBricks(GameBox& gamebox);
 
-        static const Position2D calculateBonusSpawnPosition(const Brick& brick, const BonusInterface& bonus);
+        static Position2D calculateBonusSpawnPosition(const Brick& brick, const BonusInterface& bonus);
 
-        static const void handleBricks(GameBox& gamebox, Player& player, std::vector<Brick*> bricks);
+        static void handleBricks(GameBox& gamebox, Player& player, std::vector<Brick*> bricks);
 
-        static const void handleDeadBalls(GameBox& gamebox);
+        static void handleDeadBalls(GameBox& gamebox);
 
-        static const void handleBalls(GameBox& gamebox, Player& player);
+        static void handleBalls(GameBox& gamebox, Player& player);
 
-        static const void handleCollisionWithEntities(GameBox& gamebox, Player& player);
+        static void handleCollisionWithEntities(GameBox& gamebox, Player& player);
 
-        static const void handleBonusLogic(GameBox& gamebox, Player& player);
+        static void handleBonusLogic(GameBox& gamebox, Player& player);
 
-        static const void handleBonus(GameBox& gamebox, Player& player);
+        static void handleBonus(GameBox& gamebox, Player& player);
 
-        static const void handleBallSpawn(GameBox& gamebox);
+        static void handleBallSpawn(GameBox& gamebox);
 
-        static const void handleGameOver(const GameBox& gamebox, const Player& player);
+        static void handleGameOver(const GameBox& gamebox, const Player& player);
 
-        static const void handleWin(const GameBox& gamebox, const Player& player);
+        static void handleWin(const GameBox& gamebox, const Player& player);
 
-        static const void handleGameState(GameBox& gamebox, Player& player);
+        static void handleGameState(GameBox& gamebox, Player& player);
 
-        static const void handleRoutine(GameBox& gamebox, Player& player);
+        static void handleRoutine(GameBox& gamebox, Player& player);
 
 };
 

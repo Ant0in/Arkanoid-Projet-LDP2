@@ -10,18 +10,27 @@
 #include <chrono>
 
 class GameGUI{
+
     private:
-        ALLEGRO_DISPLAY* display;
-        GameBox* gamebox;
-        std::chrono::high_resolution_clock::time_point last_update;
+
+        ALLEGRO_DISPLAY* _display;
+        GameBox* _gamebox;
+        std::chrono::high_resolution_clock::time_point _last_update;
+
     public:
-        GameGUI(ALLEGRO_DISPLAY* display, GameBox* gamebox): display{display}, gamebox{gamebox}, last_update{std::chrono::high_resolution_clock::now()}{}
+
+        GameGUI(ALLEGRO_DISPLAY* display, GameBox* gamebox):
+            _display{display},
+            _gamebox{gamebox},
+            _last_update{std::chrono::high_resolution_clock::now()} {}
+        
         ~GameGUI() = default;
 
+        ALLEGRO_DISPLAY* getAllegroDisplay();
+        GameBox* getGameBox();
+        std::chrono::high_resolution_clock::time_point getLastUpdate();
         void drawRectangle(const SolidRectangle& rect, ALLEGRO_COLOR color);
         void drawCircle(const SolidCircle& circle, ALLEGRO_COLOR color);
-
         void updateFPS();
-
         void updateGUI();
 };
