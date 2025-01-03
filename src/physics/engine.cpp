@@ -1,9 +1,26 @@
 #include "engine.hpp"
 
-Action GameEngine::handleInputs(GameController& controller){return controller.getCurrentAction();}
 
-void GameEngine::handleActions(GameBox& gamebox, const Action& action){
-    gamebox.tryMoveRacket(gamebox.getRacket()->calculateNewPosition(action));
+void GameEngine::handleActions(GameBox& gamebox, Player& player){
+
+    // First, we get the keyboard action if there's one
+    Action action = player.getController().getCurrentAction();
+    // we try to move the racket using keyboard inputs
+    if (action == Action::LEFT || action == Action::RIGHT) {
+
+        gamebox.tryMoveRacket(gamebox.getRacket()->calculateNewPosition(action));
+
+    }
+
+    // and then we try to see if the player has moved the mouse
+    if (player.getController().hasMouseMoved()) {
+        float racketWidth = gamebox.getRacket()->getWidth();
+        float mouseHorizontalAxis = player.getController().getCurrentMousePosition().getX() - (racketWidth / 2);
+        float racketVerticalAxis = gamebox.getRacket()->getPosition().getY();
+        gamebox.tryMoveRacket(Position2D(mouseHorizontalAxis, racketVerticalAxis));
+        player.getController().setHasMouseMoved(false);  // reset the need to move to the position
+    }
+    
 }
 
 void GameEngine::handleCollisionsWithRacket(GameBox& gamebox){
@@ -153,8 +170,7 @@ void GameEngine::handleGameState(GameBox& gamebox, Player& player){
 }
 
 void GameEngine::handleRoutine(GameBox& gamebox, Player& player){
-    Action a = handleInputs(player.getController());
-    handleActions(gamebox, a);
+    handleActions(gamebox, player);
     handleBalls(gamebox, player);
     handleBonus(gamebox, player);
     handleGameState(gamebox, player);

@@ -64,9 +64,12 @@ const std::unordered_map<int, Action> DEFAULT_CONFIG{
 
 
 const int GAME_FRAMERATE = 60;
+const int GAME_WIDTH = 800;
+const int GAME_HEIGHT = 800;
 
 const float BOX_WALLS_THICKNESS = 10.0;
 const Position2D DEFAULT_CORNER_POS = Position2D(0, 0);
+const Position2D DEFAULT_MOUSE_POS = Position2D(GAME_WIDTH / 2, GAME_HEIGHT / 2);
 const int PLAYER_DEFAULT_HEALTH = 3;
 
 const float BALL_X_VELOCITY_DEFAULT = 0.0;

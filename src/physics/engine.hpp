@@ -12,10 +12,12 @@
 
 
 class GameEngine{
+    
     public:
+
         static Action handleInputs(GameController& controller);
 
-        static void handleActions(GameBox& gamebox, const Action& action);
+        static void handleActions(GameBox& gamebox, Player& player);
 
         static void handleCollisionsWithRacket(GameBox& gamebox);
 

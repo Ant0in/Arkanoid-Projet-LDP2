@@ -63,7 +63,11 @@ extern const std::unordered_map<int, int> BRICK_HP;
 extern const std::unordered_map<int, int> BRICK_VALUE;
 
 extern const int GAME_FRAMERATE;
+extern const int GAME_WIDTH;
+extern const int GAME_HEIGHT;
+
 extern const Position2D DEFAULT_CORNER_POS;
+extern const Position2D DEFAULT_MOUSE_POS;
 extern const int PLAYER_DEFAULT_HEALTH;
 
 extern const float BALL_X_VELOCITY_DEFAULT;

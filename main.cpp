@@ -24,9 +24,7 @@ int main() {
     al_install_keyboard();
     al_install_mouse();
 
-    const int WIDTH = 800, HEIGHT = 800;
-
-    ALLEGRO_DISPLAY* display = al_create_display(WIDTH, HEIGHT);
+    ALLEGRO_DISPLAY* display = al_create_display(GAME_WIDTH, GAME_HEIGHT);
     if (!display) {
         fprintf(stderr, "Erreur : Impossible de créer la fenêtre.\n");
         return -1;
@@ -44,10 +42,10 @@ int main() {
     al_register_event_source(event_queue, al_get_display_event_source(display));
     al_register_event_source(event_queue, al_get_timer_event_source(timer));
     al_register_event_source(event_queue, al_get_mouse_event_source());
-
+    al_register_event_source(event_queue, al_get_keyboard_event_source());
     al_start_timer(timer);
 
-    GameBox* gamebox = new GameBox(Position2D(0, 0), WIDTH, HEIGHT,
+    GameBox* gamebox = new GameBox(DEFAULT_CORNER_POS, static_cast<float>(GAME_WIDTH), static_cast<float>(GAME_HEIGHT),
         std::vector<Ball*>{new Ball(Position2D(400, 450))},
         new Racket(Position2D(300, 700), 200, 20, 10));
 
@@ -76,40 +74,55 @@ int main() {
     }
 
     GameController controller = GameController();
-    Player* player = new Player(3, controller);
+    Player* player = new Player(PLAYER_DEFAULT_HEALTH, controller);
     GameGUI gui = GameGUI(display, gamebox, player);
 
     bool running = true;
-
-    int lastMouseX = 0;
-
     while (running) {
+
         ALLEGRO_EVENT event;
         al_wait_for_event(event_queue, &event);
 
         if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
+            // on quit
             running = false;
+
+        } else if (event.type == ALLEGRO_EVENT_KEY_DOWN) {
+            // on key press
+            player->getController().updateUserAction(event.keyboard.keycode); 
+
+        } else if (event.type == ALLEGRO_EVENT_KEY_UP) {
+            // on key release
+            player->getController().updateUserAction(0); 
+
         } else if (event.type == ALLEGRO_EVENT_MOUSE_AXES) {
-            if (event.mouse.x > lastMouseX) {
-            player->getController().updateUserAction(ALLEGRO_KEY_RIGHT);
-            } else if (event.mouse.x < lastMouseX) {
-                player->getController().updateUserAction(ALLEGRO_KEY_LEFT);
-            }
-            lastMouseX = event.mouse.x;
+            // on mouse move
+            player->getController().updateMousePosition(
+                Position2D(
+                    static_cast<float>(event.mouse.x),
+                    static_cast<float>(event.mouse.y)
+                )
+            );
+
         } else if (event.type == ALLEGRO_EVENT_TIMER) {
+            // on timer (handling game physics)
             GameEngine::handleRoutine(*gamebox, *player);
             gui.updateGUI();
             al_flip_display();
         }
+
     }
 
-    delete gamebox;
-
+    // Destroying stuff at the end
     al_destroy_event_queue(event_queue);
     al_uninstall_keyboard();
     al_destroy_timer(timer);
     al_destroy_display(display);
     al_uninstall_system();
 
+    delete gamebox;
+    // delete player;
+
     return 0;
+
 }
