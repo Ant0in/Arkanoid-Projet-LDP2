@@ -56,6 +56,7 @@ enum class WallType{
     TOP = 4
 };
 
+extern const std::unordered_map<int, Action> DEFAULT_CONFIG;
 extern const std::unordered_map<int, ALLEGRO_COLOR> BRICK_COLORS;
 extern const std::unordered_map<int, int> BRICK_HP;
 extern const std::unordered_map<int, int> BRICK_VALUE;

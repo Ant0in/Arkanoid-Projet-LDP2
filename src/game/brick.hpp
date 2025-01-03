@@ -8,15 +8,22 @@
 class BonusInterface;
 
 class Brick{
+
     private:
-        Position2D position;
-        float width, height;
-        BrickType btype;
-        BonusInterface* bonus;
-        SolidRectangle hitbox;
-        int hp;
+
+        BrickType _btype;
+        BonusInterface* _bonus;
+        SolidRectangle _hitbox;
+        int _hp;
+
     public:
-        Brick(const Position2D& position, float width, float height, const BrickType& btype, BonusInterface* bonus = nullptr): position{position}, width{width}, height{height}, btype{btype}, bonus{bonus}, hitbox{SolidRectangle(position, width, height)}, hp{getBrickHpByType(btype)}{};
+
+        Brick(const Position2D& position, float width, float height, const BrickType& btype, BonusInterface* bonus = nullptr):
+            _btype{btype},
+            _bonus{bonus},
+            _hitbox{SolidRectangle(position, width, height)},
+            _hp{getBrickHpByType(btype)} {};
+
         ~Brick() = default;
         
         static int getBrickHpByType(const BrickType& btype);

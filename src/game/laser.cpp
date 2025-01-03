@@ -1,7 +1,7 @@
 #include "laser.hpp"
 
-SolidRectangle& Laser::getHitbox(){return hitbox;}
-const SolidRectangle& Laser::getHitbox() const{return hitbox;}
+SolidRectangle& Laser::getHitbox(){return _hitbox;}
+const SolidRectangle& Laser::getHitbox() const{return _hitbox;}
 
 Position2D Laser::getPosition() const{return getHitbox().getPosition();}
 void Laser::setPosition(const Position2D& p){getHitbox().setPosition(p);}

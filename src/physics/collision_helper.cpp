@@ -2,6 +2,7 @@
 
 
 bool CollisionHelper::isColliding(const SolidInterface& solid1, const SolidInterface& solid2) {
+    
     const SolidRectangle* rect1 = dynamic_cast<const SolidRectangle*>(&solid1);
     const SolidRectangle* rect2 = dynamic_cast<const SolidRectangle*>(&solid2);
     const SolidCircle* circ1 = dynamic_cast<const SolidCircle*>(&solid1);

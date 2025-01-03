@@ -7,23 +7,22 @@
 #include "../common.hpp"
 
 class GameController{
+    
     private:
-        std::unordered_map<int, Action> DEFAULT;
-        std::unordered_map<int, Action> config;
-        Action currentAction;
+
+        std::unordered_map<int, Action> _config;
+        Action _currentAction;
+
     public:
-        GameController(const std::unordered_map<int, Action>& userConfig): config{userConfig}, currentAction{Action::NONE}{}
-        GameController(): currentAction{Action::NONE}{
-            DEFAULT[ALLEGRO_KEY_LEFT] = Action::LEFT;
-            DEFAULT[ALLEGRO_KEY_RIGHT] = Action::RIGHT;
-            config = DEFAULT;
-        }
+        
+        GameController(const std::unordered_map<int, Action>& userConfig = DEFAULT_CONFIG):
+            _config{userConfig},
+            _currentAction{Action::NONE} {}
+
         ~GameController() = default;
 
         Action getCurrentAction();
         void setCurrentAction(const Action& action);
-
         const std::unordered_map<int, Action>& getConfig() const;
-
         void updateUserAction(int keyCode = 0);
 };  

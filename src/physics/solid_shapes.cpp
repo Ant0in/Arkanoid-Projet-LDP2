@@ -1,14 +1,14 @@
 #include "solid_shapes.hpp"
 
 
-Position2D SolidRectangle::getPosition() const {return position;}
-void SolidRectangle::setPosition(const Position2D& pos) {position = pos;}
+Position2D SolidRectangle::getPosition() const {return _position;}
+void SolidRectangle::setPosition(const Position2D& pos) {_position = pos;}
 
-float SolidRectangle::getHeight() const {return height;}
-float SolidRectangle::getWidth() const {return width;}
+float SolidRectangle::getHeight() const {return _height;}
+float SolidRectangle::getWidth() const {return _width;}
 
-void SolidRectangle::setHeight(float h) {height = h;}
-void SolidRectangle::setWidth(float w) {width = w;}
+void SolidRectangle::setHeight(float h) {_height = h;}
+void SolidRectangle::setWidth(float w) {_width = w;}
 
 std::vector<Position2D> SolidRectangle::getCorners() const {
     Position2D top_left = getPosition();
@@ -38,11 +38,11 @@ bool SolidRectangle::operator==(const SolidRectangle& other) const{
 }
 
 
-Position2D SolidCircle::getPosition() const {return position;}
-void SolidCircle::setPosition(const Position2D& pos) {position = pos;}
+Position2D SolidCircle::getPosition() const {return _position;}
+void SolidCircle::setPosition(const Position2D& pos) {_position = pos;}
 
-float SolidCircle::getRadius() const {return radius;};
-void SolidCircle::setRadius(float rad) {radius = rad;}
+float SolidCircle::getRadius() const {return _radius;};
+void SolidCircle::setRadius(float rad) {_radius = rad;}
 
 bool SolidCircle::isPointInSolid(const Position2D& point) const {
     Position2D center = getPosition();

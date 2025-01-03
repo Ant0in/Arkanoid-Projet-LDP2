@@ -1,11 +1,11 @@
 #include "bonus.hpp"
 
-SolidRectangle& BonusInterface::getHitbox(){return hitbox;}
-const SolidRectangle& BonusInterface::getHitbox() const {return hitbox;}
+SolidRectangle& BonusInterface::getHitbox(){return _hitbox;}
+const SolidRectangle& BonusInterface::getHitbox() const {return _hitbox;}
 
 float BonusInterface::getSize() const{
     assert (getHitbox().getHeight() == getHitbox().getWidth()); 
-    return getHitbox().getHeight();
+    return getHitbox().getHeight();  // arbitrairement height
 }
 void BonusInterface::setSize(float s){
     getHitbox().setHeight(s);
@@ -15,19 +15,19 @@ void BonusInterface::setSize(float s){
 Position2D BonusInterface::getPosition() const{return getHitbox().getPosition();}
 void BonusInterface::setPosition(const Position2D& p){getHitbox().setPosition(p);}
 
-bool BonusInterface::isSpawned() const{return is_spawned;}
-void BonusInterface::setSpawned(bool flag){is_spawned = flag;}
+bool BonusInterface::isSpawned() const{return _is_spawned;}
+void BonusInterface::setSpawned(bool flag){_is_spawned = flag;}
 
-bool BonusInterface::isActive() const{return is_active;}
-void BonusInterface::setActive(bool flag){is_active = flag;}
+bool BonusInterface::isActive() const{return _is_active;}
+void BonusInterface::setActive(bool flag){_is_active = flag;}
 
-int BonusInterface::getDuration() const{return active_duration;}
-void BonusInterface::setDuration(int d){active_duration = d;}
+int BonusInterface::getDuration() const{return _active_duration;}
+void BonusInterface::setDuration(int d){_active_duration = d;}
 
-float BonusInterface::getFallingSpeed() const{return falling_speed;}
-void BonusInterface::setFallingSpeed(float s){falling_speed = s;}
+float BonusInterface::getFallingSpeed() const{return _falling_speed;}
+void BonusInterface::setFallingSpeed(float s){_falling_speed = s;}
 
-void BonusInterface::incrementDuration(int incr){active_duration = getDuration() + incr;}
+void BonusInterface::incrementDuration(int incr){_active_duration = getDuration() + incr;}
 
 void BonusInterface::spawnBonus(const Position2D& p){
     setPosition(p);

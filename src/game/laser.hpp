@@ -5,12 +5,16 @@
 #include "../common.hpp"
 
 class Laser{
+
     private:
-        Position2D pos;
-        SolidRectangle hitbox;
+
+        SolidRectangle _hitbox;
 
     public:
-        Laser(const Position2D& pos): pos{pos}, hitbox{SolidRectangle(pos, LASER_THICKNESS, LASER_LENGTH)}{}
+
+        Laser(const Position2D& pos):
+            _hitbox{SolidRectangle(pos, LASER_THICKNESS, LASER_LENGTH)} {}
+
         ~Laser() = default;
 
         SolidRectangle& getHitbox();

@@ -5,17 +5,24 @@
 #include <tuple>
 
 class Ball{
-    private:
-        Position2D center;
-        float radius;
-        SolidCircle hitbox;
 
-        float speed;
-        float x_velocity;
-        float y_velocity;
-        bool is_alive;
+    private:
+        
+        SolidCircle _hitbox;
+        float _speed;
+        float _x_velocity;
+        float _y_velocity;
+        bool _is_alive;
+
     public:
-        Ball(const Position2D& center, float radius = BALL_RADIUS, float speed = BALL_SPEED): center{center}, radius{radius}, hitbox{SolidCircle(center, radius)}, speed{speed},  x_velocity{0.0}, y_velocity{1.0}, is_alive{true}{}
+
+        Ball(const Position2D& center, float radius = BALL_RADIUS, float speed = BALL_SPEED):
+            _hitbox{SolidCircle(center, radius)},
+            _speed{speed},
+            _x_velocity{0.0},
+            _y_velocity{1.0},
+            _is_alive{true} {}
+
         ~Ball() = default;
 
         Position2D getCenterPosition() const;

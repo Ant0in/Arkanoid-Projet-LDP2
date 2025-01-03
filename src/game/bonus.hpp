@@ -12,17 +12,24 @@ class GameBox;
 class Player;
 
 class BonusInterface{
+
     private:
-        Position2D pos;
-        float size;
-        int active_duration;
-        float falling_speed;
-        bool is_active;
-        bool is_spawned;
-        SolidRectangle hitbox;
+
+        int _active_duration;
+        float _falling_speed;
+        bool _is_active;
+        bool _is_spawned;
+        SolidRectangle _hitbox;
 
     public:
-        BonusInterface(const Position2D& pos, float size, int active_duration, float falling_speed, bool is_active = false, bool is_spawned = false): pos{pos}, size{size}, active_duration{active_duration}, falling_speed{falling_speed}, is_active{is_active}, is_spawned{is_spawned}, hitbox{SolidRectangle(pos, size, size)}{}
+
+        BonusInterface(const Position2D& pos, float size, int active_duration, float falling_speed, bool is_active = false, bool is_spawned = false):
+            _active_duration{active_duration},
+            _falling_speed{falling_speed},
+            _is_active{is_active},
+            _is_spawned{is_spawned},
+            _hitbox{SolidRectangle(pos, size, size)} {}
+
         ~BonusInterface() = default;
 
         SolidRectangle& getHitbox();

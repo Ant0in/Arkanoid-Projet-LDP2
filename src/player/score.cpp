@@ -1,7 +1,7 @@
 #include "score.hpp"
 
-int Score::getValue() const {return value;}
-void Score::setValue(int v) {value = v;}
+int Score::getValue() const {return _value;}
+void Score::setValue(int v) {_value = v;}
 
 void Score::addScore(int increment){
     int new_value = getValue() + increment;
@@ -9,6 +9,6 @@ void Score::addScore(int increment){
 }
 
 std::ostream& operator<<(std::ostream& os, Score& score) {
-        os << "Score: " << score.getValue();
-        return os;
-    }
+    os << "Score: " << score.getValue();
+    return os;
+}

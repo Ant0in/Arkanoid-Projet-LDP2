@@ -4,13 +4,18 @@
 #include "../common.hpp"
 
 class Racket{
+
     private:
-        Position2D position;
-        float width, height;
-        SolidRectangle hitbox;
-        float sensibility;
+
+        SolidRectangle _hitbox;
+        float _sensibility;
+
     public:
-        Racket(const Position2D& position, float width, float height, float sensibility): position{position}, width{width}, height{height}, hitbox{SolidRectangle(position, width, height)}, sensibility{sensibility}{}
+
+        Racket(const Position2D& position, float width, float height, float sensibility):
+            _hitbox{SolidRectangle(position, width, height)},
+            _sensibility{sensibility} {}
+
         ~Racket() = default;
         
         Position2D getPosition() const;

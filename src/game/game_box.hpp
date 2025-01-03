@@ -15,25 +15,35 @@ class Brick;
 class BonusInterface;
 
 class GameBox{
-    private:
-        Position2D position;
-        float width, height;
 
-        std::vector<Ball*> balls;
-        Racket* racket;
-        SolidRectangle hitbox;
-        std::vector<Brick*> bricks;
-        std::vector<BonusInterface*> bonuses;
+    private:
+
+        std::vector<Ball*> _balls;
+        Racket* _racket;
+        SolidRectangle _hitbox;
+        std::vector<Brick*> _bricks;
+        std::vector<BonusInterface*> _bonuses;
 
         // Walls
-        SolidRectangle leftWall;
-        SolidRectangle rightWall;
-        SolidRectangle topWall;
-        SolidRectangle bottomWall;
+        SolidRectangle _leftWall;
+        SolidRectangle _rightWall;
+        SolidRectangle _topWall;
+        SolidRectangle _bottomWall;
 
     public:
-        GameBox(Position2D position, float width, float height, std::vector<Ball*> balls, Racket* racket,  std::vector<Brick*> bricks = {}, std::vector<BonusInterface*> bonuses = {})
-        : position{position}, width{width}, height{height}, balls{balls}, racket{racket}, hitbox{SolidRectangle(position, height, width)}, bricks{bricks}, bonuses{bonuses}, leftWall{SolidRectangle(Position2D(0, 0), 0, 0)}, rightWall{SolidRectangle(Position2D(0, 0), 0, 0)}, topWall{SolidRectangle(Position2D(0, 0), 0, 0)}, bottomWall{SolidRectangle(Position2D(0, 0), 0, 0)}{initializeWalls();};
+
+        GameBox(Position2D position, float width, float height, std::vector<Ball*> balls, Racket* racket,  std::vector<Brick*> bricks = {}, std::vector<BonusInterface*> bonuses = {}):
+            _balls{balls},
+            _racket{racket},
+            _hitbox{SolidRectangle(position, height, width)},
+            _bricks{bricks},
+            _bonuses{bonuses},
+            // walls
+            _leftWall{SolidRectangle(Position2D(0, 0), 0, 0)},
+            _rightWall{SolidRectangle(Position2D(0, 0), 0, 0)},
+            _topWall{SolidRectangle(Position2D(0, 0), 0, 0)},
+            _bottomWall{SolidRectangle(Position2D(0, 0), 0, 0)} {initializeWalls();};
+        
         ~GameBox() = default;
 
         SolidRectangle& getHitbox();

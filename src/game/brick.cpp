@@ -10,8 +10,8 @@ int Brick::getBrickHpByType(const BrickType& btype){
     }
 }
 
-SolidRectangle& Brick::getHitbox() {return hitbox;}
-const SolidRectangle& Brick::getHitbox() const {return hitbox;}
+SolidRectangle& Brick::getHitbox() {return _hitbox;}
+const SolidRectangle& Brick::getHitbox() const {return _hitbox;}
 
 Position2D Brick::getPosition() const {return getHitbox().getPosition();}
 void Brick::setPosition(const Position2D& pos) {getHitbox().setPosition(pos);}
@@ -22,15 +22,15 @@ float Brick::getWidth() const {return getHitbox().getWidth();}
 void Brick::setHeight(float h) {getHitbox().setHeight(h);}
 void Brick::setWidth(float w) {getHitbox().setWidth(w);}
 
-BrickType Brick::getBrickType() const {return btype;}
+BrickType Brick::getBrickType() const {return _btype;}
 
-int Brick::getHP() const {return hp;}
-void Brick::setHP(int v) {hp =v;}
+int Brick::getHP() const {return _hp;}
+void Brick::setHP(int v) {_hp =v;}
 
-BonusInterface* Brick::getBonus() const{return bonus;}
-void Brick::setBonus(BonusInterface* b) {bonus = b;}
+BonusInterface* Brick::getBonus() const{return _bonus;}
+void Brick::setBonus(BonusInterface* b) {_bonus = b;}
 
-bool Brick::doesBrickContainBonus() const{return (bonus);}
+bool Brick::doesBrickContainBonus() const{return (_bonus);}
 
 Position2D Brick::getCenterPosition() const{return getHitbox().getCenterPosition();}
 

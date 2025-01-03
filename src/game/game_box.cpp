@@ -1,7 +1,7 @@
 #include "game_box.hpp"
 
-SolidRectangle& GameBox::getHitbox(){return hitbox;}
-const SolidRectangle& GameBox::getHitbox() const{return hitbox;}
+SolidRectangle& GameBox::getHitbox(){return _hitbox;}
+const SolidRectangle& GameBox::getHitbox() const{return _hitbox;}
 
 Position2D GameBox::getPosition() const {return getHitbox().getPosition();}
 
@@ -13,14 +13,14 @@ void GameBox::initializeWalls(){
     float w = getWidth();
     float h = getHeight();
 
-    leftWall = SolidRectangle(Position2D(p.getX() - BOX_WALLS_THICKNESS, p.getY()), BOX_WALLS_THICKNESS, h);
-    rightWall = SolidRectangle(Position2D(p.getX() + w, p.getY()), BOX_WALLS_THICKNESS, h);
-    topWall = SolidRectangle(Position2D(p.getX(), p.getY() - BOX_WALLS_THICKNESS), w, BOX_WALLS_THICKNESS);
-    bottomWall = SolidRectangle(Position2D(p.getX(), p.getY() + h), w, BOX_WALLS_THICKNESS);
+    _leftWall = SolidRectangle(Position2D(p.getX() - BOX_WALLS_THICKNESS, p.getY()), BOX_WALLS_THICKNESS, h);
+    _rightWall = SolidRectangle(Position2D(p.getX() + w, p.getY()), BOX_WALLS_THICKNESS, h);
+    _topWall = SolidRectangle(Position2D(p.getX(), p.getY() - BOX_WALLS_THICKNESS), w, BOX_WALLS_THICKNESS);
+    _bottomWall = SolidRectangle(Position2D(p.getX(), p.getY() + h), w, BOX_WALLS_THICKNESS);
 }
 
 std::vector<BonusInterface*>& GameBox::getBonuses() {
-    return bonuses;
+    return _bonuses;
 }
 
 void GameBox::addBonus(BonusInterface* b){
@@ -36,10 +36,10 @@ void GameBox::removeBonus(BonusInterface* b){
     }
 }
 
-std::vector<Brick*>& GameBox::getBricks() {return bricks;}
+std::vector<Brick*>& GameBox::getBricks() {return _bricks;}
 
 void GameBox::addBrick(Brick* brick){
-    bricks.push_back(brick);
+    getBricks().push_back(brick);
 }
 
 void GameBox::removeBrick(Brick* brick){
@@ -51,7 +51,7 @@ void GameBox::removeBrick(Brick* brick){
     }
 }
 
-std::vector<Ball*>& GameBox::getBalls() {return balls;}
+std::vector<Ball*>& GameBox::getBalls() {return _balls;}
 bool GameBox::isBallVectorEmpty() {return getBalls().size() == 0;}
 bool GameBox::doesPlayerHaveMultipleBalls() {return getBalls().size() > 1;}
 
@@ -68,13 +68,13 @@ void GameBox::removeBall(Ball* b){
     }
 }
 
-Racket* GameBox::getRacket() const {return racket;}
-void GameBox::setRacket(Racket* r) {racket = r;}
+Racket* GameBox::getRacket() const {return _racket;}
+void GameBox::setRacket(Racket* r) {_racket = r;}
 
-SolidRectangle& GameBox::getLeftWall() {return leftWall;}
-SolidRectangle& GameBox::getRightWall() {return rightWall;}
-SolidRectangle& GameBox::getTopWall() {return topWall;}
-SolidRectangle& GameBox::getBottomWall() {return bottomWall;}
+SolidRectangle& GameBox::getLeftWall() {return _leftWall;}
+SolidRectangle& GameBox::getRightWall() {return _rightWall;}
+SolidRectangle& GameBox::getTopWall() {return _topWall;}
+SolidRectangle& GameBox::getBottomWall() {return _bottomWall;}
 
 bool GameBox::isPositionOutOfBounds(const Position2D& pos) const{
     // checks if position in GameBox, if not -> returns true
