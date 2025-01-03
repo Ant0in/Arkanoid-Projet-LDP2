@@ -33,8 +33,8 @@ int main() {
     al_install_mouse();
 
     ALLEGRO_DISPLAY* display = al_create_display(
-        static_cast<int>(GAME_WIDTH + LEFT_BORDER_WIDTH + RIGHT_BORDER_WIDTH),
-        static_cast<int>(GAME_HEIGHT + UPPER_BORDER_HEIGHT + LOWER_BORDER_HEIGHT)
+        static_cast<int>(GAME_WIDTH + 2 * BOX_WALLS_THICKNESS),
+        static_cast<int>(GAME_HEIGHT + BOX_WALLS_THICKNESS)
     );
     
     if (!display) {

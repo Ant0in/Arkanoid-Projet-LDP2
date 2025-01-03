@@ -69,6 +69,8 @@ extern const std::unordered_map<BrickType, std::string> BRICK_TEXTURE_PATH;
 extern const int GAME_FRAMERATE;
 extern const float GAME_WIDTH;
 extern const float GAME_HEIGHT;
+extern const std::string BACKGROUND_TEXTURE_PATH;
+extern const std::string SIDE_WALLS_TEXTURE_PATH;
 
 extern const float UPPER_BORDER_HEIGHT;
 extern const float LOWER_BORDER_HEIGHT; 

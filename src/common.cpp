@@ -90,16 +90,13 @@ const std::unordered_map<BrickType, std::string> BRICK_TEXTURE_PATH = {
 const int GAME_FRAMERATE = 60;
 const float GAME_WIDTH = 800;
 const float GAME_HEIGHT = 800;
-
-const float UPPER_BORDER_HEIGHT = 20.0;
-const float LOWER_BORDER_HEIGHT = 20.0;
-const float LEFT_BORDER_WIDTH = 20.0;
-const float RIGHT_BORDER_WIDTH = 20.0;
+const std::string BACKGROUND_TEXTURE_PATH = "./assets/bg.png";
+const std::string SIDE_WALLS_TEXTURE_PATH = "./assets/wall.png";
 
 const ALLEGRO_COLOR DEFAULT_BACKGROUND_COLOR = al_map_rgb(0x00, 0x00, 0x00);
 const ALLEGRO_COLOR DEFAULT_FONT_COLOR = al_map_rgb(255, 255, 255);
 
-const float BOX_WALLS_THICKNESS = 10.0;
+const float BOX_WALLS_THICKNESS = 40.0;
 const Position2D DEFAULT_CORNER_POS = Position2D(0, 0);
 const Position2D DEFAULT_MOUSE_POS = Position2D(GAME_WIDTH / 2, GAME_HEIGHT / 2);
 const int PLAYER_DEFAULT_HEALTH = 30;

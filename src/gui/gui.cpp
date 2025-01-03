@@ -12,11 +12,9 @@ std::chrono::high_resolution_clock::time_point GameGUI::getLastUpdate() {return 
 
 void GameGUI::setLastUpdate(std::chrono::high_resolution_clock::time_point up) {_last_update = up;}
 
-
-
 void GameGUI::drawRectangle(const SolidRectangle& rect, ALLEGRO_COLOR color){
-    float x1 = rect.getPosition().getX() + LEFT_BORDER_WIDTH;
-    float y1 = rect.getPosition().getY() + UPPER_BORDER_HEIGHT;
+    float x1 = rect.getPosition().getX() + BOX_WALLS_THICKNESS;
+    float y1 = rect.getPosition().getY() + BOX_WALLS_THICKNESS;
     float x2 = x1 + rect.getWidth();
     float y2 = y1 + rect.getHeight();
     al_draw_filled_rectangle(x1, y1, x2, y2, color);
@@ -24,8 +22,8 @@ void GameGUI::drawRectangle(const SolidRectangle& rect, ALLEGRO_COLOR color){
 
 void GameGUI::drawRectangleWithTexture(const SolidRectangle& rect, const std::string& texturePath){
     
-    float x1 = rect.getPosition().getX() + LEFT_BORDER_WIDTH;
-    float y1 = rect.getPosition().getY() + UPPER_BORDER_HEIGHT;
+    float x1 = rect.getPosition().getX() + BOX_WALLS_THICKNESS;
+    float y1 = rect.getPosition().getY() + BOX_WALLS_THICKNESS;
 
     ALLEGRO_BITMAP* racketTexture = TextureManager::getTexture(texturePath);
     if (racketTexture) {
@@ -37,8 +35,8 @@ void GameGUI::drawRectangleWithTexture(const SolidRectangle& rect, const std::st
 }
 
 void GameGUI::drawCircle(const SolidCircle& circle, ALLEGRO_COLOR color){
-    float x = circle.getPosition().getX() + LEFT_BORDER_WIDTH;
-    float y = circle.getPosition().getY() + UPPER_BORDER_HEIGHT;
+    float x = circle.getPosition().getX() + BOX_WALLS_THICKNESS;
+    float y = circle.getPosition().getY() + BOX_WALLS_THICKNESS;
     float radius = circle.getRadius();
     al_draw_filled_circle(x, y, radius, color);
 }
@@ -70,7 +68,10 @@ void GameGUI::drawStatistics() {
 }
 
 void GameGUI::drawBoard() {
-
+    // First we do the background and then walls
+    drawRectangleWithTexture(getGameBox()->getHitbox(), BACKGROUND_TEXTURE_PATH);
+    drawRectangleWithTexture(getGameBox()->getLeftWall(), SIDE_WALLS_TEXTURE_PATH);
+    drawRectangleWithTexture(getGameBox()->getRightWall(), SIDE_WALLS_TEXTURE_PATH);
 }
 
 void GameGUI::drawBricks() {
