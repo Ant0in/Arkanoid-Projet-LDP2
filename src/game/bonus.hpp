@@ -30,7 +30,7 @@ class BonusInterface{
             _is_spawned{is_spawned},
             _hitbox{SolidRectangle(pos, size, size)} {}
 
-        ~BonusInterface() = default;
+        virtual ~BonusInterface() = default;
 
         SolidRectangle& getHitbox();
         const SolidRectangle& getHitbox() const;
@@ -70,7 +70,7 @@ class DuplicationBonus: public BonusInterface{
     public:
         DuplicationBonus(const Position2D& pos = BONUS_DEFAULT_POS, float size = BONUS_SIZE, int active_duration = 1, float falling_speed = BONUS_FALLING_SPEED, bool is_active = false, bool is_spawned = false)
         : BonusInterface(pos, size, active_duration, falling_speed, is_active, is_spawned){}
-        ~DuplicationBonus() = default;
+        virtual ~DuplicationBonus() = default;
 
         static std::tuple<float, float> rotate_velocity(float vx, float vy, float alpha);
 
@@ -81,7 +81,7 @@ class PlayerBonus: public BonusInterface{
     public:
         PlayerBonus(const Position2D& pos = BONUS_DEFAULT_POS, float size = BONUS_SIZE, int active_duration = 1, float falling_speed = BONUS_FALLING_SPEED, bool is_active = false, bool is_spawned = false)
         : BonusInterface(pos, size, active_duration, falling_speed, is_active, is_spawned){}
-        ~PlayerBonus() = default;
+        virtual ~PlayerBonus() = default;
 
         void applyLogic(GameBox& gb, Player& player);
 };
@@ -90,7 +90,7 @@ class ResizeBonus: public BonusInterface{
     public:
         ResizeBonus(const Position2D& pos = BONUS_DEFAULT_POS, float size = BONUS_SIZE, int active_duration = 1, float falling_speed = BONUS_FALLING_SPEED, bool is_active = false, bool is_spawned = false)
         : BonusInterface(pos, size, active_duration, falling_speed, is_active, is_spawned){}
-        ~ResizeBonus() = default;
+        virtual ~ResizeBonus() = default;
     
         void applyLogic(GameBox& gb, Player& player);
 };
