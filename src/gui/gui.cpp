@@ -39,29 +39,35 @@ void GameGUI::updateGUI(){
 
     for (auto& brick : getGameBox()->getBricks()) {
         drawRectangle((*brick).getHitbox(), BRICK_COLORS.at(static_cast<int>((*brick).getBrickType())));
-    }
 
-    for (auto& bonus : getGameBox()->getBonuses()) {
         ALLEGRO_FONT* font = al_create_builtin_font();
         const char* letter = nullptr;
 
-        if (dynamic_cast<ResizeBonus*>(bonus)) {
-            drawRectangle((*bonus).getHitbox(), al_map_rgb(0, 0, 255)); 
+        if (dynamic_cast<ResizeBonus*>(brick->getBonus())) {
             letter = "R";
-        } else if (dynamic_cast<PlayerBonus*>(bonus)) {
-            drawRectangle((*bonus).getHitbox(), al_map_rgb(128, 128, 128)); 
+        } else if (dynamic_cast<PlayerBonus*>(brick->getBonus())) {
             letter = "P";
-        } else if (dynamic_cast<DuplicationBonus*>(bonus)) {
-            drawRectangle((*bonus).getHitbox(), al_map_rgb(43, 255, 255));
+        } else if (dynamic_cast<DuplicationBonus*>(brick->getBonus())) {
             letter = "D";
         }
 
         if (letter) {
-            SolidRectangle hitbox = bonus->getHitbox();
+            SolidRectangle hitbox = brick->getHitbox();
             float centerX = hitbox.getPosition().getX() + hitbox.getWidth() / 2;
             float centerY = hitbox.getPosition().getY() + hitbox.getHeight() / 2;
 
             al_draw_text(font, al_map_rgb(255, 255, 255), centerX, centerY, ALLEGRO_ALIGN_CENTER, letter);
+        }
+    }
+
+    for (auto& bonus : getGameBox()->getBonuses()) {
+
+        if (dynamic_cast<ResizeBonus*>(bonus)) {
+            drawRectangle((*bonus).getHitbox(), al_map_rgb(0, 0, 255)); 
+        } else if (dynamic_cast<PlayerBonus*>(bonus)) {
+            drawRectangle((*bonus).getHitbox(), al_map_rgb(128, 128, 128)); 
+        } else if (dynamic_cast<DuplicationBonus*>(bonus)) {
+            drawRectangle((*bonus).getHitbox(), al_map_rgb(43, 255, 255));
         }
     }
 
