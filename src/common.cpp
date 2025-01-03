@@ -96,7 +96,7 @@ const std::string SIDE_WALLS_TEXTURE_PATH = "./assets/wall.png";
 const ALLEGRO_COLOR DEFAULT_BACKGROUND_COLOR = al_map_rgb(0x00, 0x00, 0x00);
 const ALLEGRO_COLOR DEFAULT_FONT_COLOR = al_map_rgb(255, 255, 255);
 
-const float BOX_WALLS_THICKNESS = 40.0;
+const float BOX_WALLS_THICKNESS = 45.0;
 const Position2D DEFAULT_CORNER_POS = Position2D(0, 0);
 const Position2D DEFAULT_MOUSE_POS = Position2D(GAME_WIDTH / 2, GAME_HEIGHT / 2);
 const int PLAYER_DEFAULT_HEALTH = 30;

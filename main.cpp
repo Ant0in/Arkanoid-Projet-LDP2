@@ -108,6 +108,8 @@ int main() {
     std::cout << "Exiting..." << std::endl;
 
     // Destroying stuff at the end
+    TextureManager::releaseAllTextures();
+    
     al_destroy_event_queue(event_queue);
     al_uninstall_keyboard();
     al_destroy_timer(timer);
@@ -116,10 +118,7 @@ int main() {
 
     delete gamebox;
     delete player;
-
-    // TODO : fix le segfault du release des bitmaps
-    TextureManager::releaseAllTextures();
-
+    
     return 0;
 
 }

@@ -27,10 +27,10 @@ void GameGUI::drawRectangleWithTexture(const SolidRectangle& rect, const std::st
 
     ALLEGRO_BITMAP* racketTexture = TextureManager::getTexture(texturePath);
     if (racketTexture) {
-    al_draw_scaled_bitmap(
-        racketTexture, 0, 0,
-        al_get_bitmap_width(racketTexture), al_get_bitmap_height(racketTexture),
-        x1, y1, rect.getWidth(), rect.getHeight(), 0);
+        al_draw_scaled_bitmap(
+            racketTexture, 0, 0,
+            static_cast<float>(al_get_bitmap_width(racketTexture)), static_cast<float>(al_get_bitmap_height(racketTexture)),
+            x1, y1, rect.getWidth(), rect.getHeight(), 0);
     }
 }
 
@@ -57,7 +57,6 @@ void GameGUI::clearScreen() {
     al_clear_to_color(DEFAULT_BACKGROUND_COLOR);
 }
 
-
 void GameGUI::drawStatistics() {
 
     std::string score = "Score: " + std::to_string(getPlayer()->getScore().getValue());
@@ -68,10 +67,11 @@ void GameGUI::drawStatistics() {
 }
 
 void GameGUI::drawBoard() {
-    // First we do the background and then walls
+    // First we do the background and then walls ans finally ceilling
     drawRectangleWithTexture(getGameBox()->getHitbox(), BACKGROUND_TEXTURE_PATH);
     drawRectangleWithTexture(getGameBox()->getLeftWall(), SIDE_WALLS_TEXTURE_PATH);
     drawRectangleWithTexture(getGameBox()->getRightWall(), SIDE_WALLS_TEXTURE_PATH);
+    drawRectangleWithTexture(getGameBox()->getTopWall(), "./assets/top.png");
 }
 
 void GameGUI::drawBricks() {
