@@ -85,6 +85,7 @@ const float LEFT_BORDER_WIDTH = 20.0;
 const float RIGHT_BORDER_WIDTH = 20.0;
 
 const ALLEGRO_COLOR DEFAULT_BACKGROUND_COLOR = al_map_rgb(0x00, 0x00, 0x00);
+const ALLEGRO_COLOR DEFAULT_FONT_COLOR = al_map_rgb(255, 255, 255);
 
 const float BOX_WALLS_THICKNESS = 10.0;
 const Position2D DEFAULT_CORNER_POS = Position2D(0, 0);

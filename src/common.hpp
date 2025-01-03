@@ -75,6 +75,7 @@ extern const float LEFT_BORDER_WIDTH;
 extern const float RIGHT_BORDER_WIDTH; 
 
 extern const ALLEGRO_COLOR DEFAULT_BACKGROUND_COLOR;
+extern const ALLEGRO_COLOR DEFAULT_FONT_COLOR;
 
 extern const Position2D DEFAULT_CORNER_POS;
 extern const Position2D DEFAULT_MOUSE_POS;

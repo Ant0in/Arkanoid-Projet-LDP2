@@ -12,6 +12,7 @@
 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
+#include <allegro5/allegro_image.h>
 
 #include <vector>
 #include <string>
@@ -27,6 +28,7 @@ int main() {
     }
     
     al_init_primitives_addon();
+    al_init_image_addon();
     al_install_keyboard();
     al_install_mouse();
 
@@ -37,14 +39,14 @@ int main() {
     
     if (!display) {
         fprintf(stderr, "Erreur : Impossible de créer la fenêtre.\n");
-        exit(-1);
+        return -1;
     }
 
     ALLEGRO_FONT* font = al_create_builtin_font();
 
     if (!font) {
         fprintf(stderr, "Erreur : Impossible de créer la police.\n");
-        exit(-1);
+        return -1;
     }
 
     ALLEGRO_EVENT_QUEUE* event_queue = al_create_event_queue();
@@ -114,6 +116,7 @@ int main() {
 
     delete gamebox;
     delete player;
+    TextureManager::releaseAllTextures();
 
     return 0;
 

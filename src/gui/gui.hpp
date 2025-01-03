@@ -1,5 +1,6 @@
 #pragma once
 
+#include "./texture_manager.hpp"
 #include "../game/game_box.hpp"
 #include "../physics/solid_shapes.hpp"
 #include "../common.hpp"
@@ -35,11 +36,14 @@ class GameGUI{
         ALLEGRO_FONT* getAllegroFont();
         GameBox* getGameBox();
         Player* getPlayer();
-
         std::chrono::high_resolution_clock::time_point getLastUpdate();
         void setLastUpdate(std::chrono::high_resolution_clock::time_point up);
+
+
         void drawRectangle(const SolidRectangle& rect, ALLEGRO_COLOR color);
+        void drawRectangleWithTexture(const SolidRectangle& rect, const std::string& texturePath);
         void drawCircle(const SolidCircle& circle, ALLEGRO_COLOR color);
+        void drawText(const Position2D& pos, std::string text);
         void updateFPS();
         void clearScreen();
         void updateGUI();
