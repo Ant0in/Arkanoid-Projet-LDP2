@@ -18,7 +18,7 @@ class Player{
 
     public:
 
-        Player(int hp = 3, const GameController& controller = GameController(), const Score& score = Score(0), const std::vector<BonusInterface*>& bonus = {}):
+        Player(int hp = PLAYER_DEFAULT_HEALTH, const GameController& controller = GameController(), const Score& score = Score(0), const std::vector<BonusInterface*>& bonus = {}):
             _hp{hp},
             _controller{controller},
             _score{score},

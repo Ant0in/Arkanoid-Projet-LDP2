@@ -19,8 +19,8 @@ class Ball{
         Ball(const Position2D& center, float radius = BALL_RADIUS, float speed = BALL_SPEED):
             _hitbox{SolidCircle(center, radius)},
             _speed{speed},
-            _x_velocity{0.0},
-            _y_velocity{1.0},
+            _x_velocity{BALL_X_VELOCITY_DEFAULT},
+            _y_velocity{BALL_Y_VELOCITY_DEFAULT},
             _is_alive{true} {}
 
         ~Ball() = default;

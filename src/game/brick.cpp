@@ -49,15 +49,15 @@ bool Brick::isBroken() const {
 
 int Brick::getBrickValue(){
     switch (getBrickType()) {
-        case BrickType::WHITE: return 50;
-        case BrickType::ORANGE: return 60;
-        case BrickType::CYAN: return 70;
-        case BrickType::GREEN: return 80;
-        case BrickType::RED: return 90;
-        case BrickType::BLUE: return 100;
-        case BrickType::MAGENTA: return 110;
-        case BrickType::YELLOW: return 120;
-        case BrickType::SILVER: return 200;
+        case BrickType::WHITE: return WHITE_BRICK_HP;
+        case BrickType::ORANGE: return ORANGE_BRICK_HP;
+        case BrickType::CYAN: return CYAN_BRICK_HP;
+        case BrickType::GREEN: return GREEN_BRICK_HP;
+        case BrickType::RED: return RED_BRICK_HP;
+        case BrickType::BLUE: return BLUE_BRICK_HP;
+        case BrickType::MAGENTA: return MAGENTA_BRICK_HP;
+        case BrickType::YELLOW: return YELLOW_BRICK_HP;
+        case BrickType::SILVER: return SILVER_BRICK_HP;
         default: 
             std::cerr << "Brick type not implemented" << std::endl;
             return 0;

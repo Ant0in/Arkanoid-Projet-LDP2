@@ -61,13 +61,35 @@ const std::unordered_map<int, Action> DEFAULT_CONFIG{
     {static_cast<int>(ALLEGRO_KEY_RIGHT), Action::RIGHT},
 };
 
+
+
 const int GAME_FRAMERATE = 60;
+
 const float BOX_WALLS_THICKNESS = 10.0;
+const Position2D DEFAULT_CORNER_POS = Position2D(0, 0);
+const int PLAYER_DEFAULT_HEALTH = 3;
+
+const float BALL_X_VELOCITY_DEFAULT = 0.0;
+const float BALL_Y_VELOCITY_DEFAULT = 1.0;
 const float BALL_RADIUS = 10.0;
 const float BALL_SPEED = 15.0;
-const float LASER_THICKNESS = 10.0;
-const float LASER_LENGTH = 1000.0;
+const Position2D DEFAULT_SPAWN_POSITION = Position2D(400, 350);
+
+const int BONUS_DEFAULT_DURATION = 1;
 const float BONUS_SIZE = 25.0;
-const Position2D BONUS_DEFAULT_POS = Position2D(0, 0);
 const float BONUS_FALLING_SPEED = 10.0;
 const float BONUS_RESIZE_FACTOR = 1.5;
+
+const float LASER_THICKNESS = 10.0;
+const float LASER_LENGTH = 1000.0;
+
+const int WHITE_BRICK_HP = 50;
+const int ORANGE_BRICK_HP = 60;
+const int CYAN_BRICK_HP = 70;
+const int GREEN_BRICK_HP = 80;
+const int RED_BRICK_HP = 90;
+const int BLUE_BRICK_HP = 100;
+const int MAGENTA_BRICK_HP = 110;
+const int YELLOW_BRICK_HP = 120;
+const int SILVER_BRICK_HP = 200;
+

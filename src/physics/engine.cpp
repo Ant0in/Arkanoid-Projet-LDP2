@@ -17,6 +17,7 @@ void GameEngine::handleCollisionsWithRacket(GameBox& gamebox){
             float L = gamebox.getRacket()->getWidth();
             float x = (*ball).getCenterPosition().getX() - gamebox.getRacket()->getCenterPosition().getX();
 
+            // formula used in the pdf
             float alpha = (static_cast<float>(M_PI) / 6.0f) + ((5.0f * static_cast<float>(M_PI)) / 6.0f) * (1.0f - (x / L));
 
             float dvx = total_velocity * std::sin(alpha);
@@ -117,8 +118,7 @@ void GameEngine::handleBonus(GameBox& gamebox, Player& player){
 }
 
 void GameEngine::handleBallSpawn(GameBox& gamebox){
-    // Position2D center = gamebox.getCenterPosition();
-    Ball* b = new Ball(Position2D(400, 350), BALL_RADIUS, BALL_SPEED);
+    Ball* b = new Ball(DEFAULT_SPAWN_POSITION, BALL_RADIUS, BALL_SPEED);
     gamebox.addBall(b);
 
 }
@@ -126,14 +126,14 @@ void GameEngine::handleBallSpawn(GameBox& gamebox){
 void GameEngine::handleGameOver(const GameBox& gamebox, const Player& player){
     (void) gamebox;
     (void) player;
-    std::cout<<"lose"<<std::endl;
+    std::cout << "Loose" << std::endl;
     exit(0);
 }
 
 void GameEngine::handleWin(const GameBox& gamebox, const Player& player){
     (void) gamebox;
     (void) player;
-    std::cout<<"win"<<std::endl;
+    std::cout << "Win" <<std::endl;
     exit(0);
 }
 

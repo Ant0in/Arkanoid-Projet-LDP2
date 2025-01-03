@@ -55,29 +55,34 @@ class BonusInterface{
 };
 
 class DuplicationBonus: public BonusInterface{
+
     public:
-        DuplicationBonus(const Position2D& pos = BONUS_DEFAULT_POS, float size = BONUS_SIZE, int active_duration = 1, float falling_speed = BONUS_FALLING_SPEED, bool is_active = false, bool is_spawned = false)
-        : BonusInterface(pos, size, active_duration, falling_speed, is_active, is_spawned){}
+        
+        DuplicationBonus(const Position2D& pos = DEFAULT_CORNER_POS, float size = BONUS_SIZE, int active_duration = BONUS_DEFAULT_DURATION, float falling_speed = BONUS_FALLING_SPEED, bool is_active = false, bool is_spawned = false):
+            BonusInterface(pos, size, active_duration, falling_speed, is_active, is_spawned) {}
         virtual ~DuplicationBonus() = default;
 
         static std::tuple<float, float> rotate_velocity(float vx, float vy, float alpha);
-
         void applyLogic(GameBox& gb, Player& player);
 };
 
 class PlayerBonus: public BonusInterface{
+
     public:
-        PlayerBonus(const Position2D& pos = BONUS_DEFAULT_POS, float size = BONUS_SIZE, int active_duration = 1, float falling_speed = BONUS_FALLING_SPEED, bool is_active = false, bool is_spawned = false)
-        : BonusInterface(pos, size, active_duration, falling_speed, is_active, is_spawned){}
+
+        PlayerBonus(const Position2D& pos = DEFAULT_CORNER_POS, float size = BONUS_SIZE, int active_duration = BONUS_DEFAULT_DURATION, float falling_speed = BONUS_FALLING_SPEED, bool is_active = false, bool is_spawned = false):
+            BonusInterface(pos, size, active_duration, falling_speed, is_active, is_spawned){}
         virtual ~PlayerBonus() = default;
 
         void applyLogic(GameBox& gb, Player& player);
 };
 
 class ResizeBonus: public BonusInterface{
+    
     public:
-        ResizeBonus(const Position2D& pos = BONUS_DEFAULT_POS, float size = BONUS_SIZE, int active_duration = 1, float falling_speed = BONUS_FALLING_SPEED, bool is_active = false, bool is_spawned = false)
-        : BonusInterface(pos, size, active_duration, falling_speed, is_active, is_spawned){}
+    
+        ResizeBonus(const Position2D& pos = DEFAULT_CORNER_POS, float size = BONUS_SIZE, int active_duration = BONUS_DEFAULT_DURATION, float falling_speed = BONUS_FALLING_SPEED, bool is_active = false, bool is_spawned = false):
+            BonusInterface(pos, size, active_duration, falling_speed, is_active, is_spawned){}
         virtual ~ResizeBonus() = default;
     
         void applyLogic(GameBox& gb, Player& player);

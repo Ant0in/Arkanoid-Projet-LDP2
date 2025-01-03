@@ -90,10 +90,8 @@ int main() {
             player.getController().updateUserAction(event.keyboard.keycode); 
         } else if (event.type == ALLEGRO_EVENT_KEY_UP) {
             player.getController().updateUserAction(0); 
-            
         } else if (event.type == ALLEGRO_EVENT_TIMER) {
             GameEngine::handleRoutine(*gamebox, player);
-            // gamebox->getRacket()->getCenterPosition();
             gui.updateGUI();
             al_flip_display();
         }

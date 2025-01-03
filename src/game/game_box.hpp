@@ -39,10 +39,10 @@ class GameBox{
             _bricks{bricks},
             _bonuses{bonuses},
             // walls
-            _leftWall{SolidRectangle(Position2D(0, 0), 0, 0)},
-            _rightWall{SolidRectangle(Position2D(0, 0), 0, 0)},
-            _topWall{SolidRectangle(Position2D(0, 0), 0, 0)},
-            _bottomWall{SolidRectangle(Position2D(0, 0), 0, 0)} {initializeWalls();};
+            _leftWall{SolidRectangle(DEFAULT_CORNER_POS, 0, 0)},
+            _rightWall{SolidRectangle(DEFAULT_CORNER_POS, 0, 0)},
+            _topWall{SolidRectangle(DEFAULT_CORNER_POS, 0, 0)},
+            _bottomWall{SolidRectangle(DEFAULT_CORNER_POS, 0, 0)} {initializeWalls();};
         
         ~GameBox();
 
