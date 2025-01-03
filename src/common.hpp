@@ -68,7 +68,13 @@ extern const std::unordered_map<int, BrickType> BRICK_ID;
 extern const int GAME_FRAMERATE;
 extern const float GAME_WIDTH;
 extern const float GAME_HEIGHT;
+
 extern const float UPPER_BORDER_HEIGHT;
+extern const float LOWER_BORDER_HEIGHT; 
+extern const float LEFT_BORDER_WIDTH; 
+extern const float RIGHT_BORDER_WIDTH; 
+
+extern const ALLEGRO_COLOR DEFAULT_BACKGROUND_COLOR;
 
 extern const Position2D DEFAULT_CORNER_POS;
 extern const Position2D DEFAULT_MOUSE_POS;
@@ -107,4 +113,8 @@ extern const int BLUE_BRICK_REWARD;
 extern const int MAGENTA_BRICK_REWARD;
 extern const int YELLOW_BRICK_REWARD;
 extern const int SILVER_BRICK_REWARD;
+
+constexpr char DUPLICATION_BONUS_IDENTIFIER = 'D';
+constexpr char PLAYER_BONUS_IDENTIFIER = 'P';
+constexpr char RESIZE_BONUS_IDENTIFIER = 'R';
 

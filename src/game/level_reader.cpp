@@ -5,6 +5,8 @@
 #include "./racket.hpp"
 #include "./bonus.hpp"
 
+#include "../common.hpp"
+
 #include <fstream>
 #include <sstream>
 #include <stdexcept>
@@ -80,9 +82,9 @@ GameBox* LevelReader::initializeGameBoard(const std::vector<std::vector<std::str
 
             switch (bonusID) {
 
-                case 'D': bonus = new DuplicationBonus(Position2D(abs_x, abs_y)); break;
-                case 'P': bonus = new PlayerBonus(Position2D(abs_x, abs_y)); break;
-                case 'R': bonus = new ResizeBonus(Position2D(abs_x, abs_y)); break;
+                case DUPLICATION_BONUS_IDENTIFIER: bonus = new DuplicationBonus(Position2D(abs_x, abs_y)); break;
+                case PLAYER_BONUS_IDENTIFIER: bonus = new PlayerBonus(Position2D(abs_x, abs_y)); break;
+                case RESIZE_BONUS_IDENTIFIER: bonus = new ResizeBonus(Position2D(abs_x, abs_y)); break;
 
                 default: break;
             }

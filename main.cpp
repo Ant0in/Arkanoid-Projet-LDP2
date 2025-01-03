@@ -30,10 +30,21 @@ int main() {
     al_install_keyboard();
     al_install_mouse();
 
-    ALLEGRO_DISPLAY* display = al_create_display(static_cast<int>(GAME_WIDTH), static_cast<int>(GAME_HEIGHT));
+    ALLEGRO_DISPLAY* display = al_create_display(
+        static_cast<int>(GAME_WIDTH + LEFT_BORDER_WIDTH + RIGHT_BORDER_WIDTH),
+        static_cast<int>(GAME_HEIGHT + UPPER_BORDER_HEIGHT + LOWER_BORDER_HEIGHT)
+    );
+    
     if (!display) {
         fprintf(stderr, "Erreur : Impossible de créer la fenêtre.\n");
-        return -1;
+        exit(-1);
+    }
+
+    ALLEGRO_FONT* font = al_create_builtin_font();
+
+    if (!font) {
+        fprintf(stderr, "Erreur : Impossible de créer la police.\n");
+        exit(-1);
     }
 
     ALLEGRO_EVENT_QUEUE* event_queue = al_create_event_queue();
@@ -55,7 +66,7 @@ int main() {
     GameBox* gamebox = LevelReader::initializeGameBoard(LevelReader::parseRawFile(LevelReader::readFile("./src/maps/1.map")));
     GameController controller = GameController();
     Player* player = new Player(PLAYER_DEFAULT_HEALTH, controller);
-    GameGUI gui = GameGUI(display, gamebox, player);
+    GameGUI gui = GameGUI(display, font, gamebox, player);
 
     bool running = true;
     while (running) {
