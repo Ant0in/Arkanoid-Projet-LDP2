@@ -2,7 +2,7 @@
 
 
 bool CollisionHelper::isColliding(const SolidInterface& solid1, const SolidInterface& solid2) {
-    
+
     const SolidRectangle* rect1 = dynamic_cast<const SolidRectangle*>(&solid1);
     const SolidRectangle* rect2 = dynamic_cast<const SolidRectangle*>(&solid2);
     const SolidCircle* circ1 = dynamic_cast<const SolidCircle*>(&solid1);
@@ -50,6 +50,9 @@ bool CollisionHelper::rect_vs_circle(const SolidRectangle& rect, const SolidCirc
 bool CollisionHelper::circle_vs_circle(const SolidCircle& circle1, const SolidCircle& circle2){
     Position2D center1 = circle1.getPosition();
     Position2D center2 = circle2.getPosition();
-    float distance_squared = pow((center1.getX() - center2.getX()), 2) + pow((center1.getY() - center2.getY()), 2);
-    return distance_squared <= pow((circle1.getRadius() + circle2.getRadius()), 2);
+    float distance_squared =
+        static_cast<float>(std::pow(center1.getX() - center2.getX(), 2)) +
+        static_cast<float>(std::pow(center1.getY() - center2.getY(), 2));
+    return distance_squared <= static_cast<float>(std::pow(circle1.getRadius() + circle2.getRadius(), 2));
+
 }

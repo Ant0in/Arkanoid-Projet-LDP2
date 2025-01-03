@@ -46,9 +46,13 @@ void SolidCircle::setRadius(float rad) {_radius = rad;}
 
 bool SolidCircle::isPointInSolid(const Position2D& point) const {
     Position2D center = getPosition();
-    float distance_squared = pow((point.getX() - center.getX()), 2) + pow((point.getY() - center.getY()), 2);
-    return distance_squared <= pow(getRadius(), 2);
+    float dx = point.getX() - center.getX();
+    float dy = point.getY() - center.getY();
+    float distance_squared = dx * dx + dy * dy;
+    float radius_squared = getRadius() * getRadius();
+    return distance_squared <= radius_squared;
 }
+
 
 bool SolidCircle::operator==(const SolidCircle& other) const {
     return (getPosition() == other.getPosition()) && (getRadius() == other.getRadius());

@@ -17,7 +17,7 @@ void GameEngine::handleCollisionsWithRacket(GameBox& gamebox){
             float L = gamebox.getRacket()->getWidth();
             float x = (*ball).getCenterPosition().getX() - gamebox.getRacket()->getCenterPosition().getX();
 
-            float alpha = (M_PI / 6.0f) + ((5.0f * M_PI) / 6.0f) * (1.0f - (x / L));
+            float alpha = (static_cast<float>(M_PI) / 6.0f) + ((5.0f * static_cast<float>(M_PI)) / 6.0f) * (1.0f - (x / L));
 
             float dvx = total_velocity * std::sin(alpha);
             float dvy = total_velocity * std::cos(alpha);

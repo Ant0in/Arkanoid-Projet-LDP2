@@ -50,10 +50,10 @@ int main() {
         std::vector<Ball*>{new Ball(Position2D(400, 450))},
         new Racket(Position2D(300, 700), 200, 20, 10));
 
-    std::srand(std::time(nullptr));
+    std::srand(static_cast<unsigned int>(std::time(nullptr)));
 
-    for (int i = 0; i < 12; ++i) {
-        for (int y = 50 + i * 25, x = 30; x < 770; x += 50) {
+    for (float i = 0; i < 12; ++i) {
+        for (float y = 50 + i * 25, x = 30; x < 770; x += 50) {
             
             int randomType = (std::rand() % 10) + 1;  //random brick type
             BonusInterface* bonus = nullptr;

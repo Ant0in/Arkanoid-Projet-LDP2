@@ -57,7 +57,7 @@ void BonusInterface::applyLogic(GameBox& gb, Player& player){
 
 
 std::tuple<float, float>DuplicationBonus::rotate_velocity(float vx, float vy, float alpha){
-    float alpha_rad = alpha * M_PI / 180.0f;
+    float alpha_rad = alpha * static_cast<float>(M_PI) / 180.0f;
     float nvx = static_cast<float>(vx * cos(alpha_rad) - vy * sin(alpha_rad));
     float nvy = static_cast<float>(vx * sin(alpha_rad) + vy * cos(alpha_rad));
     return std::make_tuple(nvx, nvy);
@@ -108,7 +108,7 @@ void ResizeBonus::applyLogic(GameBox& gb, Player& player){
     if (! isActive() || hasBonusDurationExpired()){return;}
 
     (void) player;
-    
+
     gb.resizeRacket(BONUS_RESIZE_FACTOR);
 
     // decrement TTL (for player bonus, 1 logic cycle will be applied since it has TTL of 1)
