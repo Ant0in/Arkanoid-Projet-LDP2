@@ -64,6 +64,7 @@ extern const std::unordered_map<int, ALLEGRO_COLOR> BRICK_COLORS;
 extern const std::unordered_map<int, int> BRICK_HP;
 extern const std::unordered_map<int, int> BRICK_VALUE;
 extern const std::unordered_map<int, BrickType> BRICK_ID;
+extern const std::unordered_map<BrickType, std::string> BRICK_TEXTURE_PATH;
 
 extern const int GAME_FRAMERATE;
 extern const float GAME_WIDTH;
@@ -85,6 +86,7 @@ extern const float RACKET_WIDTH;
 extern const float RACKET_HEIGHT;
 extern const Position2D RACKET_DEFAULT_POSITION;
 extern const float RACKET_DEFAULT_SENSIBILITY;
+extern const std::string RACKET_TEXTURE_PATH;
 
 extern const float BALL_X_VELOCITY_DEFAULT;
 extern const float BALL_Y_VELOCITY_DEFAULT;

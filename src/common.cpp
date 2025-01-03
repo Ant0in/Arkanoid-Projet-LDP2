@@ -74,6 +74,18 @@ const std::unordered_map<int, BrickType> BRICK_ID {
     {0, BrickType::GOLD}
 };
 
+const std::unordered_map<BrickType, std::string> BRICK_TEXTURE_PATH = {
+    {BrickType::WHITE, "./assets/bricks/white.png"},
+    {BrickType::ORANGE, "./assets/bricks/orange.png"},
+    {BrickType::CYAN, "./assets/bricks/cyan.png"},
+    {BrickType::GREEN, "./assets/bricks/green.png"},
+    {BrickType::RED, "./assets/bricks/red.png"},
+    {BrickType::BLUE, "./assets/bricks/blue.png"},
+    {BrickType::MAGENTA, "./assets/bricks/magenta.png"},
+    {BrickType::YELLOW, "./assets/bricks/yellow.png"},
+    {BrickType::SILVER, "./assets/bricks/silver.png"},
+    {BrickType::GOLD, "./assets/bricks/gold.png"}
+};
 
 const int GAME_FRAMERATE = 60;
 const float GAME_WIDTH = 800;
@@ -96,6 +108,7 @@ const float RACKET_WIDTH = 200;
 const float RACKET_HEIGHT = 20;
 const Position2D RACKET_DEFAULT_POSITION = Position2D((GAME_WIDTH - RACKET_WIDTH) / 2, (GAME_HEIGHT / 8) * 7);
 const float RACKET_DEFAULT_SENSIBILITY = 10;
+const std::string RACKET_TEXTURE_PATH = "./assets/racket.png";
 
 const float BALL_X_VELOCITY_DEFAULT = 0.0;
 const float BALL_Y_VELOCITY_DEFAULT = 1.0;

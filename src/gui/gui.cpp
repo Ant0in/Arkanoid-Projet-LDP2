@@ -74,19 +74,21 @@ void GameGUI::drawBoard() {
 }
 
 void GameGUI::drawBricks() {
+    // TODO : Write letters on bricks with bonuses.
     for (auto& brick : getGameBox()->getBricks()) {
-        drawRectangle((*brick).getHitbox(), BRICK_COLORS.at(static_cast<int>((*brick).getBrickType())));
+        drawRectangleWithTexture(brick->getHitbox(), BRICK_TEXTURE_PATH.at(brick->getBrickType()));
     }
 }
 
 void GameGUI::drawBalls() {
+    // Balls are simple. Be like balls. Be simple, please.
     for (auto& ball : getGameBox()->getBalls()) {
         drawCircle(ball->getHitbox(), DEFAULT_BALL_COLOR);
     }
 }
 
 void GameGUI::drawRacket() {
-    drawRectangleWithTexture(getGameBox()->getRacket()->getHitbox(), "./assets/racket.png");
+    drawRectangleWithTexture(getGameBox()->getRacket()->getHitbox(), RACKET_TEXTURE_PATH);
 }
 
 void GameGUI::drawBonuses() {
