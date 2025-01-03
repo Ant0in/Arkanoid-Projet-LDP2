@@ -34,35 +34,23 @@ class BonusInterface{
 
         SolidRectangle& getHitbox();
         const SolidRectangle& getHitbox() const;
-        
         float getSize() const;
         void setSize(float s);
-
         Position2D getPosition() const;
         void setPosition(const Position2D& p);
-
         bool isSpawned() const;
         void setSpawned(bool flag);
-
         bool isActive() const;
         void setActive(bool flag);
-
         int getDuration() const;
         void setDuration(int d);
-
         float getFallingSpeed() const;
         void setFallingSpeed(float s);
-
         void incrementDuration(int incr);
-
         void spawnBonus(const Position2D& p);
-
         Position2D getGravityPosition();
-
         bool hasBonusDurationExpired() const;
-
         bool operator==(BonusInterface* other) const;
-
         virtual void applyLogic(GameBox& gb, Player& player);
 };
 

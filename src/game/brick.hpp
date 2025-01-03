@@ -24,39 +24,26 @@ class Brick{
             _hitbox{SolidRectangle(position, width, height)},
             _hp{getBrickHpByType(btype)} {};
 
-        ~Brick() = default;
+        ~Brick();
         
         static int getBrickHpByType(const BrickType& btype);
-
         SolidRectangle& getHitbox();
         const SolidRectangle& getHitbox() const;
-
         Position2D getPosition() const;
         void setPosition(const Position2D& pos);
-
         float getHeight() const;
         float getWidth() const;
-
         void setHeight(float h);
         void setWidth(float w);
-
         BrickType getBrickType() const;
-        
         int getHP() const;
         void setHP(int v);
-
         BonusInterface* getBonus() const;
         void setBonus(BonusInterface* b);
-
         bool doesBrickContainBonus() const;
-
         Position2D getCenterPosition() const;
-
         void makeBrickLoseHP(int loss);
-
         bool isBroken() const;
-
         int getBrickValue();
-
         bool operator==(Brick* other) const;
 };

@@ -10,6 +10,10 @@ int Brick::getBrickHpByType(const BrickType& btype){
     }
 }
 
+Brick::~Brick() {
+    delete _bonus;
+}
+
 SolidRectangle& Brick::getHitbox() {return _hitbox;}
 const SolidRectangle& Brick::getHitbox() const {return _hitbox;}
 

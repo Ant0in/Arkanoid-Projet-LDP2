@@ -1,5 +1,12 @@
 #include "game_box.hpp"
 
+
+GameBox::~GameBox() {
+    delete getRacket();
+    for (auto ball : getBalls()) {delete ball;}
+    for (auto brick : getBricks()) {delete brick;}
+}
+
 SolidRectangle& GameBox::getHitbox(){return _hitbox;}
 const SolidRectangle& GameBox::getHitbox() const{return _hitbox;}
 

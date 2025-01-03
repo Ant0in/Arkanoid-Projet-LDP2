@@ -44,7 +44,7 @@ class GameBox{
             _topWall{SolidRectangle(Position2D(0, 0), 0, 0)},
             _bottomWall{SolidRectangle(Position2D(0, 0), 0, 0)} {initializeWalls();};
         
-        ~GameBox() = default;
+        ~GameBox();
 
         SolidRectangle& getHitbox();
         const SolidRectangle& getHitbox() const;

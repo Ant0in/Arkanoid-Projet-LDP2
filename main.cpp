@@ -87,15 +87,10 @@ int main() {
         if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
             running = false;
         } else if (event.type == ALLEGRO_EVENT_KEY_DOWN) {
-            if (event.keyboard.keycode == ALLEGRO_KEY_LEFT) {
-                player.getController().updateUserAction(ALLEGRO_KEY_LEFT); 
-            } else if (event.keyboard.keycode == ALLEGRO_KEY_RIGHT) {
-                player.getController().updateUserAction(ALLEGRO_KEY_RIGHT); 
-            }
+            player.getController().updateUserAction(event.keyboard.keycode); 
         } else if (event.type == ALLEGRO_EVENT_KEY_UP) {
-            if (event.keyboard.keycode == ALLEGRO_KEY_LEFT || event.keyboard.keycode == ALLEGRO_KEY_RIGHT) {
-                player.getController().updateUserAction(0); 
-            }
+            player.getController().updateUserAction(0); 
+            
         } else if (event.type == ALLEGRO_EVENT_TIMER) {
             GameEngine::handleRoutine(*gamebox, player);
             // gamebox->getRacket()->getCenterPosition();
@@ -104,9 +99,13 @@ int main() {
         }
     }
 
+    delete gamebox;
+
     al_destroy_event_queue(event_queue);
+    al_uninstall_keyboard();
     al_destroy_timer(timer);
     al_destroy_display(display);
+    al_uninstall_system();
 
     return 0;
 }
