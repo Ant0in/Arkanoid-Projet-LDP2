@@ -22,6 +22,7 @@ int main() {
     
     al_init_primitives_addon();
     al_install_keyboard();
+    al_install_mouse();
 
     const int WIDTH = 800, HEIGHT = 800;
 
@@ -42,7 +43,7 @@ int main() {
 
     al_register_event_source(event_queue, al_get_display_event_source(display));
     al_register_event_source(event_queue, al_get_timer_event_source(timer));
-    al_register_event_source(event_queue, al_get_keyboard_event_source());
+    al_register_event_source(event_queue, al_get_mouse_event_source());
 
     al_start_timer(timer);
 
@@ -80,16 +81,21 @@ int main() {
 
     bool running = true;
 
+    int lastMouseX = 0;
+
     while (running) {
         ALLEGRO_EVENT event;
         al_wait_for_event(event_queue, &event);
 
         if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
             running = false;
-        } else if (event.type == ALLEGRO_EVENT_KEY_DOWN) {
-            player.getController().updateUserAction(event.keyboard.keycode); 
-        } else if (event.type == ALLEGRO_EVENT_KEY_UP) {
-            player.getController().updateUserAction(0); 
+        } else if (event.type == ALLEGRO_EVENT_MOUSE_AXES) {
+            if (event.mouse.x > lastMouseX) {
+            player.getController().updateUserAction(ALLEGRO_KEY_RIGHT);
+            } else if (event.mouse.x < lastMouseX) {
+                player.getController().updateUserAction(ALLEGRO_KEY_LEFT);
+            }
+            lastMouseX = event.mouse.x;
         } else if (event.type == ALLEGRO_EVENT_TIMER) {
             GameEngine::handleRoutine(*gamebox, player);
             gui.updateGUI();
