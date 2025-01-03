@@ -31,7 +31,6 @@ std::vector<std::string> LevelReader::readFile(const std::string& filePath) {
 
 }
 
-
 std::vector<std::vector<std::string>> LevelReader::parseRawFile(const std::vector<std::string>& raw) {
 
     std::vector<std::vector<std::string>> board;
@@ -51,7 +50,6 @@ std::vector<std::vector<std::string>> LevelReader::parseRawFile(const std::vecto
     return board;
 }
 
-
 GameBox* LevelReader::initializeGameBoard(const std::vector<std::vector<std::string>>& tiles) {
 
     // initializing racket and then gamebox (spawning balls is not important yet)
@@ -62,23 +60,28 @@ GameBox* LevelReader::initializeGameBoard(const std::vector<std::vector<std::str
     int brickRowSize = static_cast<int>(tiles.size());
     int brickLineSize = tiles.empty() ? 0 : static_cast<int>(tiles[0].size());
 
-    // calculate offsets
-    float horizontalOffset = gamebox->getWidth() - (BRICK_WIDTH * (static_cast<float>(brickLineSize) + 1));
+    // calculate offsets (for vertical offset, we use the upper third of the screen to display bricks)
+    float horizontalOffset = (gamebox->getWidth() - (BRICK_WIDTH * (static_cast<float>(brickLineSize))))
+                                / (static_cast<float>(brickLineSize) + 1);
+    float verticalOffset = ((gamebox->getHeight() / 3) - (BRICK_HEIGHT * (static_cast<float>(brickRowSize))))
+                                / (static_cast<float>(brickRowSize) + 1);
 
     for (int y = 0; y < brickRowSize; ++y) {
         for (int x = 0; x < brickLineSize; ++x) {
 
             // (x, y) is the relative position, not in term of pixels. useful to get btype in "tiles"
             BonusInterface* bonus = nullptr;
-            
-            float abs_x = static_cast<float>(x) * (horizontalOffset + BRICK_WIDTH);
-            float abs_y = static_cast<float>(y) * BRICK_HEIGHT;
+
+            float abs_x = static_cast<float>(x) * (BRICK_WIDTH + horizontalOffset) + horizontalOffset;
+            float abs_y = static_cast<float>(y) * (BRICK_HEIGHT + verticalOffset) + verticalOffset;
+
+            int btype = tiles[y][x][0] - '0';
 
             Brick* b = new Brick(
                 Position2D(abs_x, abs_y),
                 BRICK_WIDTH,
                 BRICK_HEIGHT,
-                BrickType(0),
+                BrickType(BRICK_ID.at(btype)),
                 bonus);
             
             gamebox->addBrick(b);

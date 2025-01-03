@@ -47,43 +47,11 @@ int main() {
     al_register_event_source(event_queue, al_get_keyboard_event_source());
     al_start_timer(timer);
 
-    GameBox* gamebox = new GameBox(
-        DEFAULT_CORNER_POS, GAME_WIDTH, GAME_HEIGHT,
-        new Racket(RACKET_DEFAULT_POSITION, RACKET_WIDTH, RACKET_HEIGHT, RACKET_DEFAULT_SENSIBILITY),
-        std::vector<Ball*>{new Ball(DEFAULT_SPAWN_POSITION)});
-        
 
-    std::srand(static_cast<unsigned int>(std::time(nullptr)));
-
-    for (float i = 0; i < 12; ++i) {
-        for (float y = 50 + i * 25, x = 30; x < 770; x += 50) {
-            
-            int randomType = (std::rand() % 10) + 1;  //random brick type
-            BonusInterface* bonus = nullptr;
-
-            if ((std::rand() % 100) < 40) { // 40% chance to get a bonus
-                int bonusType = std::rand() % 3;
-                if (bonusType == 0) {
-                    bonus = new DuplicationBonus(Position2D(x, y));
-                } else if (bonusType == 1) {
-                    bonus = new PlayerBonus(Position2D(x, y));
-                } else {
-                    bonus = new ResizeBonus(Position2D(x, y));
-                }
-            }
-            // Create brick with or without bonus
-            Brick* b = new Brick(Position2D(x, y), 48, 20, BrickType(randomType), bonus);
-            gamebox->addBrick(b);
-        }
-    }
-
+    GameBox* gamebox = LevelReader::initializeGameBoard(LevelReader::parseRawFile(LevelReader::readFile("./src/levels/level1.map")));
     GameController controller = GameController();
     Player* player = new Player(PLAYER_DEFAULT_HEALTH, controller);
     GameGUI gui = GameGUI(display, gamebox, player);
-
-
-    LevelReader::initializeGameBoard({{"1"}, {"1"}, {"1"}});
-
 
     bool running = true;
     while (running) {
