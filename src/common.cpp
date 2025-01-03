@@ -78,6 +78,7 @@ const std::unordered_map<int, BrickType> BRICK_ID {
 const int GAME_FRAMERATE = 60;
 const float GAME_WIDTH = 800;
 const float GAME_HEIGHT = 800;
+const float UPPER_BORDER_HEIGHT = 20.0;
 
 const float BOX_WALLS_THICKNESS = 10.0;
 const Position2D DEFAULT_CORNER_POS = Position2D(0, 0);

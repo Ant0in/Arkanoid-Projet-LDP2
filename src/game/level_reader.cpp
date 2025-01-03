@@ -1,9 +1,9 @@
 #include "level_reader.hpp"
 
-#include "../../src/game/brick.hpp"
-#include "../../src/game/ball.hpp"
-#include "../../src/game/racket.hpp"
-#include "../../src/game/bonus.hpp"
+#include "./brick.hpp"
+#include "./ball.hpp"
+#include "./racket.hpp"
+#include "./bonus.hpp"
 
 #include <fstream>
 #include <sstream>
@@ -60,10 +60,10 @@ GameBox* LevelReader::initializeGameBoard(const std::vector<std::vector<std::str
     int brickRowSize = static_cast<int>(tiles.size());
     int brickLineSize = tiles.empty() ? 0 : static_cast<int>(tiles[0].size());
 
-    // calculate offsets (for vertical offset, we use the upper third of the screen to display bricks)
+    // calculate offsets (for vertical offset, we use the upper 2.5 part of the screen to display bricks)
     float horizontalOffset = (gamebox->getWidth() - (BRICK_WIDTH * (static_cast<float>(brickLineSize))))
                                 / (static_cast<float>(brickLineSize) + 1);
-    float verticalOffset = ((gamebox->getHeight() / 3) - (BRICK_HEIGHT * (static_cast<float>(brickRowSize))))
+    float verticalOffset = ((gamebox->getHeight() / 2.5f) - (BRICK_HEIGHT * (static_cast<float>(brickRowSize))))
                                 / (static_cast<float>(brickRowSize) + 1);
 
     for (int y = 0; y < brickRowSize; ++y) {
@@ -73,7 +73,7 @@ GameBox* LevelReader::initializeGameBoard(const std::vector<std::vector<std::str
             BonusInterface* bonus = nullptr;
 
             float abs_x = static_cast<float>(x) * (BRICK_WIDTH + horizontalOffset) + horizontalOffset;
-            float abs_y = static_cast<float>(y) * (BRICK_HEIGHT + verticalOffset) + verticalOffset;
+            float abs_y = static_cast<float>(y) * (BRICK_HEIGHT + verticalOffset) + verticalOffset + UPPER_BORDER_HEIGHT;
 
             int btype = tiles[y][x][0] - '0';
 

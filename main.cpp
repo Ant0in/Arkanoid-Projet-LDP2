@@ -1,19 +1,23 @@
-#include "src/player/controller.hpp"
+
 #include "src/game/game_box.hpp"
-#include "src/game/ball.hpp"
-#include "src/game/racket.hpp"
-#include "src/game/brick.hpp"
-#include "src/common.hpp"
-#include "src/gui/gui.hpp"
+#include "src/game/level_reader.hpp"
+#include "src/player/controller.hpp"
 #include "src/player/player.hpp"
+
+#include "src/common.hpp"
+
+#include "src/gui/gui.hpp"
+
 #include "src/physics/engine.hpp"
-#include "src/levels/level_reader.hpp"
+
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
+
 #include <vector>
 #include <string>
 #include <cstdlib>
 #include <ctime>
+
 
 int main() {
 
@@ -48,7 +52,7 @@ int main() {
     al_start_timer(timer);
 
 
-    GameBox* gamebox = LevelReader::initializeGameBoard(LevelReader::parseRawFile(LevelReader::readFile("./src/levels/level1.map")));
+    GameBox* gamebox = LevelReader::initializeGameBoard(LevelReader::parseRawFile(LevelReader::readFile("./src/maps/1.map")));
     GameController controller = GameController();
     Player* player = new Player(PLAYER_DEFAULT_HEALTH, controller);
     GameGUI gui = GameGUI(display, gamebox, player);

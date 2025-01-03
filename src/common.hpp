@@ -68,6 +68,7 @@ extern const std::unordered_map<int, BrickType> BRICK_ID;
 extern const int GAME_FRAMERATE;
 extern const float GAME_WIDTH;
 extern const float GAME_HEIGHT;
+extern const float UPPER_BORDER_HEIGHT;
 
 extern const Position2D DEFAULT_CORNER_POS;
 extern const Position2D DEFAULT_MOUSE_POS;

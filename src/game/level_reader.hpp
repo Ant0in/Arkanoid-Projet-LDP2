@@ -2,7 +2,7 @@
 
 #include <string>
 #include <vector>
-#include "../../src/game/game_box.hpp"
+#include "./game_box.hpp"
 
 class LevelReader {
 
