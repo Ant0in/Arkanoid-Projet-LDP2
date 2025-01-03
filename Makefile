@@ -6,11 +6,11 @@ CXXFLAGS += -std=c++2b -Wall -Wextra
 
 # Additional warning flags for robust code
 CXXFLAGS += -Wpedantic
-#CXXFLAGS += -Wconversion
+CXXFLAGS += -Wconversion
 CXXFLAGS += -Wshadow 
 CXXFLAGS += -Wold-style-cast 
 CXXFLAGS += -Wcast-align 
-#CXXFLAGS += -Wunused 
+CXXFLAGS += -Wunused 
 CXXFLAGS += -Wmisleading-indentation 
 CXXFLAGS += -Wduplicated-cond 
 CXXFLAGS += -Wnull-dereference 
@@ -21,8 +21,8 @@ CXXFLAGS += -Wnon-virtual-dtor
 CXXFLAGS += -Woverloaded-virtual 
 
 # Memory sanitization flags
-#CXXFLAGS += -fsanitize=address -fno-omit-frame-pointer
-#LDFLAGS += -fsanitize=address
+CXXFLAGS += -fsanitize=address -fno-omit-frame-pointer
+LDFLAGS += -fsanitize=address
 
 # Allegro library configuration
 CXXFLAGS += $(shell pkg-config allegro-5 allegro_font-5 allegro_primitives-5 allegro_image-5 --cflags)

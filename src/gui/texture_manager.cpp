@@ -29,9 +29,9 @@ void TextureManager::releaseAllTextures() {
     for (auto& pair : textures) {
         if (pair.second) {
             al_destroy_bitmap(pair.second);
-            pair.second = nullptr;
         }
     }
-    
+
     textures.clear();
+
 }

@@ -33,8 +33,8 @@ int main() {
     al_install_mouse();
 
     ALLEGRO_DISPLAY* display = al_create_display(
-        static_cast<int>(GAME_WIDTH + LEFT_BORDER_WIDTH + RIGHT_BORDER_WIDTH),
-        static_cast<int>(GAME_HEIGHT + UPPER_BORDER_HEIGHT + LOWER_BORDER_HEIGHT)
+        static_cast<int>(GAME_WIDTH + 2 * BOX_WALLS_THICKNESS),
+        static_cast<int>(GAME_HEIGHT + BOX_WALLS_THICKNESS)
     );
     
     if (!display) {
@@ -108,6 +108,8 @@ int main() {
     std::cout << "Exiting..." << std::endl;
 
     // Destroying stuff at the end
+    TextureManager::releaseAllTextures();
+    
     al_destroy_event_queue(event_queue);
     al_uninstall_keyboard();
     al_destroy_timer(timer);
@@ -116,10 +118,7 @@ int main() {
 
     delete gamebox;
     delete player;
-
-    // TODO : fix le segfault du release des bitmaps
-    TextureManager::releaseAllTextures();
-
+    
     return 0;
 
 }

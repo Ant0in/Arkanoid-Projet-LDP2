@@ -23,7 +23,7 @@ void GameBox::initializeWalls(){
 
     _leftWall = SolidRectangle(Position2D(p.getX() - BOX_WALLS_THICKNESS, p.getY()), BOX_WALLS_THICKNESS, h);
     _rightWall = SolidRectangle(Position2D(p.getX() + w, p.getY()), BOX_WALLS_THICKNESS, h);
-    _topWall = SolidRectangle(Position2D(p.getX(), p.getY() - BOX_WALLS_THICKNESS), w, BOX_WALLS_THICKNESS);
+    _topWall = SolidRectangle(Position2D(p.getX() - BOX_WALLS_THICKNESS, p.getY() - BOX_WALLS_THICKNESS), w + (2 * BOX_WALLS_THICKNESS), BOX_WALLS_THICKNESS);
     _bottomWall = SolidRectangle(Position2D(p.getX(), p.getY() + h), w, BOX_WALLS_THICKNESS);
 }
 
