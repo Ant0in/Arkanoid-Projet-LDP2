@@ -39,12 +39,19 @@ class GameGUI{
         std::chrono::high_resolution_clock::time_point getLastUpdate();
         void setLastUpdate(std::chrono::high_resolution_clock::time_point up);
 
-
         void drawRectangle(const SolidRectangle& rect, ALLEGRO_COLOR color);
         void drawRectangleWithTexture(const SolidRectangle& rect, const std::string& texturePath);
         void drawCircle(const SolidCircle& circle, ALLEGRO_COLOR color);
         void drawText(const Position2D& pos, std::string text);
         void updateFPS();
         void clearScreen();
+
+        void drawStatistics();
+        void drawBoard();
+        void drawBricks();
+        void drawBalls();
+        void drawRacket();
+        void drawBonuses();
+
         void updateGUI();
 };

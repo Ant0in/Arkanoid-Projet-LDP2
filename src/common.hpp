@@ -91,6 +91,7 @@ extern const float BALL_Y_VELOCITY_DEFAULT;
 extern const float BALL_RADIUS;
 extern const float BALL_SPEED;
 extern const Position2D DEFAULT_SPAWN_POSITION;
+extern const ALLEGRO_COLOR DEFAULT_BALL_COLOR;
 
 extern const float BRICK_WIDTH;
 extern const float BRICK_HEIGHT;

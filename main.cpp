@@ -105,7 +105,7 @@ int main() {
         }
     }
 
-    std::cout << "reached here" << std::endl;
+    std::cout << "Exiting..." << std::endl;
 
     // Destroying stuff at the end
     al_destroy_event_queue(event_queue);
@@ -116,6 +116,8 @@ int main() {
 
     delete gamebox;
     delete player;
+
+    // TODO : fix le segfault du release des bitmaps
     TextureManager::releaseAllTextures();
 
     return 0;

@@ -59,55 +59,58 @@ void GameGUI::clearScreen() {
     al_clear_to_color(DEFAULT_BACKGROUND_COLOR);
 }
 
-void GameGUI::updateGUI(){
 
-    clearScreen();
-    
+void GameGUI::drawStatistics() {
+
     std::string score = "Score: " + std::to_string(getPlayer()->getScore().getValue());
     std::string lives = "Lives: " + std::to_string(getPlayer()->getHp());
+
     drawText(Position2D(350, 10), score);
     drawText(Position2D(250, 10), lives);
+}
 
-    // drawRectangle(getGameBox()->getRacket()->getHitbox(), al_map_rgb(0, 0, 255));
-    drawRectangleWithTexture(getGameBox()->getRacket()->getHitbox(), "./assets/racket.png");
+void GameGUI::drawBoard() {
 
-    for (auto& ball : getGameBox()->getBalls()) {
-        drawCircle(ball->getHitbox(), al_map_rgb(255, 0, 0));
-    }
+}
 
+void GameGUI::drawBricks() {
     for (auto& brick : getGameBox()->getBricks()) {
         drawRectangle((*brick).getHitbox(), BRICK_COLORS.at(static_cast<int>((*brick).getBrickType())));
-
-        const char* letter = nullptr;
-
-        if (dynamic_cast<ResizeBonus*>(brick->getBonus())) {
-            letter = "R";
-        } else if (dynamic_cast<PlayerBonus*>(brick->getBonus())) {
-            letter = "P";
-        } else if (dynamic_cast<DuplicationBonus*>(brick->getBonus())) {
-            letter = "D";
-        }
-
-        if (letter) {
-            SolidRectangle hitbox = brick->getHitbox();
-            float centerX = hitbox.getPosition().getX() + hitbox.getWidth() / 2;
-            float centerY = hitbox.getPosition().getY() + hitbox.getHeight() / 2;
-
-            al_draw_text(getAllegroFont(), al_map_rgb(255, 255, 255), centerX, centerY, ALLEGRO_ALIGN_CENTER, letter);
-        }
     }
+}
+
+void GameGUI::drawBalls() {
+    for (auto& ball : getGameBox()->getBalls()) {
+        drawCircle(ball->getHitbox(), DEFAULT_BALL_COLOR);
+    }
+}
+
+void GameGUI::drawRacket() {
+    drawRectangleWithTexture(getGameBox()->getRacket()->getHitbox(), "./assets/racket.png");
+}
+
+void GameGUI::drawBonuses() {
 
     for (auto& bonus : getGameBox()->getBonuses()) {
-
-        if (dynamic_cast<ResizeBonus*>(bonus)) {
-            drawRectangle((*bonus).getHitbox(), al_map_rgb(0, 0, 255)); 
-        } else if (dynamic_cast<PlayerBonus*>(bonus)) {
-            drawRectangle((*bonus).getHitbox(), al_map_rgb(128, 128, 128)); 
-        } else if (dynamic_cast<DuplicationBonus*>(bonus)) {
-            drawRectangle((*bonus).getHitbox(), al_map_rgb(43, 255, 255));
+            if (dynamic_cast<ResizeBonus*>(bonus)) {
+                drawRectangle((*bonus).getHitbox(), al_map_rgb(0, 0, 255)); 
+            } else if (dynamic_cast<PlayerBonus*>(bonus)) {
+                drawRectangle((*bonus).getHitbox(), al_map_rgb(128, 128, 128)); 
+            } else if (dynamic_cast<DuplicationBonus*>(bonus)) {
+                drawRectangle((*bonus).getHitbox(), al_map_rgb(43, 255, 255));
+            }
         }
-    }
+}
 
+
+void GameGUI::updateGUI(){
+    clearScreen();
+    drawBoard();
+    drawRacket();
+    drawBalls();
+    drawBricks();
+    drawStatistics();
+    drawBonuses();
     updateFPS();
     al_flip_display();
 }

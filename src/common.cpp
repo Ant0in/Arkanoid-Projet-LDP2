@@ -102,6 +102,7 @@ const float BALL_Y_VELOCITY_DEFAULT = 1.0;
 const float BALL_RADIUS = 10.0;
 const float BALL_SPEED = 15.0;
 const Position2D DEFAULT_SPAWN_POSITION = Position2D(GAME_WIDTH / 2, GAME_HEIGHT / 2);
+const ALLEGRO_COLOR DEFAULT_BALL_COLOR = al_map_rgb(0xFF, 0x00, 0x00);
 
 const float BRICK_WIDTH = 50.0;
 const float BRICK_HEIGHT = 20.0;
