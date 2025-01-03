@@ -56,12 +56,13 @@ void BonusInterface::applyLogic(GameBox& gb, Player& player){
 }
 
 
-std::tuple<float, float>DuplicationBonus::rotate_velocity(float vx, float vy, float alpha){
+std::tuple<float, float> DuplicationBonus::rotate_velocity(float vx, float vy, float alpha) {
     float alpha_rad = alpha * static_cast<float>(M_PI) / 180.0f;
-    float nvx = static_cast<float>(vx * cos(alpha_rad) - vy * sin(alpha_rad));
-    float nvy = static_cast<float>(vx * sin(alpha_rad) + vy * cos(alpha_rad));
+    float nvx = vx * cosf(alpha_rad) - vy * sinf(alpha_rad);
+    float nvy = vx * sinf(alpha_rad) + vy * cosf(alpha_rad);
     return std::make_tuple(nvx, nvy);
 }
+
 
 void DuplicationBonus::applyLogic(GameBox& gb, Player& player){
     // If bonus is not active or has expired, we skip logic
