@@ -64,13 +64,13 @@ int main() {
     al_register_event_source(event_queue, al_get_keyboard_event_source());
     al_start_timer(timer);
 
-
     GameBox* gamebox = LevelReader::initializeGameBoard(LevelReader::parseRawFile(LevelReader::readFile("./src/maps/1.map")));
     GameController controller = GameController();
     Player* player = new Player(PLAYER_DEFAULT_HEALTH, controller);
     GameGUI gui = GameGUI(display, font, gamebox, player);
 
     bool running = true;
+
     while (running) {
 
         ALLEGRO_EVENT event;
@@ -92,8 +92,8 @@ int main() {
             // on mouse move
             player->getController().updateMousePosition(
                 Position2D(
-                    static_cast<float>(event.mouse.x - BOX_WALLS_THICKNESS),
-                    static_cast<float>(event.mouse.y - BOX_WALLS_THICKNESS)
+                    static_cast<float>(event.mouse.x) - BOX_WALLS_THICKNESS,
+                    static_cast<float>(event.mouse.y) - BOX_WALLS_THICKNESS
                 )
             );
 

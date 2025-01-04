@@ -89,21 +89,22 @@ const std::unordered_map<BrickType, std::string> BRICK_TEXTURE_PATH = {
     {BrickType::GOLD, "./assets/bricks/gold.png"}
 };
 
-extern const std::string HIGH_SCORE_FILE = "src/player/highscore.txt";
+extern const std::string HIGH_SCORE_FILE = "./highscore.txt";
 
 const int GAME_FRAMERATE = 60;
 const float GAME_WIDTH = 800;
 const float GAME_HEIGHT = 800;
-const std::string BACKGROUND_TEXTURE_PATH = "./assets/bg.png";
-const std::string SIDE_WALLS_TEXTURE_PATH = "./assets/wall.png";
+const std::string BACKGROUND_TEXTURE_PATH = "./assets/background/bg.png";
+const std::string SIDE_WALLS_TEXTURE_PATH = "./assets/background/side_wall.png";
+const std::string TOP_WALL_TEXTURE_PATH = "./assets/background/top_wall.png";
 
 const ALLEGRO_COLOR DEFAULT_BACKGROUND_COLOR = al_map_rgb(0x00, 0x00, 0x00);
-const ALLEGRO_COLOR DEFAULT_FONT_COLOR = al_map_rgb(255, 255, 255);
+const ALLEGRO_COLOR DEFAULT_FONT_COLOR = al_map_rgb(0xff, 0xff, 0xff);
 
 const float BOX_WALLS_THICKNESS = 45.0;
 const Position2D DEFAULT_CORNER_POS = Position2D(0, 0);
 const Position2D DEFAULT_MOUSE_POS = Position2D(GAME_WIDTH / 2, GAME_HEIGHT / 2);
-const int PLAYER_DEFAULT_HEALTH = 30;
+const int PLAYER_DEFAULT_HEALTH = 3;
 
 const float RACKET_WIDTH = 200;
 const float RACKET_HEIGHT = 20;
@@ -122,9 +123,17 @@ const float BRICK_WIDTH = 50.0;
 const float BRICK_HEIGHT = 20.0;
 
 const int BONUS_DEFAULT_DURATION = 1;
-const float BONUS_SIZE = 25.0;
+const float BONUS_SIZE = 32.0;
 const float BONUS_FALLING_SPEED = 10.0;
 const float BONUS_RESIZE_FACTOR = 1.5;
+
+const std::string DUPLICATION_BONUS_TEXTURE = "./assets/bonus/duplication_bonus.png";
+const std::string GRAB_BONUS_TEXTURE = "./assets/bonus/grab_bonus.png";
+const std::string LASER_BONUS_TEXTURE = "./assets/bonus/laser_bonus.png";
+const std::string PLAYER_BONUS_TEXTURE = "./assets/bonus/player_bonus.png";
+const std::string RESIZE_BONUS_TEXTURE = "./assets/bonus/resize_bonus.png";
+const std::string SLOW_BONUS_TEXTURE = "./assets/bonus/slow_bonus.png";
+
 
 const float LASER_THICKNESS = 10.0;
 const float LASER_LENGTH = 1000.0;

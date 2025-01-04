@@ -72,6 +72,7 @@ extern const float GAME_WIDTH;
 extern const float GAME_HEIGHT;
 extern const std::string BACKGROUND_TEXTURE_PATH;
 extern const std::string SIDE_WALLS_TEXTURE_PATH;
+extern const std::string TOP_WALL_TEXTURE_PATH;
 
 extern const float UPPER_BORDER_HEIGHT;
 extern const float LOWER_BORDER_HEIGHT; 
@@ -107,6 +108,13 @@ extern const int BONUS_DEFAULT_DURATION;
 extern const float BONUS_SIZE;
 extern const float BONUS_FALLING_SPEED;
 extern const float BONUS_RESIZE_FACTOR;
+
+extern const std::string DUPLICATION_BONUS_TEXTURE;
+extern const std::string GRAB_BONUS_TEXTURE;
+extern const std::string LASER_BONUS_TEXTURE;
+extern const std::string PLAYER_BONUS_TEXTURE;
+extern const std::string RESIZE_BONUS_TEXTURE;
+extern const std::string SLOW_BONUS_TEXTURE;
 
 extern const float LASER_THICKNESS;
 extern const float LASER_LENGTH;

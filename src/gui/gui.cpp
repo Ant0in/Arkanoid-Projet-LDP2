@@ -73,7 +73,7 @@ void GameGUI::drawBoard() {
     drawRectangleWithTexture(getGameBox()->getHitbox(), BACKGROUND_TEXTURE_PATH);
     drawRectangleWithTexture(getGameBox()->getLeftWall(), SIDE_WALLS_TEXTURE_PATH);
     drawRectangleWithTexture(getGameBox()->getRightWall(), SIDE_WALLS_TEXTURE_PATH);
-    drawRectangleWithTexture(getGameBox()->getTopWall(), "./assets/top.png");
+    drawRectangleWithTexture(getGameBox()->getTopWall(), TOP_WALL_TEXTURE_PATH);
 }
 
 void GameGUI::drawBricks() {
@@ -97,14 +97,23 @@ void GameGUI::drawRacket() {
 void GameGUI::drawBonuses() {
 
     for (auto& bonus : getGameBox()->getBonuses()) {
-            if (dynamic_cast<ResizeBonus*>(bonus)) {
-                drawRectangle((*bonus).getHitbox(), al_map_rgb(0, 0, 255)); 
-            } else if (dynamic_cast<PlayerBonus*>(bonus)) {
-                drawRectangle((*bonus).getHitbox(), al_map_rgb(128, 128, 128)); 
-            } else if (dynamic_cast<DuplicationBonus*>(bonus)) {
-                drawRectangle((*bonus).getHitbox(), al_map_rgb(43, 255, 255));
-            }
+
+        std::string texture;
+
+        if (dynamic_cast<ResizeBonus*>(bonus)) {
+            texture = RESIZE_BONUS_TEXTURE;
+        } else if (dynamic_cast<PlayerBonus*>(bonus)) {
+            texture = PLAYER_BONUS_TEXTURE;
+        } else if (dynamic_cast<DuplicationBonus*>(bonus)) {
+            texture = DUPLICATION_BONUS_TEXTURE;
         }
+
+        if (!bonus->isActive()) {
+            drawRectangleWithTexture(bonus->getHitbox(), texture);
+        }
+        
+    }
+
 }
 
 
