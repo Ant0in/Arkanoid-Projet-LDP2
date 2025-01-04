@@ -56,6 +56,7 @@ class BonusInterface {
     bool                    hasBonusDurationExpired() const;
     bool                    operator==(BonusInterface* other) const;
     virtual void            applyLogic(GameBox& gb, Player& player);
+    virtual void            revertLogic(GameBox& gb, Player& player);
     virtual BonusInterface* clone() const = 0;
 };
 
@@ -75,6 +76,7 @@ class DuplicationBonus : public BonusInterface {
     BonusInterface*                 clone() const override {
         return new DuplicationBonus(*this);
     }
+
     void applyLogic(GameBox& gb, Player& player);
 };
 
@@ -112,4 +114,5 @@ class ResizeBonus : public BonusInterface {
         return new ResizeBonus(*this);
     }
     void applyLogic(GameBox& gb, Player& player);
+    void revertLogic(GameBox& gb, Player& player);
 };

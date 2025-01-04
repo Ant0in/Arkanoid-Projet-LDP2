@@ -79,9 +79,16 @@ bool BonusInterface::operator==(BonusInterface* other) const {
 }
 
 void BonusInterface::applyLogic(GameBox& gb, Player& player) {
+    // abstract method, needs to be implement for all children bonuses
     (void) gb;
     (void) player;
     throw std::runtime_error("Not Implemented Error");
+}
+
+void BonusInterface::revertLogic(GameBox& gb, Player& player) {
+    // pass, might be useful to implement for certain bonus, not for others
+    (void) gb;
+    (void) player;
 }
 
 std::tuple<float, float> DuplicationBonus::rotate_velocity(float vx, float vy, float alpha) {
@@ -143,6 +150,11 @@ void ResizeBonus::applyLogic(GameBox& gb, Player& player) {
 
     gb.resizeRacket(BONUS_RESIZE_FACTOR);
 
-    // decrement TTL (for player bonus, 1 logic cycle will be applied since it has TTL of 1)
+    // we decrement TTL (for player bonus, 1 logic cycle will be applied since it has TTL of 1)
     incrementDuration(-1);
+}
+
+void ResizeBonus::revertLogic(GameBox& gb, Player& player) {
+    (void) player;
+    gb.resizeRacket(1 / BONUS_RESIZE_FACTOR);
 }

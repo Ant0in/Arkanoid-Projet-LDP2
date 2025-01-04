@@ -120,6 +120,12 @@ void GameEngine::handleCollisionWithEntities(GameBox& gamebox, Player& player) {
         bonus->setPosition(falling_pos);
 
         if (CollisionHelper::isColliding(bonus->getHitbox(), gamebox.getRacket()->getHitbox())) {
+            // first, we want to revert the effect of the previous bonus
+            if (player.hasBonusActive()) {
+                player.getBonus()->revertLogic(gamebox, player);
+            }
+            // then, we override this bonus with the new one, activate it and remove it from the
+            // gamebox
             player.setBonus(bonus);
             bonus->setActive(true);
             gamebox.removeBonus(bonus);
@@ -137,7 +143,7 @@ void GameEngine::handleBonusLogic(GameBox& gamebox, Player& player) {
         bonus->applyLogic(gamebox, player);
 
         if (bonus->hasBonusDurationExpired()) {
-            player.setBonus(nullptr);
+            bonus->setActive(false);
         }
     }
 }
