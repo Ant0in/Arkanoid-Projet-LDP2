@@ -91,6 +91,21 @@ const std::unordered_map<BrickType, std::string> BRICK_TEXTURE_PATH = {
     {BrickType::SILVER, "./assets/bricks/silver.png"},
     {BrickType::GOLD, "./assets/bricks/gold.png"}};
 
+const std::unordered_map<BonusType, std::string> BONUS_TEXTURE_PATH = {
+    {BonusType::DUPLICATION, "./assets/bonus/duplication_bonus.png"},
+    {BonusType::GRAB, "./assets/bonus/grab_bonus.png"},
+    {BonusType::LASER, "./assets/bonus/laser_bonus.png"},
+    {BonusType::PLAYER, "./assets/bonus/player_bonus.png"},
+    {BonusType::RESIZE, "./assets/bonus/resize_bonus.png"},
+    {BonusType::SLOW, "./assets/bonus/slow_bonus.png"}};
+
+const std::unordered_map<BonusType, char> BONUS_IDENTIFIER = {{BonusType::DUPLICATION, 'D'},
+                                                              {BonusType::PLAYER, 'P'},
+                                                              {BonusType::RESIZE, 'R'},
+                                                              {BonusType::GRAB, 'G'},
+                                                              {BonusType::LASER, 'L'},
+                                                              {BonusType::SLOW, 'S'}};
+
 const std::string DAMAGED_SILVER_TEXTURE = "./assets/bricks/damaged_silver.png";
 
 const std::string HIGH_SCORE_FILE = "./highscore.txt";
@@ -132,13 +147,6 @@ const float BONUS_SIZE                   = 32.0;
 const float BONUS_FALLING_SPEED          = 10.0;
 const float BONUS_RESIZE_FACTOR          = 1.5;
 const int   GRAB_BONUS_MAX_GRAB_DURATION = 180;
-
-const std::string DUPLICATION_BONUS_TEXTURE = "./assets/bonus/duplication_bonus.png";
-const std::string GRAB_BONUS_TEXTURE        = "./assets/bonus/grab_bonus.png";
-const std::string LASER_BONUS_TEXTURE       = "./assets/bonus/laser_bonus.png";
-const std::string PLAYER_BONUS_TEXTURE      = "./assets/bonus/player_bonus.png";
-const std::string RESIZE_BONUS_TEXTURE      = "./assets/bonus/resize_bonus.png";
-const std::string SLOW_BONUS_TEXTURE        = "./assets/bonus/slow_bonus.png";
 
 const float LASER_THICKNESS = 10.0;
 const float LASER_LENGTH    = 1000.0;

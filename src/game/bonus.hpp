@@ -19,6 +19,7 @@ class BonusInterface {
     bool           _is_active;
     bool           _is_spawned;
     SolidRectangle _hitbox;
+    BonusType      _bonus_type;
 
    public:
     BonusInterface(const Position2D& pos,
@@ -26,12 +27,14 @@ class BonusInterface {
                    int               active_duration,
                    float             falling_speed,
                    bool              is_active  = false,
-                   bool              is_spawned = false)
+                   bool              is_spawned = false,
+                   BonusType         bonus_type = BonusType::NONE)
         : _active_duration{active_duration},
           _falling_speed{falling_speed},
           _is_active{is_active},
           _is_spawned{is_spawned},
-          _hitbox{SolidRectangle(pos, size, size)} {
+          _hitbox{SolidRectangle(pos, size, size)},
+          _bonus_type{bonus_type} {
     }
 
     virtual ~BonusInterface() = default;
@@ -51,6 +54,7 @@ class BonusInterface {
     float                   getFallingSpeed() const;
     void                    setFallingSpeed(float s);
     void                    incrementDuration(int incr);
+    BonusType               getBonusType();
     void                    spawnBonus(const Position2D& p);
     Position2D              getGravityPosition();
     bool                    hasBonusDurationExpired() const;
@@ -68,7 +72,13 @@ class DuplicationBonus : public BonusInterface {
                      float             falling_speed   = BONUS_FALLING_SPEED,
                      bool              is_active       = false,
                      bool              is_spawned      = false)
-        : BonusInterface(pos, size, active_duration, falling_speed, is_active, is_spawned) {
+        : BonusInterface(pos,
+                         size,
+                         active_duration,
+                         falling_speed,
+                         is_active,
+                         is_spawned,
+                         BonusType::DUPLICATION) {
     }
     virtual ~DuplicationBonus() = default;
 
@@ -88,7 +98,8 @@ class PlayerBonus : public BonusInterface {
                 float             falling_speed   = BONUS_FALLING_SPEED,
                 bool              is_active       = false,
                 bool              is_spawned      = false)
-        : BonusInterface(pos, size, active_duration, falling_speed, is_active, is_spawned) {
+        : BonusInterface(
+              pos, size, active_duration, falling_speed, is_active, is_spawned, BonusType::PLAYER) {
     }
     virtual ~PlayerBonus() = default;
 
@@ -106,7 +117,8 @@ class ResizeBonus : public BonusInterface {
                 float             falling_speed   = BONUS_FALLING_SPEED,
                 bool              is_active       = false,
                 bool              is_spawned      = false)
-        : BonusInterface(pos, size, active_duration, falling_speed, is_active, is_spawned) {
+        : BonusInterface(
+              pos, size, active_duration, falling_speed, is_active, is_spawned, BonusType::RESIZE) {
     }
     virtual ~ResizeBonus() = default;
 
@@ -128,7 +140,8 @@ class GrabBonus : public BonusInterface {
               float             falling_speed   = BONUS_FALLING_SPEED,
               bool              is_active       = false,
               bool              is_spawned      = false)
-        : BonusInterface(pos, size, active_duration, falling_speed, is_active, is_spawned),
+        : BonusInterface(
+              pos, size, active_duration, falling_speed, is_active, is_spawned, BonusType::GRAB),
           _grabTimer(0) {
     }
 

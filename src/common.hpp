@@ -43,6 +43,16 @@ enum class Action { NONE = 0, LEFT = 1, RIGHT = 2, SHOOT = 3, NEXT_LEVEL = 4, PR
 
 enum class WallType { NONE = 0, LEFT = 1, RIGHT = 2, BOTTOM = 3, TOP = 4 };
 
+enum class BonusType {
+    NONE        = 0,
+    DUPLICATION = 1,
+    GRAB        = 2,
+    LASER       = 3,
+    PLAYER      = 4,
+    RESIZE      = 5,
+    SLOW        = 6
+};
+
 extern const std::string DAMAGED_SILVER_TEXTURE;
 
 extern const std::string HIGH_SCORE_FILE;
@@ -54,6 +64,8 @@ extern const std::unordered_map<int, int>               BRICK_HP;
 extern const std::unordered_map<int, int>               BRICK_VALUE;
 extern const std::unordered_map<int, BrickType>         BRICK_ID;
 extern const std::unordered_map<BrickType, std::string> BRICK_TEXTURE_PATH;
+extern const std::unordered_map<BonusType, std::string> BONUS_TEXTURE_PATH;
+extern const std::unordered_map<BonusType, char>        BONUS_IDENTIFIER;
 
 extern const int         GAME_FRAMERATE;
 extern const float       GAME_WIDTH;
@@ -98,13 +110,6 @@ extern const float BONUS_FALLING_SPEED;
 extern const float BONUS_RESIZE_FACTOR;
 extern const int   GRAB_BONUS_MAX_GRAB_DURATION;
 
-extern const std::string DUPLICATION_BONUS_TEXTURE;
-extern const std::string GRAB_BONUS_TEXTURE;
-extern const std::string LASER_BONUS_TEXTURE;
-extern const std::string PLAYER_BONUS_TEXTURE;
-extern const std::string RESIZE_BONUS_TEXTURE;
-extern const std::string SLOW_BONUS_TEXTURE;
-
 extern const float LASER_THICKNESS;
 extern const float LASER_LENGTH;
 
@@ -117,8 +122,3 @@ extern const int BLUE_BRICK_REWARD;
 extern const int MAGENTA_BRICK_REWARD;
 extern const int YELLOW_BRICK_REWARD;
 extern const int SILVER_BRICK_REWARD;
-
-constexpr char DUPLICATION_BONUS_IDENTIFIER = 'D';
-constexpr char PLAYER_BONUS_IDENTIFIER      = 'P';
-constexpr char RESIZE_BONUS_IDENTIFIER      = 'R';
-constexpr char GRAB_BONUS_IDENTIFIER        = 'G';

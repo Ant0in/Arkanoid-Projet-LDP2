@@ -13,7 +13,7 @@ void GameEngine::handleActions(LevelManager& manager, GameBox*& gamebox, Player&
             handleBallSpawn(gamebox);
             player.setHasBallStored(false);
         } else {
-            std::cout << "not supposed to reach" << std::endl;
+            std::cout << "laser" << std::endl;
             // TODO : laser
         }
 

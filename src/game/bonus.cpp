@@ -55,6 +55,10 @@ void BonusInterface::incrementDuration(int incr) {
     _active_duration = getDuration() + incr;
 }
 
+BonusType BonusInterface::getBonusType() {
+    return _bonus_type;
+}
+
 void BonusInterface::spawnBonus(const Position2D& p) {
     setPosition(p);
     setSpawned(true);

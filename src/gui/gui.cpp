@@ -83,10 +83,10 @@ void GameGUI::drawStatistics() {
     std::string lives     = "Lives: " + std::to_string(getPlayer()->getHp());
     std::string highScore = "High Score: " + std::to_string(getPlayer()->getHighScore().getValue());
 
-    // TODO : Remove magic numbers
-    drawText(Position2D(350, 15), score);
-    drawText(Position2D(250, 15), lives);
-    drawText(Position2D(500, 15), highScore);
+    drawText(Position2D(GAME_WIDTH * 0.25f + BOX_WALLS_THICKNESS, BOX_WALLS_THICKNESS / 2), score);
+    drawText(Position2D(GAME_WIDTH * 0.5f + BOX_WALLS_THICKNESS, BOX_WALLS_THICKNESS / 2), lives);
+    drawText(Position2D(GAME_WIDTH * 0.75f + BOX_WALLS_THICKNESS, BOX_WALLS_THICKNESS / 2),
+             highScore);
 }
 
 void GameGUI::drawBoard() {
@@ -110,7 +110,12 @@ void GameGUI::drawBricks() {
 
         drawRectangleWithTexture(brick->getHitbox(), texture);
 
-        // TODO : Write letters on bricks with bonuses.
+        // and then draw the letter on the brick
+        if (brick->doesBrickContainBonus()) {
+            drawText(Position2D(brick->getCenterPosition().getX() + BOX_WALLS_THICKNESS,
+                                brick->getCenterPosition().getY() + BOX_WALLS_THICKNESS),
+                     std::string(1, BONUS_IDENTIFIER.at(brick->getBonus()->getBonusType())));
+        }
     }
 }
 
@@ -127,22 +132,9 @@ void GameGUI::drawRacket() {
 
 void GameGUI::drawBonuses() {
     for (auto& bonus : getGameBox()->getBonuses()) {
-        std::string texture;
-
-        if (dynamic_cast<ResizeBonus*>(bonus)) {
-            texture = RESIZE_BONUS_TEXTURE;
-        } else if (dynamic_cast<PlayerBonus*>(bonus)) {
-            texture = PLAYER_BONUS_TEXTURE;
-        } else if (dynamic_cast<DuplicationBonus*>(bonus)) {
-            texture = DUPLICATION_BONUS_TEXTURE;
-        } else if (dynamic_cast<GrabBonus*>(bonus)) {
-            texture = GRAB_BONUS_TEXTURE;
-        } else {
-            std::cerr << "unknown bonus" << std::endl;
-        }
-
         if (!bonus->isActive()) {
-            drawRectangleWithTexture(bonus->getHitbox(), texture);
+            drawRectangleWithTexture(bonus->getHitbox(),
+                                     BONUS_TEXTURE_PATH.at(bonus->getBonusType()));
         }
     }
 }

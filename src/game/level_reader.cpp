@@ -76,24 +76,22 @@ GameBox* LevelReader::initializeGameBoard(const std::vector<std::vector<std::str
 
             BrickType brickType = BRICK_ID.at(tiles[y][x][0] - '0');
 
-            BonusInterface* bonus   = nullptr;
-            char            bonusID = tiles[y][x][1];
+            BonusInterface* bonus      = nullptr;
+            char            bonus_char = tiles[y][x][1];
 
-            switch (bonusID) {
-                case DUPLICATION_BONUS_IDENTIFIER:
-                    bonus = new DuplicationBonus(Position2D(abs_x, abs_y));
-                    break;
-                case PLAYER_BONUS_IDENTIFIER:
-                    bonus = new PlayerBonus(Position2D(abs_x, abs_y));
-                    break;
-                case RESIZE_BONUS_IDENTIFIER:
-                    bonus = new ResizeBonus(Position2D(abs_x, abs_y));
-                    break;
-                case GRAB_BONUS_IDENTIFIER:
-                    bonus = new GrabBonus(Position2D(abs_x, abs_y));
-                    break;
-                default:
-                    break;
+            if (bonus_char == BONUS_IDENTIFIER.at(BonusType::DUPLICATION)) {
+                bonus = new DuplicationBonus(Position2D(abs_x, abs_y));
+            } else if (bonus_char == BONUS_IDENTIFIER.at(BonusType::PLAYER)) {
+                bonus = new PlayerBonus(Position2D(abs_x, abs_y));
+            } else if (bonus_char == BONUS_IDENTIFIER.at(BonusType::RESIZE)) {
+                bonus = new ResizeBonus(Position2D(abs_x, abs_y));
+            } else if (bonus_char == BONUS_IDENTIFIER.at(BonusType::GRAB)) {
+                bonus = new GrabBonus(Position2D(abs_x, abs_y));
+            } else if (bonus_char == BONUS_IDENTIFIER.at(BonusType::LASER)) {
+                // TODO ; lasers
+            } else if (bonus_char == BONUS_IDENTIFIER.at(BonusType::SLOW)) {
+                // TODO ; slow
+            } else {
             }
 
             Brick* b =
