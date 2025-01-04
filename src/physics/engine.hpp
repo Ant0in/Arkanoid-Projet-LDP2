@@ -36,7 +36,9 @@ class GameEngine {
 
     static void handleBallSpawn(GameBox*& gamebox);
 
-    static void handleGameOver(LevelManager& manager, GameBox*& gamebox, Player& player);
+    // static void handleGameOver(LevelManager& manager, GameBox*& gamebox, Player& player);
+
+    static void handleRemakeGame(LevelManager& manager, GameBox*& gamebox, Player& player);
 
     static void handleWin(LevelManager& manager, GameBox*& gamebox, Player& player);
 

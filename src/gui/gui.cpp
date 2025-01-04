@@ -23,6 +23,14 @@ void GameGUI::setLastUpdate(std::chrono::high_resolution_clock::time_point up) {
     _last_update = up;
 }
 
+bool GameGUI::isInGameOverState() {
+    return _isInGameOverState;
+}
+
+void GameGUI::setIsInGameOverState(bool flag) {
+    _isInGameOverState = flag;
+}
+
 void GameGUI::drawRectangle(const SolidRectangle& rect, ALLEGRO_COLOR color) {
     float x1 = rect.getPosition().getX() + BOX_WALLS_THICKNESS;
     float y1 = rect.getPosition().getY() + BOX_WALLS_THICKNESS;
@@ -141,12 +149,24 @@ void GameGUI::drawBonuses() {
 
 void GameGUI::updateGUI() {
     clearScreen();
-    drawBoard();
-    drawRacket();
-    drawBalls();
-    drawBricks();
-    drawStatistics();
-    drawBonuses();
+
+    if (getPlayer()->isDead()) {
+        setIsInGameOverState(true);
+    } else {
+        setIsInGameOverState(false);
+    }
+
+    if (!isInGameOverState()) {
+        drawBoard();
+        drawRacket();
+        drawBalls();
+        drawBricks();
+        drawStatistics();
+        drawBonuses();
+    } else {
+        // TODO : faire un texte game over
+    }
+
     updateFPS();
     al_flip_display();
 }

@@ -20,6 +20,7 @@ class GameGUI {
     GameBox*                                       _gamebox;
     Player*                                        _player;
     std::chrono::high_resolution_clock::time_point _last_update;
+    bool                                           _isInGameOverState;
 
    public:
     GameGUI(ALLEGRO_DISPLAY* display, ALLEGRO_FONT* font, GameBox* gamebox, Player* player)
@@ -27,7 +28,8 @@ class GameGUI {
           _font{font},
           _gamebox{gamebox},
           _player{player},
-          _last_update{std::chrono::high_resolution_clock::now()} {
+          _last_update{std::chrono::high_resolution_clock::now()},
+          _isInGameOverState{false} {
     }
 
     ~GameGUI() = default;
@@ -38,6 +40,8 @@ class GameGUI {
     Player*                                        getPlayer();
     std::chrono::high_resolution_clock::time_point getLastUpdate();
     void setLastUpdate(std::chrono::high_resolution_clock::time_point up);
+    bool isInGameOverState();
+    void setIsInGameOverState(bool flag);
 
     void drawRectangle(const SolidRectangle& rect, ALLEGRO_COLOR color);
     void drawRectangleWithTexture(const SolidRectangle& rect, const std::string& texturePath);

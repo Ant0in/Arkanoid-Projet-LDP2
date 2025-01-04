@@ -24,6 +24,8 @@ void GameEngine::handleActions(LevelManager& manager, GameBox*& gamebox, Player&
         handleLevelSwitch(manager, gamebox, player);
     } else if (action == Action::RESET_HIGHSCORE) {
         player.setHighScore(Score(0));
+    } else if (action == Action::REMAKE) {
+        handleRemakeGame(manager, gamebox, player);
     }
 
     // and then we try to see if the player has moved the mouse
@@ -177,13 +179,15 @@ void GameEngine::handleBallSpawn(GameBox*& gamebox) {
     gamebox->addBall(b);
 }
 
-void GameEngine::handleGameOver(LevelManager& manager, GameBox*& gamebox, Player& player) {
-    manager.setCurrentLevelIndex(0);  // reset des levels
-    delete gamebox;
-    gamebox = manager.generateCurrentLevelGamebox();
+void GameEngine::handleRemakeGame(LevelManager& manager, GameBox*& gamebox, Player& player) {
+    if (player.isDead()) {
+        manager.setCurrentLevelIndex(0);  // reset des levels
+        delete gamebox;
+        gamebox = manager.generateCurrentLevelGamebox();
 
-    // Reset player
-    player.reset();
+        // Reset player
+        player.reset();
+    }
 }
 
 void GameEngine::handleWin(LevelManager& manager, GameBox*& gamebox, Player& player) {
@@ -208,10 +212,7 @@ void GameEngine::handleGameState(LevelManager& manager, GameBox*& gamebox, Playe
 
         player.incrementHp(-1);
 
-        if (player.isDead()) {
-            handleGameOver(manager, gamebox, player);
-
-        } else {
+        if (!player.isDead()) {
             // player gets a ball in his storage
             player.setHasBallStored(true);
         }
@@ -241,7 +242,9 @@ void GameEngine::handleLevelSwitch(LevelManager& manager, GameBox*& gamebox, Pla
 
 void GameEngine::handleRoutine(LevelManager& manager, GameBox*& gamebox, Player& player) {
     handleActions(manager, gamebox, player);
-    handleBalls(gamebox, player);
-    handleBonus(gamebox, player);
-    handleGameState(manager, gamebox, player);
+    if (!player.isDead()) {
+        handleBalls(gamebox, player);
+        handleBonus(gamebox, player);
+        handleGameState(manager, gamebox, player);
+    }
 }

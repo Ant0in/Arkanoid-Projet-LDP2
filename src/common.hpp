@@ -46,7 +46,8 @@ enum class Action {
     SHOOT           = 3,
     NEXT_LEVEL      = 4,
     PREVIOUS_LEVEL  = 5,
-    RESET_HIGHSCORE = 6
+    RESET_HIGHSCORE = 6,
+    REMAKE          = 7
 };
 
 enum class WallType { NONE = 0, LEFT = 1, RIGHT = 2, BOTTOM = 3, TOP = 4 };
