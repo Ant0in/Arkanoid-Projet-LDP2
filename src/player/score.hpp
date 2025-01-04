@@ -7,12 +7,13 @@ class Score {
     int _value;
 
    public:
-    Score(int value) : _value{value} {}
+    Score(int value) : _value{value} {
+    }
 
     ~Score() = default;
 
-    int getValue() const;
-    void setValue(int v);
-    void addScore(int increment);
+    int                  getValue() const;
+    void                 setValue(int v);
+    void                 addScore(int increment);
     friend std::ostream& operator<<(std::ostream& os, Score& score);
 };

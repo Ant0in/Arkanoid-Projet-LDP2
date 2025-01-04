@@ -19,7 +19,7 @@ std::vector<std::string> LevelReader::readFile(const std::string& filePath) {
     }
 
     std::vector<std::string> rawLines;
-    std::string line;
+    std::string              line;
 
     while (std::getline(file, line)) {
         rawLines.push_back(line);
@@ -34,9 +34,9 @@ std::vector<std::vector<std::string>> LevelReader::parseRawFile(
     std::vector<std::vector<std::string>> board;
 
     for (const auto& line : raw) {
-        std::istringstream stream(line);
+        std::istringstream       stream(line);
         std::vector<std::string> row;
-        std::string brick;
+        std::string              brick;
 
         while (stream >> brick) {
             row.push_back(brick);
@@ -50,12 +50,12 @@ std::vector<std::vector<std::string>> LevelReader::parseRawFile(
 
 GameBox* LevelReader::initializeGameBoard(const std::vector<std::vector<std::string>>& tiles) {
     // initializing racket and then gamebox (spawning balls is not important yet)
-    Racket* r = new Racket(RACKET_DEFAULT_POSITION, RACKET_WIDTH, RACKET_HEIGHT,
-                           RACKET_DEFAULT_SENSIBILITY);
+    Racket* r = new Racket(
+        RACKET_DEFAULT_POSITION, RACKET_WIDTH, RACKET_HEIGHT, RACKET_DEFAULT_SENSIBILITY);
     GameBox* gamebox = new GameBox(DEFAULT_CORNER_POS, GAME_WIDTH, GAME_HEIGHT, r);
 
     // lets then grab the matrix size (no padding, expect coherent dim)
-    int brickRowSize = static_cast<int>(tiles.size());
+    int brickRowSize  = static_cast<int>(tiles.size());
     int brickLineSize = tiles.empty() ? 0 : static_cast<int>(tiles[0].size());
 
     // calculate offsets (for vertical offset, we use the upper 2.5 part of the screen to display
@@ -76,8 +76,8 @@ GameBox* LevelReader::initializeGameBoard(const std::vector<std::vector<std::str
 
             BrickType brickType = BRICK_ID.at(tiles[y][x][0] - '0');
 
-            BonusInterface* bonus = nullptr;
-            char bonusID = tiles[y][x][1];
+            BonusInterface* bonus   = nullptr;
+            char            bonusID = tiles[y][x][1];
 
             switch (bonusID) {
                 case DUPLICATION_BONUS_IDENTIFIER:

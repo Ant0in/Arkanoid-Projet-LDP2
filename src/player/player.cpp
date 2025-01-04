@@ -23,8 +23,12 @@ Score Player::readHighScoreFromFile(const std::string& filePath) const {
     return Score(highScoreValue);
 }
 
-Score& Player::getHighScore() { return _highScore; };
-void Player::setHighScore(const Score& score) { _highScore = score; }
+Score& Player::getHighScore() {
+    return _highScore;
+};
+void Player::setHighScore(const Score& score) {
+    _highScore = score;
+}
 
 void Player::updateHighScoreFile(const std::string& filePath) {
     std::ofstream file(filePath);
@@ -45,22 +49,40 @@ void Player::checkHighScore() {
     }
 }
 
-int Player::getHp() const { return _hp; }
-void Player::setHp(int nhp) { _hp = nhp; }
+int Player::getHp() const {
+    return _hp;
+}
+void Player::setHp(int nhp) {
+    _hp = nhp;
+}
 
-bool Player::hasBallStored() { return _hasBallStored; }
+bool Player::hasBallStored() {
+    return _hasBallStored;
+}
 
-void Player::setHasBallStored(bool flag) { _hasBallStored = flag; }
+void Player::setHasBallStored(bool flag) {
+    _hasBallStored = flag;
+}
 
-void Player::incrementHp(int incr) { setHp(getHp() + incr); }
+void Player::incrementHp(int incr) {
+    setHp(getHp() + incr);
+}
 
-bool Player::isDead() const { return getHp() <= 0; }
+bool Player::isDead() const {
+    return getHp() <= 0;
+}
 
-GameController& Player::getController() { return _controller; }
+GameController& Player::getController() {
+    return _controller;
+}
 
-Score& Player::getScore() { return _score; }
+Score& Player::getScore() {
+    return _score;
+}
 
-bool Player::hasBonusActive() { return (_bonus); }
+bool Player::hasBonusActive() {
+    return (_bonus);
+}
 
 BonusInterface* Player::getBonus() {
     if (!hasBonusActive()) {

@@ -7,7 +7,6 @@
 #include "../common.hpp"
 #include "solid_shapes.hpp"
 
-
 class CollisionHelper {
    public:
     static bool isColliding(const SolidInterface& solid1, const SolidInterface& solid2);

@@ -3,20 +3,20 @@
 #include "../common.hpp"
 #include "../physics/solid_shapes.hpp"
 
-
 class Racket {
    private:
     SolidRectangle _hitbox;
-    float _sensibility;
+    float          _sensibility;
 
    public:
     Racket(const Position2D& position, float width, float height, float sensibility)
-        : _hitbox{SolidRectangle(position, width, height)}, _sensibility{sensibility} {}
+        : _hitbox{SolidRectangle(position, width, height)}, _sensibility{sensibility} {
+    }
 
     ~Racket() = default;
 
     Position2D getPosition() const;
-    void setPosition(const Position2D& pos);
+    void       setPosition(const Position2D& pos);
 
     float getHeight() const;
     float getWidth() const;
@@ -24,11 +24,11 @@ class Racket {
     void setHeight(float h);
     void setWidth(float w);
 
-    SolidRectangle& getHitbox();
+    SolidRectangle&       getHitbox();
     const SolidRectangle& getHitbox() const;
 
     float getSensibility() const;
-    void setSensitivity(float s);
+    void  setSensitivity(float s);
 
     Position2D getCenterPosition() const;
 

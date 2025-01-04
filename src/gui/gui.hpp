@@ -13,13 +13,12 @@
 #include "../physics/solid_shapes.hpp"
 #include "./texture_manager.hpp"
 
-
 class GameGUI {
    private:
-    ALLEGRO_DISPLAY* _display;
-    ALLEGRO_FONT* _font;
-    GameBox* _gamebox;
-    Player* _player;
+    ALLEGRO_DISPLAY*                               _display;
+    ALLEGRO_FONT*                                  _font;
+    GameBox*                                       _gamebox;
+    Player*                                        _player;
     std::chrono::high_resolution_clock::time_point _last_update;
 
    public:
@@ -28,14 +27,15 @@ class GameGUI {
           _font{font},
           _gamebox{gamebox},
           _player{player},
-          _last_update{std::chrono::high_resolution_clock::now()} {}
+          _last_update{std::chrono::high_resolution_clock::now()} {
+    }
 
     ~GameGUI() = default;
 
-    ALLEGRO_DISPLAY* getAllegroDisplay();
-    ALLEGRO_FONT* getAllegroFont();
-    GameBox* getGameBox();
-    Player* getPlayer();
+    ALLEGRO_DISPLAY*                               getAllegroDisplay();
+    ALLEGRO_FONT*                                  getAllegroFont();
+    GameBox*                                       getGameBox();
+    Player*                                        getPlayer();
     std::chrono::high_resolution_clock::time_point getLastUpdate();
     void setLastUpdate(std::chrono::high_resolution_clock::time_point up);
 

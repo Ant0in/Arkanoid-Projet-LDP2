@@ -12,16 +12,15 @@
 #include "brick.hpp"
 #include "racket.hpp"
 
-
 class Brick;
 class BonusInterface;
 
 class GameBox {
    private:
-    Racket* _racket;
-    std::vector<Ball*> _balls;
-    SolidRectangle _hitbox;
-    std::vector<Brick*> _bricks;
+    Racket*                      _racket;
+    std::vector<Ball*>           _balls;
+    SolidRectangle               _hitbox;
+    std::vector<Brick*>          _bricks;
     std::vector<BonusInterface*> _bonuses;
 
     // Walls
@@ -31,8 +30,12 @@ class GameBox {
     SolidRectangle _bottomWall;
 
    public:
-    GameBox(Position2D position, float width, float height, Racket* racket,
-            std::vector<Ball*> balls = {}, std::vector<Brick*> bricks = {},
+    GameBox(Position2D                   position,
+            float                        width,
+            float                        height,
+            Racket*                      racket,
+            std::vector<Ball*>           balls   = {},
+            std::vector<Brick*>          bricks  = {},
             std::vector<BonusInterface*> bonuses = {})
         :
 
@@ -51,7 +54,7 @@ class GameBox {
 
     ~GameBox();
 
-    SolidRectangle& getHitbox();
+    SolidRectangle&       getHitbox();
     const SolidRectangle& getHitbox() const;
 
     Position2D getPosition() const;
@@ -63,21 +66,21 @@ class GameBox {
     void initializeWalls();
 
     std::vector<BonusInterface*>& getBonuses();
-    void addBonus(BonusInterface* b);
-    void removeBonus(BonusInterface* b);
+    void                          addBonus(BonusInterface* b);
+    void                          removeBonus(BonusInterface* b);
 
     std::vector<Brick*>& getBricks();
-    void addBrick(Brick* brick);
-    void removeBrick(Brick* brick);
+    void                 addBrick(Brick* brick);
+    void                 removeBrick(Brick* brick);
 
     std::vector<Ball*>& getBalls();
-    bool isBallVectorEmpty();
-    bool doesPlayerHaveMultipleBalls();
-    void addBall(Ball* b);
-    void removeBall(Ball* b);
+    bool                isBallVectorEmpty();
+    bool                doesPlayerHaveMultipleBalls();
+    void                addBall(Ball* b);
+    void                removeBall(Ball* b);
 
     Racket* getRacket() const;
-    void setRacket(Racket* r);
+    void    setRacket(Racket* r);
 
     SolidRectangle& getLeftWall();
     SolidRectangle& getRightWall();

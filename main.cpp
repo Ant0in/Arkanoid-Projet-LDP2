@@ -1,4 +1,15 @@
 
+#include "src/game/game_box.hpp"
+#include "src/game/level_reader.hpp"
+#include "src/player/controller.hpp"
+#include "src/player/player.hpp"
+
+#include "src/common.hpp"
+
+#include "src/gui/gui.hpp"
+
+#include "src/physics/engine.hpp"
+
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_primitives.h>
@@ -7,14 +18,6 @@
 #include <ctime>
 #include <string>
 #include <vector>
-
-#include "src/common.hpp"
-#include "src/game/game_box.hpp"
-#include "src/game/level_reader.hpp"
-#include "src/gui/gui.hpp"
-#include "src/physics/engine.hpp"
-#include "src/player/controller.hpp"
-#include "src/player/player.hpp"
 
 int main() {
     if (!al_init()) {
@@ -27,7 +30,7 @@ int main() {
     al_install_keyboard();
     al_install_mouse();
 
-    ALLEGRO_DISPLAY *display =
+    ALLEGRO_DISPLAY* display =
         al_create_display(static_cast<int>(GAME_WIDTH + 2 * BOX_WALLS_THICKNESS),
                           static_cast<int>(GAME_HEIGHT + BOX_WALLS_THICKNESS));
 
@@ -36,15 +39,15 @@ int main() {
         return -1;
     }
 
-    ALLEGRO_FONT *font = al_create_builtin_font();
+    ALLEGRO_FONT* font = al_create_builtin_font();
 
     if (!font) {
         fprintf(stderr, "Erreur : Impossible de créer la police.\n");
         return -1;
     }
 
-    ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
-    ALLEGRO_TIMER *timer = al_create_timer(1.0 / GAME_FRAMERATE);
+    ALLEGRO_EVENT_QUEUE* event_queue = al_create_event_queue();
+    ALLEGRO_TIMER*       timer       = al_create_timer(1.0 / GAME_FRAMERATE);
 
     if (!event_queue || !timer) {
         fprintf(stderr, "Erreur : Problème avec Allegro (timer ou event queue).\n");
@@ -58,11 +61,11 @@ int main() {
     al_register_event_source(event_queue, al_get_keyboard_event_source());
     al_start_timer(timer);
 
-    GameBox *gamebox = LevelReader::initializeGameBoard(
+    GameBox* gamebox = LevelReader::initializeGameBoard(
         LevelReader::parseRawFile(LevelReader::readFile("./maps/1.map")));
     GameController controller = GameController();
-    Player *player = new Player(PLAYER_DEFAULT_HEALTH, controller);
-    GameGUI gui = GameGUI(display, font, gamebox, player);
+    Player*        player     = new Player(PLAYER_DEFAULT_HEALTH, controller);
+    GameGUI        gui        = GameGUI(display, font, gamebox, player);
 
     bool running = true;
 

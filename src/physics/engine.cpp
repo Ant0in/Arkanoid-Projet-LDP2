@@ -31,7 +31,7 @@ void GameEngine::handleActions(GameBox& gamebox, Player& player) {
 void GameEngine::handleCollisionsWithRacket(GameBox& gamebox) {
     for (Ball* ball : gamebox.getBalls()) {
         if (CollisionHelper::isColliding(ball->getHitbox(), gamebox.getRacket()->getHitbox())) {
-            auto [vx, vy] = ball->getVelocity();
+            auto [vx, vy]        = ball->getVelocity();
             float total_velocity = std::sqrt((vx * vx) + (vy * vy));
 
             float L = gamebox.getRacket()->getWidth();
@@ -69,9 +69,9 @@ std::vector<Brick*> GameEngine::handleCollisionsWithBricks(GameBox& gamebox) {
     return bricks_hit;
 }
 
-Position2D GameEngine::calculateBonusSpawnPosition(const Brick& brick,
+Position2D GameEngine::calculateBonusSpawnPosition(const Brick&          brick,
                                                    const BonusInterface& bonus) {
-    Position2D brick_center = brick.getCenterPosition();
+    Position2D brick_center  = brick.getCenterPosition();
     Position2D offset_center = Position2D(brick_center.getX() - bonus.getSize() / 2,
                                           brick_center.getY() - bonus.getSize() / 2);
     return offset_center;
@@ -156,15 +156,15 @@ void GameEngine::handleBallSpawn(GameBox& gamebox) {
 }
 
 void GameEngine::handleGameOver(const GameBox& gamebox, const Player& player) {
-    (void)gamebox;
-    (void)player;
+    (void) gamebox;
+    (void) player;
     std::cout << "Loose" << std::endl;
     exit(0);
 }
 
 void GameEngine::handleWin(const GameBox& gamebox, const Player& player) {
-    (void)gamebox;
-    (void)player;
+    (void) gamebox;
+    (void) player;
     std::cout << "Win" << std::endl;
     exit(0);
 }

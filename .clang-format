@@ -1,4 +1,68 @@
+# Basé sur le style Google avec des modifications personnalisées
 BasedOnStyle: Google
-IndentWidth: 4
-ColumnLimit: 100
-SortIncludes: true
+
+# Largeur d'indentation
+IndentWidth: 4                 # Nombre d'espaces pour l'indentation
+TabWidth: 4                    # Largeur d'une tabulation si utilisée
+UseTab: Never                  # Toujours utiliser des espaces
+
+# Longueur des lignes
+ColumnLimit: 100               # Limite en caractères par ligne
+
+# Gestion des espaces
+BreakBeforeBraces: Attach      # Les accolades ouvrantes sur la même ligne que la déclaration
+SpacesInParentheses: false     # Pas d'espace autour des parenthèses
+SpacesInSquareBrackets: false  # Pas d'espace autour des crochets
+SpaceAfterCStyleCast: true     # Espace après un cast C-style (e.g., `(int) x`)
+
+# Gestion des entrées
+SortIncludes: true             # Trie automatiquement les #include
+IncludeBlocks: Preserve        # Conserve les blocs de #include tels qu'ils sont
+IncludeCategories:
+  - Regex: '^<.*\.h>'          # Place les includes standards en premier
+    Priority: 1
+  - Regex: '^"'
+    Priority: 2
+  - Regex: '.*'
+    Priority: 3
+
+# Gestion des lignes vides
+AllowShortBlocksOnASingleLine: false # Empêche les blocs très courts d'être sur une seule ligne
+KeepEmptyLinesAtTheStartOfBlocks: false
+MaxEmptyLinesToKeep: 1         # Conserve un maximum d'une ligne vide entre les sections
+
+# Gestion des fonctions et des méthodes
+AlwaysBreakAfterReturnType: None             # Ne sépare pas le type de retour pour les déclarations
+EmptyLineBeforeAccessModifier: Always        # Ajoute une ligne avant les modificateurs (public, private, etc.)
+
+# Alignement
+AlignConsecutiveAssignments: true            # Aligne les variables déclarées avec des `=`
+AlignConsecutiveDeclarations: true           # Aligne les déclarations successives
+AlignEscapedNewlines: Right                  # Aligne les sauts de ligne échappés à droite
+
+# Gestion des arguments de fonction
+BinPackArguments: false                      # Arguments sur des lignes séparées si trop longs
+BinPackParameters: false                     # Paramètres sur des lignes séparées si trop longs
+PenaltyBreakFirstLessLess: 10                # Pénalité pour séparer les opérateurs `<<`
+
+# Gestion des blocs
+AllowShortFunctionsOnASingleLine: None       # Les fonctions ne tiennent pas sur une seule ligne
+AllowShortIfStatementsOnASingleLine: false   # Toujours mettre les `if` sur plusieurs lignes
+AllowShortLoopsOnASingleLine: false          # Toujours mettre les `for`, `while` sur plusieurs lignes
+
+# Gestion des commentaires
+CommentPragmas: '^ IWYU pragma:'             # Conserve les pragmas IWYU dans les commentaires
+ReflowComments: true                         # Reformate les commentaires pour qu'ils respectent ColumnLimit
+
+# Gestion des classes
+ConstructorInitializerAllOnOneLineOrOnePerLine: true # Initialisation de constructeur sur une seule ligne ou séparée
+BreakBeforeInheritanceComma: true                    # Sépare les héritages par des retours à la ligne
+
+# Autres options avancées
+DerivePointerAlignment: false               # Respecte l'alignement des pointeurs défini ci-dessous
+PointerAlignment: Left                      # Aligne les pointeurs à gauche (e.g., `int* ptr`)
+
+# Débogage et validation
+FixNamespaceComments: true                  # Ajoute des commentaires pour fermer les namespaces
+InsertTrailingCommas: None                  # Pas de virgule finale dans les listes
+SortUsingDeclarations: true                 # Trie les `using` par ordre alphabétique

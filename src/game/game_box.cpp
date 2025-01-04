@@ -13,31 +13,46 @@ GameBox::~GameBox() {
     }
 }
 
-SolidRectangle& GameBox::getHitbox() { return _hitbox; }
-const SolidRectangle& GameBox::getHitbox() const { return _hitbox; }
+SolidRectangle& GameBox::getHitbox() {
+    return _hitbox;
+}
+const SolidRectangle& GameBox::getHitbox() const {
+    return _hitbox;
+}
 
-Position2D GameBox::getPosition() const { return getHitbox().getPosition(); }
+Position2D GameBox::getPosition() const {
+    return getHitbox().getPosition();
+}
 
-float GameBox::getWidth() const { return getHitbox().getWidth(); }
-float GameBox::getHeight() const { return getHitbox().getHeight(); }
+float GameBox::getWidth() const {
+    return getHitbox().getWidth();
+}
+float GameBox::getHeight() const {
+    return getHitbox().getHeight();
+}
 
 void GameBox::initializeWalls() {
     Position2D p = getPosition();
-    float w = getWidth();
-    float h = getHeight();
+    float      w = getWidth();
+    float      h = getHeight();
 
-    _leftWall = SolidRectangle(Position2D(p.getX() - BOX_WALLS_THICKNESS, p.getY()),
-                               BOX_WALLS_THICKNESS, h);
+    _leftWall = SolidRectangle(
+        Position2D(p.getX() - BOX_WALLS_THICKNESS, p.getY()), BOX_WALLS_THICKNESS, h);
     _rightWall = SolidRectangle(Position2D(p.getX() + w, p.getY()), BOX_WALLS_THICKNESS, h);
     _topWall =
         SolidRectangle(Position2D(p.getX() - BOX_WALLS_THICKNESS, p.getY() - BOX_WALLS_THICKNESS),
-                       w + (2 * BOX_WALLS_THICKNESS), BOX_WALLS_THICKNESS);
+                       w + (2 * BOX_WALLS_THICKNESS),
+                       BOX_WALLS_THICKNESS);
     _bottomWall = SolidRectangle(Position2D(p.getX(), p.getY() + h), w, BOX_WALLS_THICKNESS);
 }
 
-std::vector<BonusInterface*>& GameBox::getBonuses() { return _bonuses; }
+std::vector<BonusInterface*>& GameBox::getBonuses() {
+    return _bonuses;
+}
 
-void GameBox::addBonus(BonusInterface* b) { getBonuses().push_back(b); }
+void GameBox::addBonus(BonusInterface* b) {
+    getBonuses().push_back(b);
+}
 
 void GameBox::removeBonus(BonusInterface* b) {
     for (auto it = getBonuses().begin(); it != getBonuses().end(); ++it) {
@@ -48,9 +63,13 @@ void GameBox::removeBonus(BonusInterface* b) {
     }
 }
 
-std::vector<Brick*>& GameBox::getBricks() { return _bricks; }
+std::vector<Brick*>& GameBox::getBricks() {
+    return _bricks;
+}
 
-void GameBox::addBrick(Brick* brick) { getBricks().push_back(brick); }
+void GameBox::addBrick(Brick* brick) {
+    getBricks().push_back(brick);
+}
 
 void GameBox::removeBrick(Brick* brick) {
     for (auto it = getBricks().begin(); it != getBricks().end(); ++it) {
@@ -61,11 +80,19 @@ void GameBox::removeBrick(Brick* brick) {
     }
 }
 
-std::vector<Ball*>& GameBox::getBalls() { return _balls; }
-bool GameBox::isBallVectorEmpty() { return getBalls().size() == 0; }
-bool GameBox::doesPlayerHaveMultipleBalls() { return getBalls().size() > 1; }
+std::vector<Ball*>& GameBox::getBalls() {
+    return _balls;
+}
+bool GameBox::isBallVectorEmpty() {
+    return getBalls().size() == 0;
+}
+bool GameBox::doesPlayerHaveMultipleBalls() {
+    return getBalls().size() > 1;
+}
 
-void GameBox::addBall(Ball* b) { getBalls().push_back(b); }
+void GameBox::addBall(Ball* b) {
+    getBalls().push_back(b);
+}
 
 void GameBox::removeBall(Ball* b) {
     for (auto it = getBalls().begin(); it != getBalls().end(); ++it) {
@@ -77,7 +104,9 @@ void GameBox::removeBall(Ball* b) {
     }
 }
 
-Racket* GameBox::getRacket() const { return _racket; }
+Racket* GameBox::getRacket() const {
+    return _racket;
+}
 void GameBox::setRacket(Racket* r) {
     if (_racket) {
         delete _racket;
@@ -85,10 +114,18 @@ void GameBox::setRacket(Racket* r) {
     _racket = r;
 }
 
-SolidRectangle& GameBox::getLeftWall() { return _leftWall; }
-SolidRectangle& GameBox::getRightWall() { return _rightWall; }
-SolidRectangle& GameBox::getTopWall() { return _topWall; }
-SolidRectangle& GameBox::getBottomWall() { return _bottomWall; }
+SolidRectangle& GameBox::getLeftWall() {
+    return _leftWall;
+}
+SolidRectangle& GameBox::getRightWall() {
+    return _rightWall;
+}
+SolidRectangle& GameBox::getTopWall() {
+    return _topWall;
+}
+SolidRectangle& GameBox::getBottomWall() {
+    return _bottomWall;
+}
 
 bool GameBox::isPositionOutOfBounds(const Position2D& pos) const {
     // checks if position in GameBox, if not -> returns true
@@ -154,8 +191,8 @@ WallType GameBox::isObjectCollidingWithWalls(const BonusInterface& object) {
 }
 
 bool GameBox::tryMoveRacket(const Position2D& p) {
-    Racket* rk = getRacket();
-    Racket temp = Racket(p, rk->getWidth(), rk->getHeight(), rk->getSensibility());
+    Racket* rk   = getRacket();
+    Racket  temp = Racket(p, rk->getWidth(), rk->getHeight(), rk->getSensibility());
 
     if (isObjectCollidingWithWalls(temp) == WallType::NONE) {
         getRacket()->setPosition(p);
@@ -166,9 +203,9 @@ bool GameBox::tryMoveRacket(const Position2D& p) {
 }
 
 void GameBox::resizeRacket(float factor) {
-    Racket* rk = getRacket();
-    Racket* temp = new Racket(rk->getPosition(), rk->getWidth() * factor, rk->getHeight(),
-                              rk->getSensibility());
+    Racket* rk   = getRacket();
+    Racket* temp = new Racket(
+        rk->getPosition(), rk->getWidth() * factor, rk->getHeight(), rk->getSensibility());
 
     WallType collisionWithWall = isObjectCollidingWithWalls(*temp);
 
@@ -195,13 +232,13 @@ void GameBox::resizeRacket(float factor) {
 
 std::vector<bool> GameBox::tryMoveBalls() {
     std::vector<Ball*> balls = getBalls();
-    std::vector<bool> could_move(balls.size(), false);
+    std::vector<bool>  could_move(balls.size(), false);
 
     for (size_t idx = 0; idx < balls.size(); ++idx) {
         Ball* ball = balls[idx];
 
-        Position2D np = ball->calculateNewPosition();
-        Ball temp = Ball(np, ball->getRadius(), ball->getSpeed());
+        Position2D np   = ball->calculateNewPosition();
+        Ball       temp = Ball(np, ball->getRadius(), ball->getSpeed());
 
         WallType wallCollision = isObjectCollidingWithWalls(temp);
 
@@ -210,7 +247,7 @@ std::vector<bool> GameBox::tryMoveBalls() {
             could_move[idx] = true;
         } else {
             could_move[idx] = false;
-            auto [vx, vy] = ball->getVelocity();
+            auto [vx, vy]   = ball->getVelocity();
 
             switch (wallCollision) {
                 case WallType::LEFT:

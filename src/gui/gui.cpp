@@ -1,13 +1,23 @@
 #include "gui.hpp"
 
-ALLEGRO_DISPLAY* GameGUI::getAllegroDisplay() { return _display; }
-ALLEGRO_FONT* GameGUI::getAllegroFont() { return _font; }
+ALLEGRO_DISPLAY* GameGUI::getAllegroDisplay() {
+    return _display;
+}
+ALLEGRO_FONT* GameGUI::getAllegroFont() {
+    return _font;
+}
 
-GameBox* GameGUI::getGameBox() { return _gamebox; }
+GameBox* GameGUI::getGameBox() {
+    return _gamebox;
+}
 
-Player* GameGUI::getPlayer() { return _player; }
+Player* GameGUI::getPlayer() {
+    return _player;
+}
 
-std::chrono::high_resolution_clock::time_point GameGUI::getLastUpdate() { return _last_update; }
+std::chrono::high_resolution_clock::time_point GameGUI::getLastUpdate() {
+    return _last_update;
+}
 
 void GameGUI::setLastUpdate(std::chrono::high_resolution_clock::time_point up) {
     _last_update = up;
@@ -27,38 +37,50 @@ void GameGUI::drawRectangleWithTexture(const SolidRectangle& rect, const std::st
 
     ALLEGRO_BITMAP* racketTexture = TextureManager::getTexture(texturePath);
     if (racketTexture) {
-        al_draw_scaled_bitmap(racketTexture, 0, 0,
+        al_draw_scaled_bitmap(racketTexture,
+                              0,
+                              0,
                               static_cast<float>(al_get_bitmap_width(racketTexture)),
-                              static_cast<float>(al_get_bitmap_height(racketTexture)), x1, y1,
-                              rect.getWidth(), rect.getHeight(), 0);
+                              static_cast<float>(al_get_bitmap_height(racketTexture)),
+                              x1,
+                              y1,
+                              rect.getWidth(),
+                              rect.getHeight(),
+                              0);
     }
 }
 
 void GameGUI::drawCircle(const SolidCircle& circle, ALLEGRO_COLOR color) {
-    float x = circle.getPosition().getX() + BOX_WALLS_THICKNESS;
-    float y = circle.getPosition().getY() + BOX_WALLS_THICKNESS;
+    float x      = circle.getPosition().getX() + BOX_WALLS_THICKNESS;
+    float y      = circle.getPosition().getY() + BOX_WALLS_THICKNESS;
     float radius = circle.getRadius();
     al_draw_filled_circle(x, y, radius, color);
 }
 
 void GameGUI::drawText(const Position2D& pos, std::string text) {
-    al_draw_text(getAllegroFont(), DEFAULT_FONT_COLOR, pos.getX(), pos.getY(), ALLEGRO_ALIGN_CENTER,
+    al_draw_text(getAllegroFont(),
+                 DEFAULT_FONT_COLOR,
+                 pos.getX(),
+                 pos.getY(),
+                 ALLEGRO_ALIGN_CENTER,
                  text.c_str());
 }
 
 void GameGUI::updateFPS() {
-    auto currentTime = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<float> delta = currentTime - getLastUpdate();
-    float fps = (delta.count() > 0) ? (1.0f / delta.count()) : 0.0f;
+    auto                         currentTime = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<float> delta       = currentTime - getLastUpdate();
+    float                        fps         = (delta.count() > 0) ? (1.0f / delta.count()) : 0.0f;
     al_set_window_title(getAllegroDisplay(), ("Arkanoid - FPS: " + std::to_string(fps)).c_str());
     setLastUpdate(currentTime);
 }
 
-void GameGUI::clearScreen() { al_clear_to_color(DEFAULT_BACKGROUND_COLOR); }
+void GameGUI::clearScreen() {
+    al_clear_to_color(DEFAULT_BACKGROUND_COLOR);
+}
 
 void GameGUI::drawStatistics() {
-    std::string score = "Score: " + std::to_string(getPlayer()->getScore().getValue());
-    std::string lives = "Lives: " + std::to_string(getPlayer()->getHp());
+    std::string score     = "Score: " + std::to_string(getPlayer()->getScore().getValue());
+    std::string lives     = "Lives: " + std::to_string(getPlayer()->getHp());
     std::string highScore = "High Score: " + std::to_string(getPlayer()->getHighScore().getValue());
 
     // TODO : Remove magic numbers
