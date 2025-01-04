@@ -89,7 +89,9 @@ GameBox* LevelReader::initializeGameBoard(const std::vector<std::vector<std::str
                 case RESIZE_BONUS_IDENTIFIER:
                     bonus = new ResizeBonus(Position2D(abs_x, abs_y));
                     break;
-
+                case GRAB_BONUS_IDENTIFIER:
+                    bonus = new GrabBonus(Position2D(abs_x, abs_y));
+                    break;
                 default:
                     break;
             }

@@ -125,10 +125,11 @@ const ALLEGRO_COLOR DEFAULT_BALL_COLOR      = al_map_rgb(0xFF, 0x00, 0x00);
 const float BRICK_WIDTH  = 50.0;
 const float BRICK_HEIGHT = 20.0;
 
-const int   BONUS_DEFAULT_DURATION = 1;
-const float BONUS_SIZE             = 32.0;
-const float BONUS_FALLING_SPEED    = 10.0;
-const float BONUS_RESIZE_FACTOR    = 1.5;
+const int   BONUS_DEFAULT_DURATION       = 1;
+const float BONUS_SIZE                   = 32.0;
+const float BONUS_FALLING_SPEED          = 10.0;
+const float BONUS_RESIZE_FACTOR          = 1.5;
+const int   GRAB_BONUS_MAX_GRAB_DURATION = 180;
 
 const std::string DUPLICATION_BONUS_TEXTURE = "./assets/bonus/duplication_bonus.png";
 const std::string GRAB_BONUS_TEXTURE        = "./assets/bonus/grab_bonus.png";

@@ -158,3 +158,62 @@ void ResizeBonus::revertLogic(GameBox& gb, Player& player) {
     (void) player;
     gb.resizeRacket(1 / BONUS_RESIZE_FACTOR);
 }
+
+int GrabBonus::getGrabTimer() {
+    return _grabTimer;
+}
+
+void GrabBonus::setGrabTimer(int t) {
+    _grabTimer = t;
+}
+
+void GrabBonus::incrementGrabTimer(int incr) {
+    setGrabTimer(getGrabTimer() + incr);
+}
+
+void GrabBonus::applyLogic(GameBox& gb, Player& player) {
+    // If bonus is not active or has expired, we skip logic
+    if (!isActive() || hasBonusDurationExpired()) {
+        return;
+    }
+
+    if (gb.isBallVectorEmpty()) {
+        return;
+    }
+
+    if (gb.doesPlayerHaveMultipleBalls()) {
+        std::cerr << "Not supposed to apply grab logic with multiple balls" << std::endl;
+        return;
+    }
+
+    // if grab timer is 0, then we check if ball must be grabbed
+    if (getGrabTimer() == 0) {
+        Ball* currentBall = gb.getBalls().at(0);
+
+        if (CollisionHelper::isColliding(currentBall->getHitbox(), gb.getRacket()->getHitbox())) {
+            // ball must be grabbed by the racket
+            gb.removeBall(currentBall);
+            delete currentBall;
+            player.setHasBallStored(true);  // put another ball back in the held bar
+            incrementGrabTimer(1);
+        }
+
+    } else {
+        // if grab timer != 0, it means that there's a ball that needs to be shooted in the held
+        // bar. if that happens, then we need to ckeck if timer is up, and if it is then shoot the
+        // ball with the player action Action::SHOOT
+        if (getGrabTimer() > GRAB_BONUS_MAX_GRAB_DURATION) {
+            setGrabTimer(0);
+            player.getController().setCurrentAction(Action::SHOOT);
+            player.getController().setCanActionBeModified(false);
+        } else {
+            // If not, we increment the timer IF the ball has not been shooted. if it has been
+            // shooted, then we will just reset the timer
+            if (!player.hasBallStored()) {
+                setGrabTimer(0);
+            } else {
+                incrementGrabTimer(1);
+            }
+        }
+    }
+}

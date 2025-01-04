@@ -97,7 +97,6 @@ void GameBox::addBall(Ball* b) {
 void GameBox::removeBall(Ball* b) {
     for (auto it = getBalls().begin(); it != getBalls().end(); ++it) {
         if (*it == b) {
-            delete *it;
             getBalls().erase(it);
             break;
         }

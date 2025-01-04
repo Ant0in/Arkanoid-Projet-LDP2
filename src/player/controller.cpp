@@ -23,16 +23,23 @@ void GameController::setHasMouseMoved(bool flag) {
     _hasMouseMoved = flag;
 }
 
+bool GameController::canActionBeModified() {
+    return _canActionBeModified;
+}
+void GameController::setCanActionBeModified(bool flag) {
+    _canActionBeModified = flag;
+}
+
 void GameController::updateUserAction(int keyCode) {
+    if (!canActionBeModified()) {
+        return;
+    }
+
     const std::unordered_map<int, Action>& cfg = getConfig();
 
     if (cfg.find(keyCode) != cfg.end()) {
         // if keybind is set in the config
         setCurrentAction(cfg.at(keyCode));
-
-    } else {
-        // we dont know the key that got pressed
-        setCurrentAction(Action::NONE);
     }
 }
 

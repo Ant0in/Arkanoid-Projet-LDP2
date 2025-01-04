@@ -116,3 +116,30 @@ class ResizeBonus : public BonusInterface {
     void applyLogic(GameBox& gb, Player& player);
     void revertLogic(GameBox& gb, Player& player);
 };
+
+class GrabBonus : public BonusInterface {
+   private:
+    int _grabTimer;
+
+   public:
+    GrabBonus(const Position2D& pos             = DEFAULT_CORNER_POS,
+              float             size            = BONUS_SIZE,
+              int               active_duration = BONUS_DEFAULT_DURATION,
+              float             falling_speed   = BONUS_FALLING_SPEED,
+              bool              is_active       = false,
+              bool              is_spawned      = false)
+        : BonusInterface(pos, size, active_duration, falling_speed, is_active, is_spawned),
+          _grabTimer(0) {
+    }
+
+    virtual ~GrabBonus() = default;
+
+    BonusInterface* clone() const override {
+        return new GrabBonus(*this);
+    }
+
+    int  getGrabTimer();
+    void setGrabTimer(int t);
+    void incrementGrabTimer(int incr);
+    void applyLogic(GameBox& gb, Player& player);
+};

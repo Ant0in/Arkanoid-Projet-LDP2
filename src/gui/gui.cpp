@@ -135,6 +135,10 @@ void GameGUI::drawBonuses() {
             texture = PLAYER_BONUS_TEXTURE;
         } else if (dynamic_cast<DuplicationBonus*>(bonus)) {
             texture = DUPLICATION_BONUS_TEXTURE;
+        } else if (dynamic_cast<GrabBonus*>(bonus)) {
+            texture = GRAB_BONUS_TEXTURE;
+        } else {
+            std::cerr << "unknown bonus" << std::endl;
         }
 
         if (!bonus->isActive()) {

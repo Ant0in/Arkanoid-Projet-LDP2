@@ -15,6 +15,8 @@ void GameEngine::handleActions(GameBox& gamebox, Player& player) {
         } else {
             // TODO : laser
         }
+
+        player.getController().setCurrentAction(Action::NONE);
     }
 
     // and then we try to see if the player has moved the mouse
@@ -26,6 +28,8 @@ void GameEngine::handleActions(GameBox& gamebox, Player& player) {
         gamebox.tryMoveRacket(Position2D(mouseHorizontalAxis, racketVerticalAxis));
         player.getController().setHasMouseMoved(false);  // reset the need to move to the position
     }
+
+    player.getController().setCanActionBeModified(true);
 }
 
 void GameEngine::handleCollisionsWithRacket(GameBox& gamebox) {
@@ -183,6 +187,10 @@ void GameEngine::handleGameState(GameBox& gamebox, Player& player) {
 
     // Verify if ball vector empty and player has no held ball (state: lose life)
     if (gamebox.isBallVectorEmpty() && !(player.hasBallStored())) {
+        if (player.hasBonusActive()) {
+            player.getBonus()->setActive(false);
+        }
+
         player.incrementHp(-1);
 
         if (player.isDead()) {
