@@ -151,20 +151,25 @@ void GameGUI::drawBonuses() {
     }
 }
 
-void GameGUI::drawGameOver(){
+void GameGUI::drawGameOver() {
     std::string gameOverText = "GAME OVER - Press ENTER to try again";
-    std::string scoreText     = "Your Score: " + std::to_string(getPlayer()->getScore().getValue());
-    std::string highScoreText = "Your Best Score: " + std::to_string(getPlayer()->getHighScore().getValue());
+    std::string scoreText    = "Your Score: " + std::to_string(getPlayer()->getScore().getValue());
+    std::string highScoreText =
+        "Your Best Score: " + std::to_string(getPlayer()->getHighScore().getValue());
 
     float textHeight = static_cast<float>(al_get_font_line_height(_font));
-    float spacing = textHeight * 2;
-    float startY = (GAME_HEIGHT / 2) - spacing;
+    float spacing    = textHeight * 2;
+    float startY     = (GAME_HEIGHT / 2) - spacing;
 
     // Dessiner les textes avec un espacement proportionnel
-    drawText(Position2D(GAME_WIDTH / 2, startY), gameOverText);
-    drawText(Position2D(GAME_WIDTH / 2, startY + spacing), scoreText);
-    drawText(Position2D(GAME_WIDTH / 2, startY + 2 * spacing), highScoreText);
-
+    drawText(Position2D(GAME_WIDTH / 2 + BOX_WALLS_THICKNESS, startY + BOX_WALLS_THICKNESS),
+             gameOverText);
+    drawText(
+        Position2D(GAME_WIDTH / 2 + BOX_WALLS_THICKNESS, startY + spacing + BOX_WALLS_THICKNESS),
+        scoreText);
+    drawText(Position2D(GAME_WIDTH / 2 + BOX_WALLS_THICKNESS,
+                        startY + 2 * spacing + BOX_WALLS_THICKNESS),
+             highScoreText);
 }
 
 void GameGUI::updateGUI() {

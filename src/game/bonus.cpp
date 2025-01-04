@@ -221,12 +221,14 @@ void GrabBonus::applyLogic(GameBox& gb, Player& player) {
     }
 }
 
-void SlowBonus::applyLogic(GameBox& gb, Player& player){
+void SlowBonus::applyLogic(GameBox& gb, Player& player) {
+    (void) player;
+
     if (gb.isBallVectorEmpty()) {
         return;
     }
-    
-    Ball *currentBall = gb.getBalls().at(0);
+
+    Ball* currentBall = gb.getBalls().at(0);
 
     if (!isActive() || hasBonusDurationExpired()) {
         // if needed: restore speed
@@ -249,7 +251,8 @@ void SlowBonus::applyLogic(GameBox& gb, Player& player){
     incrementDuration(-1);
 }
 
-void SlowBonus::revertLogic(GameBox& gb, Player& player){
-    Ball * currentBall = gb.getBalls().at(0);
+void SlowBonus::revertLogic(GameBox& gb, Player& player) {
+    (void) player;
+    Ball* currentBall = gb.getBalls().at(0);
     currentBall->setSpeed(BALL_SPEED);
 }
