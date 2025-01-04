@@ -158,13 +158,13 @@ class GrabBonus : public BonusInterface {
 };
 
 class SlowBonus : public BonusInterface {
-    public:
+   public:
     SlowBonus(const Position2D& pos             = DEFAULT_CORNER_POS,
-                float             size            = BONUS_SIZE,
-                int               active_duration = BONUS_DEFAULT_DURATION,
-                float             falling_speed   = BONUS_FALLING_SPEED,
-                bool              is_active       = false,
-                bool              is_spawned      = false)
+              float             size            = BONUS_SIZE,
+              int               active_duration = BONUS_DEFAULT_DURATION,
+              float             falling_speed   = BONUS_FALLING_SPEED,
+              bool              is_active       = false,
+              bool              is_spawned      = false)
         : BonusInterface(
               pos, size, active_duration, falling_speed, is_active, is_spawned, BonusType::SLOW) {
     }
