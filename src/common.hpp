@@ -46,7 +46,8 @@ enum class BrickType{
 enum class Action{
     NONE = 0,
     LEFT = 1,
-    RIGHT = 2
+    RIGHT = 2,
+    SHOOT = 3
 };
 
 enum class WallType{

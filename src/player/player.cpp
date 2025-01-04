@@ -44,6 +44,10 @@ void Player::checkHighScore(){
 int Player::getHp() const{return _hp;}
 void Player::setHp(int nhp) {_hp = nhp;}
 
+bool Player::hasBallStored() {return _hasBallStored;}
+
+void Player::setHasBallStored(bool flag) {_hasBallStored = flag;}
+
 void Player::incrementHp(int incr) {setHp(getHp() + incr);}
 
 bool Player::isDead() const {return getHp() <= 0;}

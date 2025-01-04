@@ -18,15 +18,17 @@ class Player{
         Score _score;
         std::vector<BonusInterface*> _bonus;
         Score _highScore;
+        bool _hasBallStored;
 
     public:
 
-        Player(int hp = PLAYER_DEFAULT_HEALTH, const GameController& controller = GameController(), const Score& score = Score(0), const std::vector<BonusInterface*>& bonus = {}):
+        Player(int hp = PLAYER_DEFAULT_HEALTH, const GameController& controller = GameController(), const Score& score = Score(0), const std::vector<BonusInterface*>& bonus = {}, bool hasBallStored = true):
             _hp{hp},
             _controller{controller},
             _score{score},
             _bonus{bonus},
-            _highScore{readHighScoreFromFile(HIGH_SCORE_FILE)}{}
+            _highScore{readHighScoreFromFile(HIGH_SCORE_FILE)},
+            _hasBallStored{hasBallStored} {}
 
         ~Player() = default;
 
@@ -37,6 +39,8 @@ class Player{
         void checkHighScore();
         int getHp() const;
         void setHp(int nhp);
+        bool hasBallStored();
+        void setHasBallStored(bool flag);
         void incrementHp(int incr);
         bool isDead() const;
         GameController& getController();

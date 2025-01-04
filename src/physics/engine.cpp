@@ -10,6 +10,15 @@ void GameEngine::handleActions(GameBox& gamebox, Player& player){
 
         gamebox.tryMoveRacket(gamebox.getRacket()->calculateNewPosition(action));
 
+    } else if (action == Action::SHOOT) {
+
+        // Trying to shoot a ball or a laser.
+        if (player.hasBallStored()) {
+            handleBallSpawn(gamebox);
+            player.setHasBallStored(false);
+        } else {
+            // TODO : laser
+        }
     }
 
     // and then we try to see if the player has moved the mouse
@@ -137,7 +146,9 @@ void GameEngine::handleBonus(GameBox& gamebox, Player& player){
 }
 
 void GameEngine::handleBallSpawn(GameBox& gamebox){
-    Ball* b = new Ball(DEFAULT_SPAWN_POSITION, BALL_RADIUS, BALL_SPEED);
+
+    Position2D spawnPosition = Position2D(gamebox.getRacket()->getCenterPosition().getX(), gamebox.getRacket()->getCenterPosition().getY() - BALL_RADIUS);
+    Ball* b = new Ball(spawnPosition, BALL_RADIUS, BALL_SPEED);
     gamebox.addBall(b);
 
 }
@@ -157,16 +168,29 @@ void GameEngine::handleWin(const GameBox& gamebox, const Player& player){
 }
 
 void GameEngine::handleGameState(GameBox& gamebox, Player& player){
+    
     // Verify "win" state
     if (gamebox.isWin()){
+
         handleWin(gamebox, player);
+
     }
 
-    // Verify if ball vector empty (state: lose life)
-    if (gamebox.isBallVectorEmpty()){
+    // Verify if ball vector empty and player has no held ball (state: lose life)
+    if (gamebox.isBallVectorEmpty() && !(player.hasBallStored())) {
+        
         player.incrementHp(-1);
-        if (player.isDead()){handleGameOver(gamebox, player);}
-        else{handleBallSpawn(gamebox);}
+        
+        if (player.isDead()){
+
+            handleGameOver(gamebox, player);
+
+        } else {
+
+            // player gets a ball in his storage
+            player.setHasBallStored(true);
+
+        }
     }
 }
 
