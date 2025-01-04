@@ -23,18 +23,7 @@ void GameController::setHasMouseMoved(bool flag) {
     _hasMouseMoved = flag;
 }
 
-bool GameController::canActionBeModified() {
-    return _canActionBeModified;
-}
-void GameController::setCanActionBeModified(bool flag) {
-    _canActionBeModified = flag;
-}
-
 void GameController::updateUserAction(int keyCode) {
-    if (!canActionBeModified()) {
-        return;
-    }
-
     const std::unordered_map<int, Action>& cfg = getConfig();
 
     if (cfg.find(keyCode) != cfg.end()) {

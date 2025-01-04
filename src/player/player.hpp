@@ -18,6 +18,7 @@ class Player {
     BonusInterface* _bonus;
     Score           _highScore;
     bool            _hasBallStored;
+    bool            _hasGrabDelayExpired;
 
    public:
     Player(int                   hp            = PLAYER_DEFAULT_HEALTH,
@@ -30,7 +31,8 @@ class Player {
           _score{score},
           _bonus{bonus},
           _highScore{readHighScoreFromFile(HIGH_SCORE_FILE)},
-          _hasBallStored{hasBallStored} {
+          _hasBallStored{hasBallStored},
+          _hasGrabDelayExpired{false} {
     }
 
     ~Player() = default;
@@ -44,6 +46,8 @@ class Player {
     void            setHp(int nhp);
     bool            hasBallStored();
     void            setHasBallStored(bool flag);
+    bool            hasGrabTimerExpired();
+    void            setHasGrabTimerExpired(bool flag);
     void            incrementHp(int incr);
     bool            isDead() const;
     GameController& getController();

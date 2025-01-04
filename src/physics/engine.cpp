@@ -13,9 +13,11 @@ void GameEngine::handleActions(GameBox& gamebox, Player& player) {
             handleBallSpawn(gamebox);
             player.setHasBallStored(false);
         } else {
+            std::cout << "not supposed to reach" << std::endl;
             // TODO : laser
         }
 
+        // finally we make sure the user will be able to make new shoots/lazers
         player.getController().setCurrentAction(Action::NONE);
     }
 
@@ -28,8 +30,6 @@ void GameEngine::handleActions(GameBox& gamebox, Player& player) {
         gamebox.tryMoveRacket(Position2D(mouseHorizontalAxis, racketVerticalAxis));
         player.getController().setHasMouseMoved(false);  // reset the need to move to the position
     }
-
-    player.getController().setCanActionBeModified(true);
 }
 
 void GameEngine::handleCollisionsWithRacket(GameBox& gamebox) {
@@ -116,6 +116,12 @@ void GameEngine::handleBalls(GameBox& gamebox, Player& player) {
     handleBricks(gamebox, player, b);
     // 4) get rid of dead balls
     handleDeadBalls(gamebox);
+    // 5) Handle spawn in case the grab delay is expired
+    if (player.hasGrabTimerExpired()) {
+        std::cout << "Grab timer expired : releasing ball" << std::endl;
+        player.setHasGrabTimerExpired(false);
+        handleBallSpawn(gamebox);
+    }
 }
 
 void GameEngine::handleCollisionWithEntities(GameBox& gamebox, Player& player) {
@@ -160,8 +166,9 @@ void GameEngine::handleBonus(GameBox& gamebox, Player& player) {
 void GameEngine::handleBallSpawn(GameBox& gamebox) {
     Position2D spawnPosition =
         Position2D(gamebox.getRacket()->getCenterPosition().getX(),
-                   gamebox.getRacket()->getCenterPosition().getY() - BALL_RADIUS);
-    Ball* b = new Ball(spawnPosition, BALL_RADIUS, BALL_SPEED);
+                   gamebox.getRacket()->getPosition().getY() - 2 * BALL_RADIUS);
+    Ball* b = new Ball(
+        spawnPosition, BALL_RADIUS, BALL_SPEED, BALL_X_VELOCITY_DEFAULT, BALL_Y_VELOCITY_DEFAULT);
     gamebox.addBall(b);
 }
 

@@ -64,6 +64,14 @@ void Player::setHasBallStored(bool flag) {
     _hasBallStored = flag;
 }
 
+bool Player::hasGrabTimerExpired() {
+    return _hasGrabDelayExpired;
+}
+
+void Player::setHasGrabTimerExpired(bool flag) {
+    _hasGrabDelayExpired = flag;
+}
+
 void Player::incrementHp(int incr) {
     setHp(getHp() + incr);
 }

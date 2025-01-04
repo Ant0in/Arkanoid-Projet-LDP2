@@ -177,7 +177,7 @@ void GrabBonus::applyLogic(GameBox& gb, Player& player) {
         return;
     }
 
-    if (gb.isBallVectorEmpty()) {
+    if (gb.isBallVectorEmpty() && !player.hasBallStored()) {
         return;
     }
 
@@ -204,8 +204,7 @@ void GrabBonus::applyLogic(GameBox& gb, Player& player) {
         // ball with the player action Action::SHOOT
         if (getGrabTimer() > GRAB_BONUS_MAX_GRAB_DURATION) {
             setGrabTimer(0);
-            player.getController().setCurrentAction(Action::SHOOT);
-            player.getController().setCanActionBeModified(false);
+            player.setHasGrabTimerExpired(true);
         } else {
             // If not, we increment the timer IF the ball has not been shooted. if it has been
             // shooted, then we will just reset the timer

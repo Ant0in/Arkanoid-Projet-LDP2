@@ -14,11 +14,15 @@ class Ball {
     bool        _is_alive;
 
    public:
-    Ball(const Position2D& center, float radius = BALL_RADIUS, float speed = BALL_SPEED)
+    Ball(const Position2D& center,
+         float             radius = BALL_RADIUS,
+         float             speed  = BALL_SPEED,
+         float             xvel   = BALL_X_VELOCITY_DEFAULT,
+         float             yvel   = BALL_Y_VELOCITY_DEFAULT)
         : _hitbox{SolidCircle(center, radius)},
           _speed{speed},
-          _x_velocity{BALL_X_VELOCITY_DEFAULT},
-          _y_velocity{BALL_Y_VELOCITY_DEFAULT},
+          _x_velocity{xvel},
+          _y_velocity{yvel},
           _is_alive{true} {
     }
 

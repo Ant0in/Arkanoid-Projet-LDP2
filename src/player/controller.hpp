@@ -14,15 +14,13 @@ class GameController {
     Action                          _currentAction;
     Position2D                      _currentMousePosition;
     bool                            _hasMouseMoved;
-    bool                            _canActionBeModified;
 
    public:
     GameController(const std::unordered_map<int, Action>& userConfig = DEFAULT_CONFIG)
         : _config{userConfig},
           _currentAction{Action::NONE},
           _currentMousePosition{DEFAULT_MOUSE_POS},
-          _hasMouseMoved{false},
-          _canActionBeModified{true} {
+          _hasMouseMoved{false} {
     }
 
     ~GameController() = default;
@@ -33,8 +31,6 @@ class GameController {
     void                                   setCurrentMousePosition(const Position2D& pos);
     bool                                   hasMouseMoved();
     void                                   setHasMouseMoved(bool flag);
-    bool                                   canActionBeModified();
-    void                                   setCanActionBeModified(bool flag);
     const std::unordered_map<int, Action>& getConfig() const;
     void                                   updateUserAction(int keyCode = 0);
     void                                   updateMousePosition(const Position2D& position);
