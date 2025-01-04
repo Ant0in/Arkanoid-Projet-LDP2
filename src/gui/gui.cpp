@@ -162,7 +162,7 @@ void GameGUI::drawBonuses() {
 
 void GameGUI::drawLasers() {
     for (auto& laser : getGameBox()->getLasers()) {
-        drawRectangle(laser->getHitbox(), DEFAULT_BACKGROUND_COLOR);  // TODO : fix the assets
+        drawRectangleWithTexture(laser->getHitbox(), LASER_TEXTURE_PATH);
     }
 }
 

@@ -122,9 +122,10 @@ extern const float BONUS_FALLING_SPEED;
 extern const float BONUS_RESIZE_FACTOR;
 extern const int   GRAB_BONUS_MAX_GRAB_DURATION;
 
-extern const float LASER_WIDTH;
-extern const float LASER_HEIGHT;
-extern const float LASER_SPEED;
+extern const float       LASER_WIDTH;
+extern const float       LASER_HEIGHT;
+extern const float       LASER_SPEED;
+extern const std::string LASER_TEXTURE_PATH;
 
 extern const int WHITE_BRICK_REWARD;
 extern const int ORANGE_BRICK_REWARD;

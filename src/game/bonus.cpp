@@ -266,5 +266,6 @@ void LaserBonus::applyLogic(GameBox& gb, Player& player) {
 }
 
 void LaserBonus::revertLogic(GameBox& gb, Player& player) {
+    (void) gb;
     player.setCanShootLaser(false);
 }
