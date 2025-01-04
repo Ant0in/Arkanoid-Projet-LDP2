@@ -233,8 +233,7 @@ void SlowBonus::applyLogic(GameBox& gb, Player& player) {
     if (!isActive() || hasBonusDurationExpired()) {
         // if needed: restore speed
         if (currentBall->getSpeed() < BALL_SPEED) {
-            float recoveryRate = 0.09f;
-            float updatedSpeed = currentBall->getSpeed() + recoveryRate;
+            float updatedSpeed = currentBall->getSpeed() + RECOVERY_RATE;
 
             if (updatedSpeed > BALL_SPEED) {
                 updatedSpeed = BALL_SPEED;

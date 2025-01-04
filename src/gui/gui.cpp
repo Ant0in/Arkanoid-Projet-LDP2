@@ -139,7 +139,16 @@ void GameGUI::drawBalls() {
 }
 
 void GameGUI::drawRacket() {
+    // drawing the racket
     drawRectangleWithTexture(getGameBox()->getRacket()->getHitbox(), RACKET_TEXTURE_PATH);
+    // and then the sticky ball if the player is holding a ball
+    if (getPlayer()->hasBallStored()) {
+        drawCircle(
+            SolidCircle(Position2D(getGameBox()->getRacket()->getCenterPosition().getX(),
+                                   getGameBox()->getRacket()->getPosition().getY() - BALL_RADIUS),
+                        BALL_RADIUS),
+            DEFAULT_BALL_COLOR);
+    }
 }
 
 void GameGUI::drawBonuses() {
