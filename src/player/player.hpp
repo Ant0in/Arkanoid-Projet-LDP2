@@ -16,13 +16,13 @@ class Player{
         int _hp;
         GameController _controller;
         Score _score;
-        std::vector<BonusInterface*> _bonus;
+        BonusInterface* _bonus;
         Score _highScore;
         bool _hasBallStored;
 
     public:
 
-        Player(int hp = PLAYER_DEFAULT_HEALTH, const GameController& controller = GameController(), const Score& score = Score(0), const std::vector<BonusInterface*>& bonus = {}, bool hasBallStored = true):
+        Player(int hp = PLAYER_DEFAULT_HEALTH, const GameController& controller = GameController(), const Score& score = Score(0), BonusInterface* bonus = nullptr, bool hasBallStored = true):
             _hp{hp},
             _controller{controller},
             _score{score},
@@ -45,7 +45,8 @@ class Player{
         bool isDead() const;
         GameController& getController();
         Score& getScore();
-        std::vector<BonusInterface*>& getBonus();
-        void addBonus(BonusInterface* b);
-        void removeBonus(BonusInterface* b);
+
+        bool hasBonusActive();
+        BonusInterface* getBonus();
+        void setBonus(BonusInterface* bonus);
 };

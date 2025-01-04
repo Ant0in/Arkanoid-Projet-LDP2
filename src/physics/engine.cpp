@@ -121,10 +121,12 @@ void GameEngine::handleCollisionWithEntities(GameBox& gamebox, Player& player){
         Position2D falling_pos = bonus->getGravityPosition();
         bonus->setPosition(falling_pos);
 
-        if (CollisionHelper::isColliding(bonus->getHitbox(), gamebox.getRacket()->getHitbox())){
-            player.addBonus(bonus);
+        if (CollisionHelper::isColliding(bonus->getHitbox(), gamebox.getRacket()->getHitbox())) {
+            player.setBonus(bonus);
             bonus->setActive(true);
+            gamebox.removeBonus(bonus);
         }
+
         else if (gamebox.isObjectOutOfBounds(*bonus)){
             gamebox.removeBonus(bonus);
         }
@@ -132,12 +134,17 @@ void GameEngine::handleCollisionWithEntities(GameBox& gamebox, Player& player){
 }
 
 void GameEngine::handleBonusLogic(GameBox& gamebox, Player& player){
-    for (BonusInterface* bonus : player.getBonus()){
+    
+    if (player.hasBonusActive()) {
+
+        BonusInterface* bonus = player.getBonus();
         bonus->applyLogic(gamebox, player);
-        if (bonus->hasBonusDurationExpired()){
-            player.removeBonus(bonus);
+
+        if (bonus->hasBonusDurationExpired()) {
+            player.setBonus(nullptr);
         }
     }
+
 }
 
 void GameEngine::handleBonus(GameBox& gamebox, Player& player){

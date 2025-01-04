@@ -56,17 +56,23 @@ GameController& Player::getController() {return _controller;}
 
 Score& Player::getScore() {return _score;}
 
-std::vector<BonusInterface*>& Player::getBonus() {return _bonus;}
 
-void Player::addBonus(BonusInterface* b){
-    getBonus().push_back(b);
+bool Player::hasBonusActive() {return (_bonus);}
+
+BonusInterface* Player::getBonus() {
+    
+    if (!hasBonusActive()) {
+        // for debug purposes
+        std::cerr << "Shouldn't get bonus without checking if there's one." << std::endl;
+    }
+    return _bonus;
 }
 
-void Player::removeBonus(BonusInterface* b){
-    for (auto it = getBonus().begin(); it != getBonus().end(); ++it) {
-        if (*it == b) { 
-            getBonus().erase(it); 
-            break;
-        }
+void Player::setBonus(BonusInterface* bonus) {
+    
+    if (hasBonusActive()) {
+        delete _bonus;
     }
+
+    _bonus = bonus;
 }
