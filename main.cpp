@@ -1,6 +1,7 @@
 
 #include "src/game/game_box.hpp"
 #include "src/game/level_manager.hpp"
+#include "src/game/level_reader.hpp"
 #include "src/player/controller.hpp"
 #include "src/player/player.hpp"
 
@@ -61,8 +62,8 @@ int main() {
     al_register_event_source(event_queue, al_get_keyboard_event_source());
     al_start_timer(timer);
 
-    LevelManager   manager = LevelManager({"./maps/1.map", "./maps/2.map"});
-    GameBox*       gamebox = manager.generateCurrentLevelGamebox();  // first level of the manager
+    LevelManager manager = LevelManager(LevelReader::findEveryMapFilepathInFolder(MAP_FOLDER_PATH));
+    GameBox*     gamebox = manager.generateCurrentLevelGamebox();  // first level of the manager
     GameController controller = GameController();
     Player*        player     = new Player(PLAYER_DEFAULT_HEALTH, controller);
     GameGUI        gui        = GameGUI(display, font, gamebox, player);
@@ -103,6 +104,9 @@ int main() {
 
     // Destroying stuff at the end
     TextureManager::releaseAllTextures();
+
+    al_shutdown_primitives_addon();
+    al_shutdown_image_addon();
 
     al_destroy_event_queue(event_queue);
     al_uninstall_keyboard();

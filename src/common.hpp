@@ -73,6 +73,7 @@ extern const float       GAME_HEIGHT;
 extern const std::string BACKGROUND_TEXTURE_PATH;
 extern const std::string SIDE_WALLS_TEXTURE_PATH;
 extern const std::string TOP_WALL_TEXTURE_PATH;
+extern const std::string MAP_FOLDER_PATH;
 
 extern const float UPPER_BORDER_HEIGHT;
 extern const float LOWER_BORDER_HEIGHT;

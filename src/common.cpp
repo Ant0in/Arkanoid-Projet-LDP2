@@ -116,6 +116,7 @@ const float       GAME_HEIGHT             = 800;
 const std::string BACKGROUND_TEXTURE_PATH = "./assets/background/bg.png";
 const std::string SIDE_WALLS_TEXTURE_PATH = "./assets/background/side_wall.png";
 const std::string TOP_WALL_TEXTURE_PATH   = "./assets/background/top_wall.png";
+const std::string MAP_FOLDER_PATH         = "./maps";
 
 const ALLEGRO_COLOR DEFAULT_BACKGROUND_COLOR = al_map_rgb(0x00, 0x00, 0x00);
 const ALLEGRO_COLOR DEFAULT_FONT_COLOR       = al_map_rgb(0xff, 0xff, 0xff);
