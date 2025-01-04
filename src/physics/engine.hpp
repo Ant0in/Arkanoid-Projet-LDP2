@@ -36,11 +36,11 @@ class GameEngine {
 
     static void handleBallSpawn(GameBox*& gamebox);
 
-    static void handleGameOver(GameBox*& gamebox, const Player& player);
+    static void handleGameOver(LevelManager& manager, GameBox*& gamebox, Player& player);
 
-    static void handleWin(GameBox*& gamebox, const Player& player);
+    static void handleWin(LevelManager& manager, GameBox*& gamebox, Player& player);
 
-    static void handleGameState(GameBox*& gamebox, Player& player);
+    static void handleGameState(LevelManager& manager, GameBox*& gamebox, Player& player);
 
     static void handleLevelSwitch(LevelManager& manager, GameBox*& gamebox, Player& player);
 

@@ -175,27 +175,25 @@ void GameEngine::handleBallSpawn(GameBox*& gamebox) {
     gamebox->addBall(b);
 }
 
-void GameEngine::handleGameOver(GameBox*& gamebox, const Player& player) {
+void GameEngine::handleGameOver(LevelManager& manager, GameBox*& gamebox, Player& player) {
+    // TODO
+    (void) manager;
     (void) gamebox;
     (void) player;
-    std::cout << "Loose" << std::endl;
-    exit(0);
 }
 
-void GameEngine::handleWin(GameBox*& gamebox, const Player& player) {
-    (void) gamebox;
-    (void) player;
-    std::cout << "Win" << std::endl;
-    exit(0);
+void GameEngine::handleWin(LevelManager& manager, GameBox*& gamebox, Player& player) {
+    player.getController().setCurrentAction(Action::NEXT_LEVEL);
+    handleLevelSwitch(manager, gamebox, player);
 }
 
-void GameEngine::handleGameState(GameBox*& gamebox, Player& player) {
+void GameEngine::handleGameState(LevelManager& manager, GameBox*& gamebox, Player& player) {
     // Verify "win" state
 
     gamebox->incrementFrameCount(1);
 
     if (gamebox->isWin()) {
-        handleWin(gamebox, player);
+        handleWin(manager, gamebox, player);
     }
 
     // Verify if ball vector empty and player has no held ball (state: lose life)
@@ -207,7 +205,7 @@ void GameEngine::handleGameState(GameBox*& gamebox, Player& player) {
         player.incrementHp(-1);
 
         if (player.isDead()) {
-            handleGameOver(gamebox, player);
+            handleGameOver(manager, gamebox, player);
 
         } else {
             // player gets a ball in his storage
@@ -228,10 +226,6 @@ void GameEngine::handleLevelSwitch(LevelManager& manager, GameBox*& gamebox, Pla
     }
 
     int saved_balls = static_cast<int>(gamebox->getBalls().size());
-    if (player.hasBallStored()) {
-        saved_balls++;
-    }
-
     delete gamebox;
     gamebox = manager.generateCurrentLevelGamebox();
 
@@ -245,5 +239,5 @@ void GameEngine::handleRoutine(LevelManager& manager, GameBox*& gamebox, Player&
     handleActions(manager, gamebox, player);
     handleBalls(gamebox, player);
     handleBonus(gamebox, player);
-    handleGameState(gamebox, player);
+    handleGameState(manager, gamebox, player);
 }
