@@ -91,8 +91,12 @@ GameBox* LevelReader::initializeGameBoard(const std::vector<std::vector<std::str
                 bonus = new GrabBonus(Position2D(abs_x, abs_y));
             } else if (bonus_char == BONUS_IDENTIFIER.at(BonusType::LASER)) {
                 // TODO ; lasers
+                std::cout
+                    << "[levelReader] Please write the bonus initialization with it's identifier!"
             } else if (bonus_char == BONUS_IDENTIFIER.at(BonusType::SLOW)) {
                 // TODO ; slow
+                std::cout
+                    << "[levelReader] Please write the bonus initialization with it's identifier!"
             } else {
             }
 
@@ -110,19 +114,15 @@ std::vector<std::string> LevelReader::findEveryMapFilepathInFolder(const std::st
     std::vector<std::string> mapFiles;
 
     try {
-        // Parcours de tous les fichiers dans le répertoire
         for (const auto& entry : std::filesystem::directory_iterator(folderPath)) {
-            // Vérifier si l'élément est un fichier et s'il a l'extension ".map"
             if (entry.is_regular_file() && entry.path().extension() == ".map") {
                 mapFiles.push_back(entry.path().string());
             }
         }
 
-        // Tri alphabétique des fichiers
         std::sort(mapFiles.begin(), mapFiles.end());
     } catch (const std::filesystem::filesystem_error& e) {
         std::cerr << "Erreur lors de l'accès au répertoire : " << e.what() << std::endl;
-        // Gérer l'erreur (par exemple, retourner un vecteur vide)
     }
 
     return mapFiles;
