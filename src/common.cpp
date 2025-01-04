@@ -91,7 +91,9 @@ const std::unordered_map<BrickType, std::string> BRICK_TEXTURE_PATH = {
     {BrickType::GOLD, "./assets/bricks/gold.png"}
 };
 
-extern const std::string HIGH_SCORE_FILE = "./highscore.txt";
+const std::string DAMAGED_SILVER_TEXTURE = "./assets/bricks/damaged_silver.png";
+
+const std::string HIGH_SCORE_FILE = "./highscore.txt";
 
 const int GAME_FRAMERATE = 60;
 const float GAME_WIDTH = 800;

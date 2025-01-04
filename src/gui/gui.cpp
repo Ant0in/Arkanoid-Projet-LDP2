@@ -63,6 +63,7 @@ void GameGUI::drawStatistics() {
     std::string lives = "Lives: " + std::to_string(getPlayer()->getHp());
     std::string highScore = "High Score: " + std::to_string(getPlayer()->getHighScore().getValue());
 
+    // TODO : Remove magic numbers
     drawText(Position2D(350, 15), score);
     drawText(Position2D(250, 15), lives);
     drawText(Position2D(500, 15), highScore);
@@ -77,9 +78,21 @@ void GameGUI::drawBoard() {
 }
 
 void GameGUI::drawBricks() {
-    // TODO : Write letters on bricks with bonuses.
+    
     for (auto& brick : getGameBox()->getBricks()) {
-        drawRectangleWithTexture(brick->getHitbox(), BRICK_TEXTURE_PATH.at(brick->getBrickType()));
+
+        std::string texture;
+
+        if (brick->getBrickType() == BrickType::SILVER && brick->getHP() < Brick::getBrickHpByType(BrickType::SILVER)) {
+            texture = DAMAGED_SILVER_TEXTURE;
+        } else {
+            texture = BRICK_TEXTURE_PATH.at(brick->getBrickType());
+        }
+
+        drawRectangleWithTexture(brick->getHitbox(), texture);
+
+        // TODO : Write letters on bricks with bonuses.
+
     }
 }
 

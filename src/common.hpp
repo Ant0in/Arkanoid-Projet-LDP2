@@ -58,6 +58,8 @@ enum class WallType{
     TOP = 4
 };
 
+extern const std::string DAMAGED_SILVER_TEXTURE;
+
 extern const std::string HIGH_SCORE_FILE;
 
 extern const std::unordered_map<int, Action> DEFAULT_CONFIG;
