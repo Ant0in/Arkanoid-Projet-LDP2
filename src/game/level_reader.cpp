@@ -90,10 +90,7 @@ GameBox* LevelReader::initializeGameBoard(const std::vector<std::vector<std::str
             } else if (bonus_char == BONUS_IDENTIFIER.at(BonusType::GRAB)) {
                 bonus = new GrabBonus(Position2D(abs_x, abs_y));
             } else if (bonus_char == BONUS_IDENTIFIER.at(BonusType::LASER)) {
-                // TODO ; lasers
-                std::cout
-                    << "[levelReader] Please write the bonus initialization with it's identifier!"
-                    << std::endl;
+                bonus = new LaserBonus(Position2D(abs_x, abs_y));
             } else if (bonus_char == BONUS_IDENTIFIER.at(BonusType::SLOW)) {
                 bonus = new SlowBonus(Position2D(abs_x, abs_y));
             } else {

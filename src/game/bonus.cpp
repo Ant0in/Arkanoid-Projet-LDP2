@@ -255,3 +255,16 @@ void SlowBonus::revertLogic(GameBox& gb, Player& player) {
     Ball* currentBall = gb.getBalls().at(0);
     currentBall->setSpeed(BALL_SPEED);
 }
+
+void LaserBonus::applyLogic(GameBox& gb, Player& player) {
+    (void) gb;
+    if (!isActive() || hasBonusDurationExpired()) {
+        return;
+    }
+    player.setCanShootLaser(true);
+    incrementDuration(-1);
+}
+
+void LaserBonus::revertLogic(GameBox& gb, Player& player) {
+    player.setCanShootLaser(false);
+}

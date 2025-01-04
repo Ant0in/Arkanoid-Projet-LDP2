@@ -173,7 +173,27 @@ class SlowBonus : public BonusInterface {
     BonusInterface* clone() const override {
         return new SlowBonus(*this);
     }
-    void restoreSpeed(GameBox& gb, Player& player);
+    void applyLogic(GameBox& gb, Player& player);
+    void revertLogic(GameBox& gb, Player& player);
+};
+
+class LaserBonus : public BonusInterface {
+   public:
+    LaserBonus(const Position2D& pos             = DEFAULT_CORNER_POS,
+               float             size            = BONUS_SIZE,
+               int               active_duration = BONUS_DEFAULT_DURATION,
+               float             falling_speed   = BONUS_FALLING_SPEED,
+               bool              is_active       = false,
+               bool              is_spawned      = false)
+        : BonusInterface(
+              pos, size, active_duration, falling_speed, is_active, is_spawned, BonusType::LASER) {
+    }
+    virtual ~LaserBonus() = default;
+
+    BonusInterface* clone() const override {
+        return new LaserBonus(*this);
+    }
+
     void applyLogic(GameBox& gb, Player& player);
     void revertLogic(GameBox& gb, Player& player);
 };

@@ -12,9 +12,7 @@ void GameEngine::handleActions(LevelManager& manager, GameBox*& gamebox, Player&
         if (player.hasBallStored()) {
             handleBallSpawn(gamebox);
             player.setHasBallStored(false);
-        } else {
-            // TODO : check if is working
-            std::cout << "shot laser" << std::endl;
+        } else if (player.canShootLaser()) {
             Laser* laser = new Laser();
             laser->spawnLaser(gamebox->getRacket());
             gamebox->addLaser(laser);

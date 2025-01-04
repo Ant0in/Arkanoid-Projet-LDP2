@@ -19,6 +19,7 @@ class Player {
     Score           _highScore;
     bool            _hasBallStored;
     bool            _hasGrabDelayExpired;
+    bool            _canShootLaser;
 
    public:
     Player(int                   hp            = PLAYER_DEFAULT_HEALTH,
@@ -32,7 +33,8 @@ class Player {
           _bonus{bonus},
           _highScore{readHighScoreFromFile(HIGH_SCORE_FILE)},
           _hasBallStored{hasBallStored},
-          _hasGrabDelayExpired{false} {
+          _hasGrabDelayExpired{false},
+          _canShootLaser{false} {
     }
 
     ~Player() = default;
@@ -52,9 +54,10 @@ class Player {
     bool            isDead() const;
     GameController& getController();
     Score&          getScore();
-
     bool            hasBonusActive();
     BonusInterface* getBonus();
     void            setBonus(BonusInterface* bonus);
+    bool            canShootLaser();
+    void            setCanShootLaser(bool flag);
     void            reset();
 };

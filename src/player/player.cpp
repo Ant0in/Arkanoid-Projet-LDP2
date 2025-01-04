@@ -108,6 +108,14 @@ void Player::setBonus(BonusInterface* bonus) {
     _bonus = bonus;
 }
 
+bool Player::canShootLaser() {
+    return _canShootLaser;
+}
+
+void Player::setCanShootLaser(bool flag) {
+    _canShootLaser = flag;
+}
+
 void Player::reset() {
     this->setBonus(nullptr);
     this->getController().updateUserAction(0);
