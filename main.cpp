@@ -92,8 +92,8 @@ int main() {
             // on mouse move
             player->getController().updateMousePosition(
                 Position2D(
-                    static_cast<float>(event.mouse.x),
-                    static_cast<float>(event.mouse.y)
+                    static_cast<float>(event.mouse.x - BOX_WALLS_THICKNESS),
+                    static_cast<float>(event.mouse.y - BOX_WALLS_THICKNESS)
                 )
             );
 
