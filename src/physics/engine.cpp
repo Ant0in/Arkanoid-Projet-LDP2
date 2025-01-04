@@ -22,6 +22,8 @@ void GameEngine::handleActions(LevelManager& manager, GameBox*& gamebox, Player&
     } else if (action == Action::NEXT_LEVEL || action == Action::PREVIOUS_LEVEL) {
         // Switch levels
         handleLevelSwitch(manager, gamebox, player);
+    } else if (action == Action::RESET_HIGHSCORE) {
+        player.setHighScore(Score(0));
     }
 
     // and then we try to see if the player has moved the mouse
