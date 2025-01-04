@@ -94,14 +94,9 @@ class GameBox {
     SolidRectangle& getBottomWall();
 
     bool isPositionOutOfBounds(const Position2D& pos) const;
+    bool isObjectOutOfBounds(const SolidInterface& object) const;
 
-    bool isObjectOutOfBounds(const Racket& object) const;
-    bool isObjectOutOfBounds(const Ball& object) const;
-    bool isObjectOutOfBounds(const BonusInterface& object) const;
-
-    WallType isObjectCollidingWithWalls(const Racket& object);
-    WallType isObjectCollidingWithWalls(const Ball& object);
-    WallType isObjectCollidingWithWalls(const BonusInterface& object);
+    WallType isObjectCollidingWithWalls(const SolidInterface& object);
 
     bool tryMoveRacket(const Position2D& p);
     void resizeRacket(float factor);

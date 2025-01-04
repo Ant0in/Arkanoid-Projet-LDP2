@@ -146,7 +146,7 @@ void GameEngine::handleCollisionWithEntities(GameBox*& gamebox, Player& player) 
             gamebox->removeBonus(bonus);
         }
 
-        else if (gamebox->isObjectOutOfBounds(*bonus)) {
+        else if (gamebox->isObjectOutOfBounds(bonus->getHitbox())) {
             gamebox->removeBonus(bonus);
         }
     }

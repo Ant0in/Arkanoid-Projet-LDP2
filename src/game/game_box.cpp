@@ -142,57 +142,20 @@ bool GameBox::isPositionOutOfBounds(const Position2D& pos) const {
     return (!isPositionContaintedInGameBox);
 }
 
-bool GameBox::isObjectOutOfBounds(const Racket& object) const {
+bool GameBox::isObjectOutOfBounds(const SolidInterface& object) const {
     // checks if object is colliding with  gamebox, if not -> returns true
-    bool outOfBounds = (!CollisionHelper::isColliding(getHitbox(), object.getHitbox()));
-    return outOfBounds;
-}
-bool GameBox::isObjectOutOfBounds(const Ball& object) const {
-    // checks if object is colliding with  gamebox, if not -> returns true
-    bool outOfBounds = (!CollisionHelper::isColliding(getHitbox(), object.getHitbox()));
-    return outOfBounds;
-}
-bool GameBox::isObjectOutOfBounds(const BonusInterface& object) const {
-    // checks if object is colliding with  gamebox, if not -> returns true
-    bool outOfBounds = (!CollisionHelper::isColliding(getHitbox(), object.getHitbox()));
+    bool outOfBounds = (!CollisionHelper::isColliding(getHitbox(), object));
     return outOfBounds;
 }
 
-WallType GameBox::isObjectCollidingWithWalls(const Racket& object) {
-    // std::cout << getLeftWall().getPosition() << std::endl;
-    if (CollisionHelper::isColliding(object.getHitbox(), getLeftWall())) {
+WallType GameBox::isObjectCollidingWithWalls(const SolidInterface& object) {
+    if (CollisionHelper::isColliding(object, getLeftWall())) {
         return WallType::LEFT;
-    } else if (CollisionHelper::isColliding(object.getHitbox(), getRightWall())) {
+    } else if (CollisionHelper::isColliding(object, getRightWall())) {
         return WallType::RIGHT;
-    } else if (CollisionHelper::isColliding(object.getHitbox(), getTopWall())) {
+    } else if (CollisionHelper::isColliding(object, getTopWall())) {
         return WallType::TOP;
-    } else if (CollisionHelper::isColliding(object.getHitbox(), getBottomWall())) {
-        return WallType::BOTTOM;
-    } else {
-        return WallType::NONE;
-    }
-}
-WallType GameBox::isObjectCollidingWithWalls(const Ball& object) {
-    if (CollisionHelper::isColliding(object.getHitbox(), getLeftWall())) {
-        return WallType::LEFT;
-    } else if (CollisionHelper::isColliding(object.getHitbox(), getRightWall())) {
-        return WallType::RIGHT;
-    } else if (CollisionHelper::isColliding(object.getHitbox(), getTopWall())) {
-        return WallType::TOP;
-    } else if (CollisionHelper::isColliding(object.getHitbox(), getBottomWall())) {
-        return WallType::BOTTOM;
-    } else {
-        return WallType::NONE;
-    }
-}
-WallType GameBox::isObjectCollidingWithWalls(const BonusInterface& object) {
-    if (CollisionHelper::isColliding(object.getHitbox(), getLeftWall())) {
-        return WallType::LEFT;
-    } else if (CollisionHelper::isColliding(object.getHitbox(), getRightWall())) {
-        return WallType::RIGHT;
-    } else if (CollisionHelper::isColliding(object.getHitbox(), getTopWall())) {
-        return WallType::TOP;
-    } else if (CollisionHelper::isColliding(object.getHitbox(), getBottomWall())) {
+    } else if (CollisionHelper::isColliding(object, getBottomWall())) {
         return WallType::BOTTOM;
     } else {
         return WallType::NONE;
@@ -203,7 +166,7 @@ bool GameBox::tryMoveRacket(const Position2D& p) {
     Racket* rk   = getRacket();
     Racket  temp = Racket(p, rk->getWidth(), rk->getHeight(), rk->getSensibility());
 
-    if (isObjectCollidingWithWalls(temp) == WallType::NONE) {
+    if (isObjectCollidingWithWalls(temp.getHitbox()) == WallType::NONE) {
         getRacket()->setPosition(p);
         return true;
     } else {
@@ -216,7 +179,7 @@ void GameBox::resizeRacket(float factor) {
     Racket* temp = new Racket(
         rk->getPosition(), rk->getWidth() * factor, rk->getHeight(), rk->getSensibility());
 
-    WallType collisionWithWall = isObjectCollidingWithWalls(*temp);
+    WallType collisionWithWall = isObjectCollidingWithWalls(temp->getHitbox());
 
     // first case : no collision, replace racket by temp
     if (collisionWithWall == WallType::NONE) {
@@ -249,7 +212,7 @@ std::vector<bool> GameBox::tryMoveBalls() {
         Position2D np   = ball->calculateNewPosition();
         Ball       temp = Ball(np, ball->getRadius(), ball->getSpeed());
 
-        WallType wallCollision = isObjectCollidingWithWalls(temp);
+        WallType wallCollision = isObjectCollidingWithWalls(temp.getHitbox());
 
         if (wallCollision == WallType::NONE) {
             ball->setCenterPosition(np);
