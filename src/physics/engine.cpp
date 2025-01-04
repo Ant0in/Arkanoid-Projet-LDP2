@@ -13,8 +13,11 @@ void GameEngine::handleActions(LevelManager& manager, GameBox*& gamebox, Player&
             handleBallSpawn(gamebox);
             player.setHasBallStored(false);
         } else {
-            std::cout << "laser" << std::endl;
-            // TODO : laser
+            // TODO : check if is working
+            std::cout << "shot laser" << std::endl;
+            Laser* laser = new Laser();
+            laser->spawnLaser(gamebox->getRacket());
+            gamebox->addLaser(laser);
         }
 
         // finally we make sure the user will be able to make new shoots/lazers
@@ -131,6 +134,38 @@ void GameEngine::handleBalls(GameBox*& gamebox, Player& player) {
     }
 }
 
+void GameEngine::handleCollisionsWithLasers(GameBox*& gamebox, Player& player) {
+    // TODO
+    std::vector<Brick*> bricks_hit;
+    for (Laser* laser : gamebox->getLasers()) {
+        bool needToBeCleared = false;
+        // for each laser, if colliding then we delete it and add brick to the hit list
+
+        if (gamebox->isObjectCollidingWithWalls(laser->getHitbox()) != WallType::NONE) {
+            needToBeCleared = true;
+        } else {
+            for (Brick* brick : gamebox->getBricks()) {
+                if ((std::find(bricks_hit.begin(), bricks_hit.end(), brick) == bricks_hit.end()) &&
+                    CollisionHelper::isColliding(laser->getHitbox(), brick->getHitbox())) {
+                    bricks_hit.push_back(brick);
+                    needToBeCleared = true;
+                }
+            }
+        }
+
+        if (needToBeCleared) {
+            gamebox->removeLaser(laser);
+            delete laser;
+        }
+    }
+    handleBricks(gamebox, player, bricks_hit);
+}
+
+void GameEngine::handleLasers(GameBox*& gamebox, Player& player) {
+    gamebox->tryMoveLasers();
+    handleCollisionsWithLasers(gamebox, player);
+}
+
 void GameEngine::handleCollisionWithEntities(GameBox*& gamebox, Player& player) {
     for (BonusInterface* bonus : gamebox->getBonuses()) {
         Position2D falling_pos = bonus->getGravityPosition();
@@ -138,7 +173,8 @@ void GameEngine::handleCollisionWithEntities(GameBox*& gamebox, Player& player) 
 
         if (CollisionHelper::isColliding(bonus->getHitbox(), gamebox->getRacket()->getHitbox())) {
             // first, we want to revert the effect of the previous bonus
-            if (player.hasBonusActive() && player.getBonus()->getBonusType() != BonusType::SLOW) {
+            if (player.hasBonusActive() && !(player.getBonus()->getBonusType() == BonusType::SLOW &&
+                                             bonus->getBonusType() == BonusType::SLOW)) {
                 player.getBonus()->revertLogic(*gamebox, player);
             }
             // then, we override this bonus with the new one, activate it and remove it from the
@@ -245,6 +281,7 @@ void GameEngine::handleRoutine(LevelManager& manager, GameBox*& gamebox, Player&
     if (!player.isDead()) {
         handleBalls(gamebox, player);
         handleBonus(gamebox, player);
+        handleLasers(gamebox, player);
         handleGameState(manager, gamebox, player);
     }
 }

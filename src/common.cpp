@@ -153,8 +153,9 @@ const float BONUS_FALLING_SPEED          = 10.0;
 const float BONUS_RESIZE_FACTOR          = 1.5;
 const int   GRAB_BONUS_MAX_GRAB_DURATION = 180;
 
-const float LASER_THICKNESS = 10.0;
-const float LASER_LENGTH    = 1000.0;
+const float LASER_WIDTH  = 10.0;
+const float LASER_HEIGHT = 50.0;
+const float LASER_SPEED  = 20.0;
 
 const int WHITE_BRICK_REWARD   = 50;
 const int ORANGE_BRICK_REWARD  = 60;

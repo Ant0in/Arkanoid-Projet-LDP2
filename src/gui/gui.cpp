@@ -160,6 +160,12 @@ void GameGUI::drawBonuses() {
     }
 }
 
+void GameGUI::drawLasers() {
+    for (auto& laser : getGameBox()->getLasers()) {
+        drawRectangle(laser->getHitbox(), DEFAULT_BACKGROUND_COLOR);  // TODO : fix the assets
+    }
+}
+
 void GameGUI::drawGameOver() {
     std::string gameOverText = "GAME OVER - Press ENTER to try again";
     std::string scoreText    = "Your Score: " + std::to_string(getPlayer()->getScore().getValue());
@@ -192,6 +198,7 @@ void GameGUI::updateGUI() {
         drawBricks();
         drawStatistics();
         drawBonuses();
+        drawLasers();
     } else {
         drawGameOver();
     }

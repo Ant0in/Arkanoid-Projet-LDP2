@@ -28,6 +28,10 @@ class GameEngine {
 
     static void handleBalls(GameBox*& gamebox, Player& player);
 
+    static void handleCollisionsWithLasers(GameBox*& gamebox, Player& player);
+
+    static void handleLasers(GameBox*& gamebox, Player& player);
+
     static void handleCollisionWithEntities(GameBox*& gamebox, Player& player);
 
     static void handleBonusLogic(GameBox*& gamebox, Player& player);
@@ -35,8 +39,6 @@ class GameEngine {
     static void handleBonus(GameBox*& gamebox, Player& player);
 
     static void handleBallSpawn(GameBox*& gamebox);
-
-    // static void handleGameOver(LevelManager& manager, GameBox*& gamebox, Player& player);
 
     static void handleRemakeGame(LevelManager& manager, GameBox*& gamebox, Player& player);
 

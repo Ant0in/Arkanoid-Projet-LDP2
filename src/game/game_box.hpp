@@ -10,6 +10,7 @@
 #include "ball.hpp"
 #include "bonus.hpp"
 #include "brick.hpp"
+#include "laser.hpp"
 #include "racket.hpp"
 
 class Brick;
@@ -22,6 +23,7 @@ class GameBox {
     SolidRectangle               _hitbox;
     std::vector<Brick*>          _bricks;
     std::vector<BonusInterface*> _bonuses;
+    std::vector<Laser*>          _lasers;
     int                          _frameCount;
 
     // Walls
@@ -37,7 +39,8 @@ class GameBox {
             Racket*                      racket,
             std::vector<Ball*>           balls   = {},
             std::vector<Brick*>          bricks  = {},
-            std::vector<BonusInterface*> bonuses = {})
+            std::vector<BonusInterface*> bonuses = {},
+            std::vector<Laser*>          lasers  = {})
         :
 
           _racket{racket},
@@ -45,6 +48,7 @@ class GameBox {
           _hitbox{SolidRectangle(position, height, width)},
           _bricks{bricks},
           _bonuses{bonuses},
+          _lasers{lasers},
           _frameCount{0},
           // walls
           _leftWall{SolidRectangle(DEFAULT_CORNER_POS, 0, 0)},
@@ -70,6 +74,10 @@ class GameBox {
     std::vector<BonusInterface*>& getBonuses();
     void                          addBonus(BonusInterface* b);
     void                          removeBonus(BonusInterface* b);
+
+    std::vector<Laser*>& getLasers();
+    void                 addLaser(Laser* laser);
+    void                 removeLaser(Laser* laser);
 
     std::vector<Brick*>& getBricks();
     void                 addBrick(Brick* brick);
@@ -102,6 +110,8 @@ class GameBox {
     void resizeRacket(float factor);
 
     std::vector<bool> tryMoveBalls();
+
+    void tryMoveLasers();
 
     bool isWin();
 };

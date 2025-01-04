@@ -63,6 +63,23 @@ void GameBox::removeBonus(BonusInterface* b) {
     }
 }
 
+std::vector<Laser*>& GameBox::getLasers() {
+    return _lasers;
+}
+
+void GameBox::addLaser(Laser* laser) {
+    getLasers().push_back(laser);
+}
+
+void GameBox::removeLaser(Laser* laser) {
+    for (auto it = getLasers().begin(); it != getLasers().end(); ++it) {
+        if (*it == laser) {
+            getLasers().erase(it);
+            break;
+        }
+    }
+}
+
 std::vector<Brick*>& GameBox::getBricks() {
     return _bricks;
 }
@@ -240,6 +257,15 @@ std::vector<bool> GameBox::tryMoveBalls() {
         }
     }
     return could_move;
+}
+
+void GameBox::tryMoveLasers() {
+    std::vector<Laser*> lasers = getLasers();
+    for (size_t idx = 0; idx < lasers.size(); ++idx) {
+        // for each laser, move vertically
+        Position2D np = lasers.at(idx)->calculateNewPosition();
+        lasers.at(idx)->setPosition(np);
+    }
 }
 
 bool GameBox::isWin() {
