@@ -4,6 +4,8 @@
 #include "controller.hpp"
 #include "../game/bonus.hpp"
 #include <vector>
+#include <string>
+#include <fstream>
 
 class BonusInterface;
 
@@ -15,6 +17,7 @@ class Player{
         GameController _controller;
         Score _score;
         std::vector<BonusInterface*> _bonus;
+        Score _highScore;
 
     public:
 
@@ -22,10 +25,16 @@ class Player{
             _hp{hp},
             _controller{controller},
             _score{score},
-            _bonus{bonus} {}
+            _bonus{bonus},
+            _highScore{readHighScoreFromFile(HIGH_SCORE_FILE)}{}
 
         ~Player() = default;
 
+        Score readHighScoreFromFile(const std::string& filePath) const;
+        Score& getHighScore();
+        void setHighScore(const Score& score);
+        void updateHighScoreFile(const std::string& filePath);
+        void checkHighScore();
         int getHp() const;
         void setHp(int nhp);
         void incrementHp(int incr);

@@ -78,6 +78,7 @@ void GameEngine::handleBricks(GameBox& gamebox, Player& player, std::vector<Bric
                 bonus->spawnBonus(calculateBonusSpawnPosition((*brick), (*bonus)));
             }
             player.getScore().addScore(brick->getBrickValue());
+            player.checkHighScore();
             gamebox.removeBrick(brick);
             delete brick;
         }

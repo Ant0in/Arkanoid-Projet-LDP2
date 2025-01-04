@@ -61,9 +61,11 @@ void GameGUI::drawStatistics() {
 
     std::string score = "Score: " + std::to_string(getPlayer()->getScore().getValue());
     std::string lives = "Lives: " + std::to_string(getPlayer()->getHp());
+    std::string highScore = "High Score: " + std::to_string(getPlayer()->getHighScore().getValue());
 
-    drawText(Position2D(350, 10), score);
-    drawText(Position2D(250, 10), lives);
+    drawText(Position2D(350, 15), score);
+    drawText(Position2D(250, 15), lives);
+    drawText(Position2D(500, 15), highScore);
 }
 
 void GameGUI::drawBoard() {
