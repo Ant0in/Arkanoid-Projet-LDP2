@@ -203,8 +203,8 @@ void GrabBonus::applyLogic(GameBox& gb, Player& player) {
         }
 
     } else {
-        // if grab timer != 0, it means that there's a ball that needs to be shooted in the held
-        // bar. if that happens, then we need to ckeck if timer is up, and if it is then shoot the
+        // if grab timer != 0, it means that there's a ball that needs to be shot in the held
+        // bar. if that happens, we need to ckeck if timer is up, and if it is then shoot the
         // ball with the player action Action::SHOOT
         if (getGrabTimer() > GRAB_BONUS_MAX_GRAB_DURATION) {
             setGrabTimer(0);
@@ -219,4 +219,37 @@ void GrabBonus::applyLogic(GameBox& gb, Player& player) {
             }
         }
     }
+}
+
+void SlowBonus::applyLogic(GameBox& gb, Player& player){
+    if (gb.isBallVectorEmpty()) {
+        return;
+    }
+    
+    Ball *currentBall = gb.getBalls().at(0);
+
+    if (!isActive() || hasBonusDurationExpired()) {
+        // if needed: restore speed
+        if (currentBall->getSpeed() < BALL_SPEED) {
+            float recoveryRate = 0.09f;
+            float updatedSpeed = currentBall->getSpeed() + recoveryRate;
+
+            if (updatedSpeed > BALL_SPEED) {
+                updatedSpeed = BALL_SPEED;
+            }
+
+            currentBall->setSpeed(updatedSpeed);
+        }
+        return;
+    }
+
+    float newSpeed = currentBall->getSpeed() / SLOW_FACTOR;
+    currentBall->setSpeed(newSpeed);
+
+    incrementDuration(-1);
+}
+
+void SlowBonus::revertLogic(GameBox& gb, Player& player){
+    Ball * currentBall = gb.getBalls().at(0);
+    currentBall->setSpeed(BALL_SPEED);
 }

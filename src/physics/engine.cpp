@@ -138,7 +138,7 @@ void GameEngine::handleCollisionWithEntities(GameBox*& gamebox, Player& player) 
 
         if (CollisionHelper::isColliding(bonus->getHitbox(), gamebox->getRacket()->getHitbox())) {
             // first, we want to revert the effect of the previous bonus
-            if (player.hasBonusActive()) {
+            if (player.hasBonusActive() && player.getBonus()->getBonusType() != BonusType::SLOW) {
                 player.getBonus()->revertLogic(*gamebox, player);
             }
             // then, we override this bonus with the new one, activate it and remove it from the

@@ -57,6 +57,7 @@ class GameGUI {
     void drawBalls();
     void drawRacket();
     void drawBonuses();
+    void drawGameOver();
 
     void updateGUI();
 };

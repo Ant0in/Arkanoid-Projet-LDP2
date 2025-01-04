@@ -151,6 +151,22 @@ void GameGUI::drawBonuses() {
     }
 }
 
+void GameGUI::drawGameOver(){
+    std::string gameOverText = "GAME OVER - Press ENTER to try again";
+    std::string scoreText     = "Your Score: " + std::to_string(getPlayer()->getScore().getValue());
+    std::string highScoreText = "Your Best Score: " + std::to_string(getPlayer()->getHighScore().getValue());
+
+    float textHeight = static_cast<float>(al_get_font_line_height(_font));
+    float spacing = textHeight * 2;
+    float startY = (GAME_HEIGHT / 2) - spacing;
+
+    // Dessiner les textes avec un espacement proportionnel
+    drawText(Position2D(GAME_WIDTH / 2, startY), gameOverText);
+    drawText(Position2D(GAME_WIDTH / 2, startY + spacing), scoreText);
+    drawText(Position2D(GAME_WIDTH / 2, startY + 2 * spacing), highScoreText);
+
+}
+
 void GameGUI::updateGUI() {
     clearScreen();
     handleGameoverState();
@@ -163,7 +179,7 @@ void GameGUI::updateGUI() {
         drawStatistics();
         drawBonuses();
     } else {
-        // TODO : faire un texte game over
+        drawGameOver();
     }
 
     updateFPS();
