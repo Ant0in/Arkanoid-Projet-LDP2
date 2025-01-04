@@ -22,6 +22,7 @@ class GameBox {
     SolidRectangle               _hitbox;
     std::vector<Brick*>          _bricks;
     std::vector<BonusInterface*> _bonuses;
+    int                          _frameCount;
 
     // Walls
     SolidRectangle _leftWall;
@@ -44,6 +45,7 @@ class GameBox {
           _hitbox{SolidRectangle(position, height, width)},
           _bricks{bricks},
           _bonuses{bonuses},
+          _frameCount{0},
           // walls
           _leftWall{SolidRectangle(DEFAULT_CORNER_POS, 0, 0)},
           _rightWall{SolidRectangle(DEFAULT_CORNER_POS, 0, 0)},
@@ -78,6 +80,10 @@ class GameBox {
     bool                doesPlayerHaveMultipleBalls();
     void                addBall(Ball* b);
     void                removeBall(Ball* b);
+
+    int  getFrameCount();
+    void setFrameCount(int fc);
+    void incrementFrameCount(int incr);
 
     Racket* getRacket() const;
     void    setRacket(Racket* r);

@@ -20,7 +20,11 @@ void LevelManager::goToNextLevel() {
 
 void LevelManager::goToPreviousLevel() {
     int levelCount = static_cast<int>(getLevelsFilepaths().size());
-    setCurrentLevelIndex((getCurrentLevelIndex() - 1) % levelCount);
+    int new_idx    = getCurrentLevelIndex() - 1;
+    if (new_idx < 0) {
+        new_idx = levelCount - 1;
+    }
+    setCurrentLevelIndex(new_idx);
 }
 
 GameBox* LevelManager::generateCurrentLevelGamebox() {

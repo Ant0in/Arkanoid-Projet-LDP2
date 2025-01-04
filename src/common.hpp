@@ -39,7 +39,7 @@ enum class BrickType {
     GOLD    = 10
 };
 
-enum class Action { NONE = 0, LEFT = 1, RIGHT = 2, SHOOT = 3 };
+enum class Action { NONE = 0, LEFT = 1, RIGHT = 2, SHOOT = 3, NEXT_LEVEL = 4, PREVIOUS_LEVEL = 5 };
 
 enum class WallType { NONE = 0, LEFT = 1, RIGHT = 2, BOTTOM = 3, TOP = 4 };
 

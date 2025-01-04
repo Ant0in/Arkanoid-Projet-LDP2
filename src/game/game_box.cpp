@@ -103,6 +103,16 @@ void GameBox::removeBall(Ball* b) {
     }
 }
 
+int GameBox::getFrameCount() {
+    return _frameCount;
+}
+void GameBox::setFrameCount(int fc) {
+    _frameCount = fc;
+}
+void GameBox::incrementFrameCount(int incr) {
+    setFrameCount(getFrameCount() + incr);
+}
+
 Racket* GameBox::getRacket() const {
     return _racket;
 }

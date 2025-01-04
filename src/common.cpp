@@ -41,7 +41,9 @@ const std::unordered_map<int, Action> DEFAULT_CONFIG{
     {static_cast<int>(ALLEGRO_KEY_D), Action::RIGHT},
     {static_cast<int>(ALLEGRO_KEY_P), Action::RIGHT},
     {static_cast<int>(ALLEGRO_KEY_Z), Action::SHOOT},
-    {static_cast<int>(ALLEGRO_KEY_SPACE), Action::SHOOT}};
+    {static_cast<int>(ALLEGRO_KEY_SPACE), Action::SHOOT},
+    {static_cast<int>(ALLEGRO_KEY_LEFT), Action::PREVIOUS_LEVEL},
+    {static_cast<int>(ALLEGRO_KEY_RIGHT), Action::NEXT_LEVEL}};
 
 const std::unordered_map<int, int> BRICK_HP{
     {static_cast<int>(BrickType::NONE), NULL},

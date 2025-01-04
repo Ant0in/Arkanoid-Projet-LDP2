@@ -29,6 +29,8 @@ void GameController::updateUserAction(int keyCode) {
     if (cfg.find(keyCode) != cfg.end()) {
         // if keybind is set in the config
         setCurrentAction(cfg.at(keyCode));
+    } else {
+        setCurrentAction(Action::NONE);
     }
 }
 

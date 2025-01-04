@@ -1,6 +1,6 @@
 
 #include "src/game/game_box.hpp"
-#include "src/game/level_reader.hpp"
+#include "src/game/level_manager.hpp"
 #include "src/player/controller.hpp"
 #include "src/player/player.hpp"
 
@@ -61,8 +61,8 @@ int main() {
     al_register_event_source(event_queue, al_get_keyboard_event_source());
     al_start_timer(timer);
 
-    GameBox* gamebox = LevelReader::initializeGameBoard(
-        LevelReader::parseRawFile(LevelReader::readFile("./maps/1.map")));
+    LevelManager   manager = LevelManager({"./maps/1.map", "./maps/2.map"});
+    GameBox*       gamebox = manager.generateCurrentLevelGamebox();  // first level of the manager
     GameController controller = GameController();
     Player*        player     = new Player(PLAYER_DEFAULT_HEALTH, controller);
     GameGUI        gui        = GameGUI(display, font, gamebox, player);
@@ -93,7 +93,7 @@ int main() {
 
         } else if (event.type == ALLEGRO_EVENT_TIMER) {
             // on timer (handling game physics)
-            GameEngine::handleRoutine(*gamebox, *player);
+            GameEngine::handleRoutine(manager, gamebox, *player);
             gui.updateGUI();
             al_flip_display();
         }
