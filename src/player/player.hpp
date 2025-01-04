@@ -56,4 +56,5 @@ class Player {
     bool            hasBonusActive();
     BonusInterface* getBonus();
     void            setBonus(BonusInterface* bonus);
+    void            reset();
 };

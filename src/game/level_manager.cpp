@@ -20,10 +20,8 @@ void LevelManager::goToNextLevel() {
 
 void LevelManager::goToPreviousLevel() {
     int levelCount = static_cast<int>(getLevelsFilepaths().size());
-    int new_idx    = getCurrentLevelIndex() - 1;
-    if (new_idx < 0) {
-        new_idx = levelCount - 1;
-    }
+    int new_idx =
+        (getCurrentLevelIndex() - 1 < 0) ? (levelCount - 1) : (getCurrentLevelIndex() - 1);
     setCurrentLevelIndex(new_idx);
 }
 

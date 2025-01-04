@@ -107,3 +107,11 @@ void Player::setBonus(BonusInterface* bonus) {
 
     _bonus = bonus;
 }
+
+void Player::reset() {
+    this->setBonus(nullptr);
+    this->getController().updateUserAction(0);
+    this->setHp(PLAYER_DEFAULT_HEALTH);
+    this->getScore().setValue(0);
+    this->setHasBallStored(true);
+}

@@ -176,10 +176,12 @@ void GameEngine::handleBallSpawn(GameBox*& gamebox) {
 }
 
 void GameEngine::handleGameOver(LevelManager& manager, GameBox*& gamebox, Player& player) {
-    // TODO
-    (void) manager;
-    (void) gamebox;
-    (void) player;
+    manager.setCurrentLevelIndex(0);  // reset des levels
+    delete gamebox;
+    gamebox = manager.generateCurrentLevelGamebox();
+
+    // Reset player
+    player.reset();
 }
 
 void GameEngine::handleWin(LevelManager& manager, GameBox*& gamebox, Player& player) {
