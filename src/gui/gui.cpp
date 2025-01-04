@@ -86,6 +86,10 @@ void GameGUI::clearScreen() {
     al_clear_to_color(DEFAULT_BACKGROUND_COLOR);
 }
 
+void GameGUI::handleGameoverState() {
+    setIsInGameOverState(getPlayer()->isDead());
+}
+
 void GameGUI::drawStatistics() {
     std::string score     = "Score: " + std::to_string(getPlayer()->getScore().getValue());
     std::string lives     = "Lives: " + std::to_string(getPlayer()->getHp());
@@ -149,12 +153,7 @@ void GameGUI::drawBonuses() {
 
 void GameGUI::updateGUI() {
     clearScreen();
-
-    if (getPlayer()->isDead()) {
-        setIsInGameOverState(true);
-    } else {
-        setIsInGameOverState(false);
-    }
+    handleGameoverState();
 
     if (!isInGameOverState()) {
         drawBoard();

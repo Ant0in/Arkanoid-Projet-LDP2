@@ -49,6 +49,7 @@ class GameGUI {
     void drawText(const Position2D& pos, std::string text);
     void updateFPS();
     void clearScreen();
+    void handleGameoverState();
 
     void drawStatistics();
     void drawBoard();
