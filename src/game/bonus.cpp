@@ -1,35 +1,35 @@
 #include "bonus.hpp"
 
-SolidRectangle& BonusInterface::getHitbox(){return _hitbox;}
-const SolidRectangle& BonusInterface::getHitbox() const {return _hitbox;}
+SolidRectangle& BonusInterface::getHitbox() { return _hitbox; }
+const SolidRectangle& BonusInterface::getHitbox() const { return _hitbox; }
 
-float BonusInterface::getSize() const{
-    assert (getHitbox().getHeight() == getHitbox().getWidth()); 
+float BonusInterface::getSize() const {
+    assert(getHitbox().getHeight() == getHitbox().getWidth());
     return getHitbox().getHeight();  // arbitrairement height
 }
-void BonusInterface::setSize(float s){
+void BonusInterface::setSize(float s) {
     getHitbox().setHeight(s);
     getHitbox().setWidth(s);
 }
 
-Position2D BonusInterface::getPosition() const{return getHitbox().getPosition();}
-void BonusInterface::setPosition(const Position2D& p){getHitbox().setPosition(p);}
+Position2D BonusInterface::getPosition() const { return getHitbox().getPosition(); }
+void BonusInterface::setPosition(const Position2D& p) { getHitbox().setPosition(p); }
 
-bool BonusInterface::isSpawned() const{return _is_spawned;}
-void BonusInterface::setSpawned(bool flag){_is_spawned = flag;}
+bool BonusInterface::isSpawned() const { return _is_spawned; }
+void BonusInterface::setSpawned(bool flag) { _is_spawned = flag; }
 
-bool BonusInterface::isActive() const{return _is_active;}
-void BonusInterface::setActive(bool flag){_is_active = flag;}
+bool BonusInterface::isActive() const { return _is_active; }
+void BonusInterface::setActive(bool flag) { _is_active = flag; }
 
-int BonusInterface::getDuration() const{return _active_duration;}
-void BonusInterface::setDuration(int d){_active_duration = d;}
+int BonusInterface::getDuration() const { return _active_duration; }
+void BonusInterface::setDuration(int d) { _active_duration = d; }
 
-float BonusInterface::getFallingSpeed() const{return _falling_speed;}
-void BonusInterface::setFallingSpeed(float s){_falling_speed = s;}
+float BonusInterface::getFallingSpeed() const { return _falling_speed; }
+void BonusInterface::setFallingSpeed(float s) { _falling_speed = s; }
 
-void BonusInterface::incrementDuration(int incr){_active_duration = getDuration() + incr;}
+void BonusInterface::incrementDuration(int incr) { _active_duration = getDuration() + incr; }
 
-void BonusInterface::spawnBonus(const Position2D& p){
+void BonusInterface::spawnBonus(const Position2D& p) {
     setPosition(p);
     setSpawned(true);
 }
@@ -42,19 +42,19 @@ Position2D BonusInterface::getGravityPosition() {
     return Position2D(x, y);
 }
 
-bool BonusInterface::hasBonusDurationExpired() const{return getDuration() <= 0;}
+bool BonusInterface::hasBonusDurationExpired() const { return getDuration() <= 0; }
 
 bool BonusInterface::operator==(BonusInterface* other) const {
-    return (getPosition() == other->getPosition()) && (getHitbox() == other->getHitbox()) && (getSize() == other->getSize()) &&
-        (getDuration() == other->getDuration()) && (getFallingSpeed() == other->getFallingSpeed());
+    return (getPosition() == other->getPosition()) && (getHitbox() == other->getHitbox()) &&
+           (getSize() == other->getSize()) && (getDuration() == other->getDuration()) &&
+           (getFallingSpeed() == other->getFallingSpeed());
 }
 
-void BonusInterface::applyLogic(GameBox& gb, Player& player){
-    (void) gb;
-    (void) player;
+void BonusInterface::applyLogic(GameBox& gb, Player& player) {
+    (void)gb;
+    (void)player;
     throw std::runtime_error("Not Implemented Error");
 }
-
 
 std::tuple<float, float> DuplicationBonus::rotate_velocity(float vx, float vy, float alpha) {
     float alpha_rad = alpha * static_cast<float>(M_PI) / 180.0f;
@@ -63,14 +63,15 @@ std::tuple<float, float> DuplicationBonus::rotate_velocity(float vx, float vy, f
     return std::make_tuple(nvx, nvy);
 }
 
-
-void DuplicationBonus::applyLogic(GameBox& gb, Player& player){
+void DuplicationBonus::applyLogic(GameBox& gb, Player& player) {
     // If bonus is not active or has expired, we skip logic
-    if (! isActive() || hasBonusDurationExpired()){return;}
-    
-    (void) player;
+    if (!isActive() || hasBonusDurationExpired()) {
+        return;
+    }
 
-    // If bonus is active and not expired, we will proceed to apply logic for a frame 
+    (void)player;
+
+    // If bonus is active and not expired, we will proceed to apply logic for a frame
     // (usually making the bonus vanish) and then decrement TTL
     Ball* ref = gb.getBalls()[0];
     auto [vx, vy] = ref->getVelocity();
@@ -90,12 +91,13 @@ void DuplicationBonus::applyLogic(GameBox& gb, Player& player){
     incrementDuration(-1);
 }
 
-
-void PlayerBonus::applyLogic(GameBox& gb, Player& player){
+void PlayerBonus::applyLogic(GameBox& gb, Player& player) {
     // If bonus is not active or has expired, we skip logic
-    if (! isActive() || hasBonusDurationExpired()){return;}
-    
-    (void) gb;
+    if (!isActive() || hasBonusDurationExpired()) {
+        return;
+    }
+
+    (void)gb;
 
     player.incrementHp(1);
 
@@ -103,17 +105,16 @@ void PlayerBonus::applyLogic(GameBox& gb, Player& player){
     incrementDuration(-1);
 }
 
-
-void ResizeBonus::applyLogic(GameBox& gb, Player& player){
+void ResizeBonus::applyLogic(GameBox& gb, Player& player) {
     // If bonus is not active or has expired, we skip logic
-    if (! isActive() || hasBonusDurationExpired()){return;}
+    if (!isActive() || hasBonusDurationExpired()) {
+        return;
+    }
 
-    (void) player;
+    (void)player;
 
     gb.resizeRacket(BONUS_RESIZE_FACTOR);
 
     // decrement TTL (for player bonus, 1 logic cycle will be applied since it has TTL of 1)
     incrementDuration(-1);
 }
-
-

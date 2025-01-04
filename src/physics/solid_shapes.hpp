@@ -1,66 +1,54 @@
 #pragma once
 
-#include "../common.hpp"
-#include <vector>
 #include <cmath>
+#include <vector>
 
-class SolidInterface{
-    
-    public:
+#include "../common.hpp"
 
-        virtual ~SolidInterface() = default;
-        virtual bool isPointInSolid(const Position2D& point) const = 0;
+
+class SolidInterface {
+   public:
+    virtual ~SolidInterface() = default;
+    virtual bool isPointInSolid(const Position2D& point) const = 0;
 };
 
+class SolidRectangle : public SolidInterface {
+   private:
+    Position2D _position;
+    float _width, _height;
 
-class SolidRectangle: public SolidInterface{
-    
-    private:
+   public:
+    SolidRectangle(const Position2D& position, float width, float height)
+        : _position{position}, _width{width}, _height{height} {}
 
-        Position2D _position;
-        float _width, _height;
+    ~SolidRectangle() = default;
 
-    public:
-
-        SolidRectangle(const Position2D& position, float width, float height):
-            _position{position},
-            _width{width},
-            _height{height} {}
-            
-        ~SolidRectangle() = default;
-
-        Position2D getPosition() const;
-        void setPosition(const Position2D& pos);
-        float getHeight() const;
-        float getWidth() const;
-        void setHeight(float h);
-        void setWidth(float w);
-        std::vector<Position2D> getCorners() const;
-        bool isPointInSolid(const Position2D& point) const;
-        Position2D getCenterPosition() const;
-        bool operator==(const SolidRectangle& other) const;
+    Position2D getPosition() const;
+    void setPosition(const Position2D& pos);
+    float getHeight() const;
+    float getWidth() const;
+    void setHeight(float h);
+    void setWidth(float w);
+    std::vector<Position2D> getCorners() const;
+    bool isPointInSolid(const Position2D& point) const;
+    Position2D getCenterPosition() const;
+    bool operator==(const SolidRectangle& other) const;
 };
 
+class SolidCircle : public SolidInterface {
+   private:
+    Position2D _position;
+    float _radius;
 
-class SolidCircle: public SolidInterface{
-    
-    private:
+   public:
+    SolidCircle(const Position2D& position, float radius) : _position{position}, _radius{radius} {}
 
-        Position2D _position;
-        float _radius;
+    ~SolidCircle() = default;
 
-    public:
-
-        SolidCircle(const Position2D& position, float radius):
-            _position{position},
-            _radius{radius} {}
-
-        ~SolidCircle() = default;
-
-        Position2D getPosition() const;
-        void setPosition(const Position2D& pos);
-        float getRadius() const;
-        void setRadius(float radius);
-        bool isPointInSolid(const Position2D& point) const;
-        bool operator==(const SolidCircle& other) const;
+    Position2D getPosition() const;
+    void setPosition(const Position2D& pos);
+    float getRadius() const;
+    void setRadius(float radius);
+    bool isPointInSolid(const Position2D& point) const;
+    bool operator==(const SolidCircle& other) const;
 };

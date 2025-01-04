@@ -1,73 +1,73 @@
 #include "game_box.hpp"
 
-
 GameBox::~GameBox() {
     delete getRacket();
-    for (auto ball : getBalls()) {delete ball;}
-    for (auto brick : getBricks()) {delete brick;}
-    for (auto bonus : getBonuses()) {delete bonus;}
+    for (auto ball : getBalls()) {
+        delete ball;
+    }
+    for (auto brick : getBricks()) {
+        delete brick;
+    }
+    for (auto bonus : getBonuses()) {
+        delete bonus;
+    }
 }
 
-SolidRectangle& GameBox::getHitbox(){return _hitbox;}
-const SolidRectangle& GameBox::getHitbox() const{return _hitbox;}
+SolidRectangle& GameBox::getHitbox() { return _hitbox; }
+const SolidRectangle& GameBox::getHitbox() const { return _hitbox; }
 
-Position2D GameBox::getPosition() const {return getHitbox().getPosition();}
+Position2D GameBox::getPosition() const { return getHitbox().getPosition(); }
 
-float GameBox::getWidth() const {return getHitbox().getWidth();}
-float GameBox::getHeight() const {return getHitbox().getHeight();}
+float GameBox::getWidth() const { return getHitbox().getWidth(); }
+float GameBox::getHeight() const { return getHitbox().getHeight(); }
 
-void GameBox::initializeWalls(){
+void GameBox::initializeWalls() {
     Position2D p = getPosition();
     float w = getWidth();
     float h = getHeight();
 
-    _leftWall = SolidRectangle(Position2D(p.getX() - BOX_WALLS_THICKNESS, p.getY()), BOX_WALLS_THICKNESS, h);
+    _leftWall = SolidRectangle(Position2D(p.getX() - BOX_WALLS_THICKNESS, p.getY()),
+                               BOX_WALLS_THICKNESS, h);
     _rightWall = SolidRectangle(Position2D(p.getX() + w, p.getY()), BOX_WALLS_THICKNESS, h);
-    _topWall = SolidRectangle(Position2D(p.getX() - BOX_WALLS_THICKNESS, p.getY() - BOX_WALLS_THICKNESS), w + (2 * BOX_WALLS_THICKNESS), BOX_WALLS_THICKNESS);
+    _topWall =
+        SolidRectangle(Position2D(p.getX() - BOX_WALLS_THICKNESS, p.getY() - BOX_WALLS_THICKNESS),
+                       w + (2 * BOX_WALLS_THICKNESS), BOX_WALLS_THICKNESS);
     _bottomWall = SolidRectangle(Position2D(p.getX(), p.getY() + h), w, BOX_WALLS_THICKNESS);
 }
 
-std::vector<BonusInterface*>& GameBox::getBonuses() {
-    return _bonuses;
-}
+std::vector<BonusInterface*>& GameBox::getBonuses() { return _bonuses; }
 
-void GameBox::addBonus(BonusInterface* b){
-    getBonuses().push_back(b);
-}
+void GameBox::addBonus(BonusInterface* b) { getBonuses().push_back(b); }
 
-void GameBox::removeBonus(BonusInterface* b){
+void GameBox::removeBonus(BonusInterface* b) {
     for (auto it = getBonuses().begin(); it != getBonuses().end(); ++it) {
         if (*it == b) {
-            getBonuses().erase(it); 
+            getBonuses().erase(it);
             break;
         }
     }
 }
 
-std::vector<Brick*>& GameBox::getBricks() {return _bricks;}
+std::vector<Brick*>& GameBox::getBricks() { return _bricks; }
 
-void GameBox::addBrick(Brick* brick){
-    getBricks().push_back(brick);
-}
+void GameBox::addBrick(Brick* brick) { getBricks().push_back(brick); }
 
-void GameBox::removeBrick(Brick* brick){
+void GameBox::removeBrick(Brick* brick) {
     for (auto it = getBricks().begin(); it != getBricks().end(); ++it) {
         if (*it == brick) {
-            getBricks().erase(it); 
+            getBricks().erase(it);
             break;
         }
     }
 }
 
-std::vector<Ball*>& GameBox::getBalls() {return _balls;}
-bool GameBox::isBallVectorEmpty() {return getBalls().size() == 0;}
-bool GameBox::doesPlayerHaveMultipleBalls() {return getBalls().size() > 1;}
+std::vector<Ball*>& GameBox::getBalls() { return _balls; }
+bool GameBox::isBallVectorEmpty() { return getBalls().size() == 0; }
+bool GameBox::doesPlayerHaveMultipleBalls() { return getBalls().size() > 1; }
 
-void GameBox::addBall(Ball* b){
-    getBalls().push_back(b);
-}
+void GameBox::addBall(Ball* b) { getBalls().push_back(b); }
 
-void GameBox::removeBall(Ball* b){
+void GameBox::removeBall(Ball* b) {
     for (auto it = getBalls().begin(); it != getBalls().end(); ++it) {
         if (*it == b) {
             delete *it;
@@ -77,105 +77,123 @@ void GameBox::removeBall(Ball* b){
     }
 }
 
-Racket* GameBox::getRacket() const {return _racket;}
+Racket* GameBox::getRacket() const { return _racket; }
 void GameBox::setRacket(Racket* r) {
-    if (_racket) {delete _racket;}
+    if (_racket) {
+        delete _racket;
+    }
     _racket = r;
 }
 
-SolidRectangle& GameBox::getLeftWall() {return _leftWall;}
-SolidRectangle& GameBox::getRightWall() {return _rightWall;}
-SolidRectangle& GameBox::getTopWall() {return _topWall;}
-SolidRectangle& GameBox::getBottomWall() {return _bottomWall;}
+SolidRectangle& GameBox::getLeftWall() { return _leftWall; }
+SolidRectangle& GameBox::getRightWall() { return _rightWall; }
+SolidRectangle& GameBox::getTopWall() { return _topWall; }
+SolidRectangle& GameBox::getBottomWall() { return _bottomWall; }
 
-bool GameBox::isPositionOutOfBounds(const Position2D& pos) const{
+bool GameBox::isPositionOutOfBounds(const Position2D& pos) const {
     // checks if position in GameBox, if not -> returns true
     bool isPositionContaintedInGameBox = getHitbox().isPointInSolid(pos);
-    return (! isPositionContaintedInGameBox);
+    return (!isPositionContaintedInGameBox);
 }
 
-bool GameBox::isObjectOutOfBounds(const Racket& object) const{
+bool GameBox::isObjectOutOfBounds(const Racket& object) const {
     // checks if object is colliding with  gamebox, if not -> returns true
-    bool outOfBounds = (! CollisionHelper::isColliding(getHitbox(), object.getHitbox()));
+    bool outOfBounds = (!CollisionHelper::isColliding(getHitbox(), object.getHitbox()));
     return outOfBounds;
 }
-bool GameBox::isObjectOutOfBounds(const Ball& object) const{
+bool GameBox::isObjectOutOfBounds(const Ball& object) const {
     // checks if object is colliding with  gamebox, if not -> returns true
-    bool outOfBounds = (! CollisionHelper::isColliding(getHitbox(), object.getHitbox()));
+    bool outOfBounds = (!CollisionHelper::isColliding(getHitbox(), object.getHitbox()));
     return outOfBounds;
 }
-bool GameBox::isObjectOutOfBounds(const BonusInterface& object) const{
+bool GameBox::isObjectOutOfBounds(const BonusInterface& object) const {
     // checks if object is colliding with  gamebox, if not -> returns true
-    bool outOfBounds = (! CollisionHelper::isColliding(getHitbox(), object.getHitbox()));
+    bool outOfBounds = (!CollisionHelper::isColliding(getHitbox(), object.getHitbox()));
     return outOfBounds;
 }
 
 WallType GameBox::isObjectCollidingWithWalls(const Racket& object) {
     // std::cout << getLeftWall().getPosition() << std::endl;
-    if (CollisionHelper::isColliding(object.getHitbox(), getLeftWall())){return WallType::LEFT;}
-    else if (CollisionHelper::isColliding(object.getHitbox(), getRightWall())){return WallType::RIGHT;}
-    else if (CollisionHelper::isColliding(object.getHitbox(), getTopWall())){return WallType::TOP;}
-    else if (CollisionHelper::isColliding(object.getHitbox(), getBottomWall())){return WallType::BOTTOM;}
-    else {return WallType::NONE;}
+    if (CollisionHelper::isColliding(object.getHitbox(), getLeftWall())) {
+        return WallType::LEFT;
+    } else if (CollisionHelper::isColliding(object.getHitbox(), getRightWall())) {
+        return WallType::RIGHT;
+    } else if (CollisionHelper::isColliding(object.getHitbox(), getTopWall())) {
+        return WallType::TOP;
+    } else if (CollisionHelper::isColliding(object.getHitbox(), getBottomWall())) {
+        return WallType::BOTTOM;
+    } else {
+        return WallType::NONE;
+    }
 }
 WallType GameBox::isObjectCollidingWithWalls(const Ball& object) {
-    if (CollisionHelper::isColliding(object.getHitbox(), getLeftWall())){return WallType::LEFT;}
-    else if (CollisionHelper::isColliding(object.getHitbox(), getRightWall())){return WallType::RIGHT;}
-    else if (CollisionHelper::isColliding(object.getHitbox(), getTopWall())){return WallType::TOP;}
-    else if (CollisionHelper::isColliding(object.getHitbox(), getBottomWall())){return WallType::BOTTOM;}
-    else {return WallType::NONE;}
+    if (CollisionHelper::isColliding(object.getHitbox(), getLeftWall())) {
+        return WallType::LEFT;
+    } else if (CollisionHelper::isColliding(object.getHitbox(), getRightWall())) {
+        return WallType::RIGHT;
+    } else if (CollisionHelper::isColliding(object.getHitbox(), getTopWall())) {
+        return WallType::TOP;
+    } else if (CollisionHelper::isColliding(object.getHitbox(), getBottomWall())) {
+        return WallType::BOTTOM;
+    } else {
+        return WallType::NONE;
+    }
 }
 WallType GameBox::isObjectCollidingWithWalls(const BonusInterface& object) {
-    if (CollisionHelper::isColliding(object.getHitbox(), getLeftWall())){return WallType::LEFT;}
-    else if (CollisionHelper::isColliding(object.getHitbox(), getRightWall())){return WallType::RIGHT;}
-    else if (CollisionHelper::isColliding(object.getHitbox(), getTopWall())){return WallType::TOP;}
-    else if (CollisionHelper::isColliding(object.getHitbox(), getBottomWall())){return WallType::BOTTOM;}
-    else {return WallType::NONE;}
+    if (CollisionHelper::isColliding(object.getHitbox(), getLeftWall())) {
+        return WallType::LEFT;
+    } else if (CollisionHelper::isColliding(object.getHitbox(), getRightWall())) {
+        return WallType::RIGHT;
+    } else if (CollisionHelper::isColliding(object.getHitbox(), getTopWall())) {
+        return WallType::TOP;
+    } else if (CollisionHelper::isColliding(object.getHitbox(), getBottomWall())) {
+        return WallType::BOTTOM;
+    } else {
+        return WallType::NONE;
+    }
 }
 
-bool GameBox::tryMoveRacket(const Position2D& p){
+bool GameBox::tryMoveRacket(const Position2D& p) {
     Racket* rk = getRacket();
     Racket temp = Racket(p, rk->getWidth(), rk->getHeight(), rk->getSensibility());
 
-    if (isObjectCollidingWithWalls(temp) == WallType::NONE){
+    if (isObjectCollidingWithWalls(temp) == WallType::NONE) {
         getRacket()->setPosition(p);
         return true;
-    }
-    else {
+    } else {
         return false;
     }
 }
 
-void GameBox::resizeRacket(float factor){
-    
+void GameBox::resizeRacket(float factor) {
     Racket* rk = getRacket();
-    Racket* temp = new Racket(rk->getPosition(), rk->getWidth() * factor, rk->getHeight(), rk->getSensibility());
+    Racket* temp = new Racket(rk->getPosition(), rk->getWidth() * factor, rk->getHeight(),
+                              rk->getSensibility());
 
     WallType collisionWithWall = isObjectCollidingWithWalls(*temp);
 
     // first case : no collision, replace racket by temp
-    if (collisionWithWall == WallType::NONE){setRacket(temp);}
+    if (collisionWithWall == WallType::NONE) {
+        setRacket(temp);
+    }
     // second case : racket too big to fit screen -> pass
-    else if (temp->getWidth() > getWidth()){}
+    else if (temp->getWidth() > getWidth()) {
+    }
     // third case: collision with 1 wall
     else {
-        if (collisionWithWall == WallType::LEFT){
+        if (collisionWithWall == WallType::LEFT) {
             temp->setPosition(Position2D(getPosition().getX(), temp->getPosition().getY()));
-        }
-        else if (collisionWithWall == WallType::RIGHT){
-            temp->setPosition(Position2D(getPosition().getX() + getWidth() - temp->getWidth(), temp->getPosition().getY()));
-        }
-        else{
+        } else if (collisionWithWall == WallType::RIGHT) {
+            temp->setPosition(Position2D(getPosition().getX() + getWidth() - temp->getWidth(),
+                                         temp->getPosition().getY()));
+        } else {
             std::cerr << "Not Implemented Error" << std::endl;
         }
         setRacket(temp);
     }
-
 }
 
-
-std::vector<bool> GameBox::tryMoveBalls(){
-
+std::vector<bool> GameBox::tryMoveBalls() {
     std::vector<Ball*> balls = getBalls();
     std::vector<bool> could_move(balls.size(), false);
 
@@ -190,8 +208,7 @@ std::vector<bool> GameBox::tryMoveBalls(){
         if (wallCollision == WallType::NONE) {
             ball->setCenterPosition(np);
             could_move[idx] = true;
-        } 
-        else {
+        } else {
             could_move[idx] = false;
             auto [vx, vy] = ball->getVelocity();
 
@@ -216,13 +233,12 @@ std::vector<bool> GameBox::tryMoveBalls(){
     return could_move;
 }
 
-bool GameBox::isWin(){
+bool GameBox::isWin() {
     // If any not gold bricks are left, we didn't win yet
     for (Brick* brick : getBricks()) {
-        if ((!brick->isBroken()) && (brick->getBrickType() != BrickType::GOLD)){
+        if ((!brick->isBroken()) && (brick->getBrickType() != BrickType::GOLD)) {
             return false;
         }
     }
     return true;
 }
-

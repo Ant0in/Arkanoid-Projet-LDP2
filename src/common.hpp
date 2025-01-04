@@ -1,35 +1,30 @@
 #pragma once
 
-#include <tuple>
-#include <iostream>
-#include <limits>
-#include <unordered_map>
-#include <string>
-#include <limits>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
 
+#include <iostream>
+#include <limits>
+#include <string>
+#include <tuple>
+#include <unordered_map>
 
-class Position2D{
+class Position2D {
+   private:
+    float _x, _y;
 
-    private:
+   public:
+    Position2D(float x, float y) : _x{x}, _y{y} {}
+    ~Position2D() = default;
 
-        float _x, _y;
-
-    public:
-
-        Position2D(float x, float y): _x{x}, _y{y} {}
-        ~Position2D() = default;
-
-        float getX() const;
-        float getY() const;
-        std::tuple<float, float> coords();
-        bool operator==(const Position2D& other);
-        friend std::ostream& operator<<(std::ostream& os, const Position2D& pos);
+    float getX() const;
+    float getY() const;
+    std::tuple<float, float> coords();
+    bool operator==(const Position2D& other);
+    friend std::ostream& operator<<(std::ostream& os, const Position2D& pos);
 };
 
-
-enum class BrickType{
+enum class BrickType {
     NONE = 0,
     WHITE = 1,
     ORANGE = 2,
@@ -43,20 +38,9 @@ enum class BrickType{
     GOLD = 10
 };
 
-enum class Action{
-    NONE = 0,
-    LEFT = 1,
-    RIGHT = 2,
-    SHOOT = 3
-};
+enum class Action { NONE = 0, LEFT = 1, RIGHT = 2, SHOOT = 3 };
 
-enum class WallType{
-    NONE = 0,
-    LEFT = 1,
-    RIGHT = 2,
-    BOTTOM = 3,
-    TOP = 4
-};
+enum class WallType { NONE = 0, LEFT = 1, RIGHT = 2, BOTTOM = 3, TOP = 4 };
 
 extern const std::string DAMAGED_SILVER_TEXTURE;
 
@@ -78,9 +62,9 @@ extern const std::string SIDE_WALLS_TEXTURE_PATH;
 extern const std::string TOP_WALL_TEXTURE_PATH;
 
 extern const float UPPER_BORDER_HEIGHT;
-extern const float LOWER_BORDER_HEIGHT; 
-extern const float LEFT_BORDER_WIDTH; 
-extern const float RIGHT_BORDER_WIDTH; 
+extern const float LOWER_BORDER_HEIGHT;
+extern const float LEFT_BORDER_WIDTH;
+extern const float RIGHT_BORDER_WIDTH;
 
 extern const ALLEGRO_COLOR DEFAULT_BACKGROUND_COLOR;
 extern const ALLEGRO_COLOR DEFAULT_FONT_COLOR;
@@ -135,4 +119,3 @@ extern const int SILVER_BRICK_REWARD;
 constexpr char DUPLICATION_BONUS_IDENTIFIER = 'D';
 constexpr char PLAYER_BONUS_IDENTIFIER = 'P';
 constexpr char RESIZE_BONUS_IDENTIFIER = 'R';
-

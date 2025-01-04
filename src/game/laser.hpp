@@ -1,27 +1,24 @@
 #pragma once
 
-#include "racket.hpp"
-#include "../physics/solid_shapes.hpp"
 #include "../common.hpp"
+#include "../physics/solid_shapes.hpp"
+#include "racket.hpp"
 
-class Laser{
 
-    private:
+class Laser {
+   private:
+    SolidRectangle _hitbox;
 
-        SolidRectangle _hitbox;
+   public:
+    Laser(const Position2D& pos) : _hitbox{SolidRectangle(pos, LASER_THICKNESS, LASER_LENGTH)} {}
 
-    public:
+    ~Laser() = default;
 
-        Laser(const Position2D& pos):
-            _hitbox{SolidRectangle(pos, LASER_THICKNESS, LASER_LENGTH)} {}
+    SolidRectangle& getHitbox();
+    const SolidRectangle& getHitbox() const;
 
-        ~Laser() = default;
+    Position2D getPosition() const;
+    void setPosition(const Position2D& p);
 
-        SolidRectangle& getHitbox();
-        const SolidRectangle& getHitbox() const;
-
-        Position2D getPosition() const;
-        void setPosition(const Position2D& p);
-
-        void spawnLaser(const Racket& r);
+    void spawnLaser(const Racket& r);
 };

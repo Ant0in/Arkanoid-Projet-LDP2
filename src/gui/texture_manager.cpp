@@ -1,8 +1,8 @@
 #include "texture_manager.hpp"
 
-#include <iostream>
 #include <unistd.h>
 
+#include <iostream>
 
 std::unordered_map<std::string, ALLEGRO_BITMAP*> TextureManager::textures;
 
@@ -10,7 +10,7 @@ ALLEGRO_BITMAP* TextureManager::getTexture(const std::string& filePath) {
     // Check if texture is already loaded
     auto it = textures.find(filePath);
     if (it != textures.end()) {
-        return it->second; // Return cached texture
+        return it->second;  // Return cached texture
     }
 
     // Load texture and store it
@@ -25,7 +25,6 @@ ALLEGRO_BITMAP* TextureManager::getTexture(const std::string& filePath) {
 }
 
 void TextureManager::releaseAllTextures() {
-    
     for (auto& pair : textures) {
         if (pair.second) {
             al_destroy_bitmap(pair.second);
@@ -33,5 +32,4 @@ void TextureManager::releaseAllTextures() {
     }
 
     textures.clear();
-
 }

@@ -1,18 +1,19 @@
 #include "gui.hpp"
 
+ALLEGRO_DISPLAY* GameGUI::getAllegroDisplay() { return _display; }
+ALLEGRO_FONT* GameGUI::getAllegroFont() { return _font; }
 
-ALLEGRO_DISPLAY* GameGUI::getAllegroDisplay() {return _display;}
-ALLEGRO_FONT* GameGUI::getAllegroFont() {return _font;}
+GameBox* GameGUI::getGameBox() { return _gamebox; }
 
-GameBox* GameGUI::getGameBox() {return _gamebox;}
+Player* GameGUI::getPlayer() { return _player; }
 
-Player* GameGUI::getPlayer() {return _player;}
+std::chrono::high_resolution_clock::time_point GameGUI::getLastUpdate() { return _last_update; }
 
-std::chrono::high_resolution_clock::time_point GameGUI::getLastUpdate() {return _last_update;}
+void GameGUI::setLastUpdate(std::chrono::high_resolution_clock::time_point up) {
+    _last_update = up;
+}
 
-void GameGUI::setLastUpdate(std::chrono::high_resolution_clock::time_point up) {_last_update = up;}
-
-void GameGUI::drawRectangle(const SolidRectangle& rect, ALLEGRO_COLOR color){
+void GameGUI::drawRectangle(const SolidRectangle& rect, ALLEGRO_COLOR color) {
     float x1 = rect.getPosition().getX() + BOX_WALLS_THICKNESS;
     float y1 = rect.getPosition().getY() + BOX_WALLS_THICKNESS;
     float x2 = x1 + rect.getWidth();
@@ -20,21 +21,20 @@ void GameGUI::drawRectangle(const SolidRectangle& rect, ALLEGRO_COLOR color){
     al_draw_filled_rectangle(x1, y1, x2, y2, color);
 }
 
-void GameGUI::drawRectangleWithTexture(const SolidRectangle& rect, const std::string& texturePath){
-    
+void GameGUI::drawRectangleWithTexture(const SolidRectangle& rect, const std::string& texturePath) {
     float x1 = rect.getPosition().getX() + BOX_WALLS_THICKNESS;
     float y1 = rect.getPosition().getY() + BOX_WALLS_THICKNESS;
 
     ALLEGRO_BITMAP* racketTexture = TextureManager::getTexture(texturePath);
     if (racketTexture) {
-        al_draw_scaled_bitmap(
-            racketTexture, 0, 0,
-            static_cast<float>(al_get_bitmap_width(racketTexture)), static_cast<float>(al_get_bitmap_height(racketTexture)),
-            x1, y1, rect.getWidth(), rect.getHeight(), 0);
+        al_draw_scaled_bitmap(racketTexture, 0, 0,
+                              static_cast<float>(al_get_bitmap_width(racketTexture)),
+                              static_cast<float>(al_get_bitmap_height(racketTexture)), x1, y1,
+                              rect.getWidth(), rect.getHeight(), 0);
     }
 }
 
-void GameGUI::drawCircle(const SolidCircle& circle, ALLEGRO_COLOR color){
+void GameGUI::drawCircle(const SolidCircle& circle, ALLEGRO_COLOR color) {
     float x = circle.getPosition().getX() + BOX_WALLS_THICKNESS;
     float y = circle.getPosition().getY() + BOX_WALLS_THICKNESS;
     float radius = circle.getRadius();
@@ -42,10 +42,11 @@ void GameGUI::drawCircle(const SolidCircle& circle, ALLEGRO_COLOR color){
 }
 
 void GameGUI::drawText(const Position2D& pos, std::string text) {
-    al_draw_text(getAllegroFont(), DEFAULT_FONT_COLOR, pos.getX(), pos.getY(), ALLEGRO_ALIGN_CENTER, text.c_str());
+    al_draw_text(getAllegroFont(), DEFAULT_FONT_COLOR, pos.getX(), pos.getY(), ALLEGRO_ALIGN_CENTER,
+                 text.c_str());
 }
 
-void GameGUI::updateFPS(){
+void GameGUI::updateFPS() {
     auto currentTime = std::chrono::high_resolution_clock::now();
     std::chrono::duration<float> delta = currentTime - getLastUpdate();
     float fps = (delta.count() > 0) ? (1.0f / delta.count()) : 0.0f;
@@ -53,12 +54,9 @@ void GameGUI::updateFPS(){
     setLastUpdate(currentTime);
 }
 
-void GameGUI::clearScreen() {
-    al_clear_to_color(DEFAULT_BACKGROUND_COLOR);
-}
+void GameGUI::clearScreen() { al_clear_to_color(DEFAULT_BACKGROUND_COLOR); }
 
 void GameGUI::drawStatistics() {
-
     std::string score = "Score: " + std::to_string(getPlayer()->getScore().getValue());
     std::string lives = "Lives: " + std::to_string(getPlayer()->getHp());
     std::string highScore = "High Score: " + std::to_string(getPlayer()->getHighScore().getValue());
@@ -78,12 +76,11 @@ void GameGUI::drawBoard() {
 }
 
 void GameGUI::drawBricks() {
-    
     for (auto& brick : getGameBox()->getBricks()) {
-
         std::string texture;
 
-        if (brick->getBrickType() == BrickType::SILVER && brick->getHP() < Brick::getBrickHpByType(BrickType::SILVER)) {
+        if (brick->getBrickType() == BrickType::SILVER &&
+            brick->getHP() < Brick::getBrickHpByType(BrickType::SILVER)) {
             texture = DAMAGED_SILVER_TEXTURE;
         } else {
             texture = BRICK_TEXTURE_PATH.at(brick->getBrickType());
@@ -92,7 +89,6 @@ void GameGUI::drawBricks() {
         drawRectangleWithTexture(brick->getHitbox(), texture);
 
         // TODO : Write letters on bricks with bonuses.
-
     }
 }
 
@@ -108,9 +104,7 @@ void GameGUI::drawRacket() {
 }
 
 void GameGUI::drawBonuses() {
-
     for (auto& bonus : getGameBox()->getBonuses()) {
-
         std::string texture;
 
         if (dynamic_cast<ResizeBonus*>(bonus)) {
@@ -124,13 +118,10 @@ void GameGUI::drawBonuses() {
         if (!bonus->isActive()) {
             drawRectangleWithTexture(bonus->getHitbox(), texture);
         }
-        
     }
-
 }
 
-
-void GameGUI::updateGUI(){
+void GameGUI::updateGUI() {
     clearScreen();
     drawBoard();
     drawRacket();

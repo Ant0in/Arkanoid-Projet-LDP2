@@ -1,11 +1,11 @@
 #include "common.hpp"
 
-float Position2D::getX() const {return _x;}
-float Position2D::getY() const {return _y;}
+float Position2D::getX() const { return _x; }
+float Position2D::getY() const { return _y; }
 
-std::tuple<float, float> Position2D::coords() {return std::make_tuple(getX(), getY());}
+std::tuple<float, float> Position2D::coords() { return std::make_tuple(getX(), getY()); }
 
-bool Position2D::operator==(const Position2D& other){
+bool Position2D::operator==(const Position2D& other) {
     return (getX() == other.getX()) && (getY() == other.getY());
 }
 
@@ -27,8 +27,7 @@ const std::unordered_map<int, ALLEGRO_COLOR> BRICK_COLORS = {
     {static_cast<int>(BrickType::MAGENTA), al_map_rgb(0xFF, 0x00, 0xFF)},
     {static_cast<int>(BrickType::YELLOW), al_map_rgb(0xFF, 0xFF, 0x00)},
     {static_cast<int>(BrickType::SILVER), al_map_rgb(0xC0, 0xC0, 0xC0)},
-    {static_cast<int>(BrickType::GOLD), al_map_rgb(0xFF, 0xD7, 0x00)}
-};
+    {static_cast<int>(BrickType::GOLD), al_map_rgb(0xFF, 0xD7, 0x00)}};
 
 const std::unordered_map<int, Action> DEFAULT_CONFIG{
     {static_cast<int>(ALLEGRO_KEY_A), Action::LEFT},
@@ -36,8 +35,7 @@ const std::unordered_map<int, Action> DEFAULT_CONFIG{
     {static_cast<int>(ALLEGRO_KEY_D), Action::RIGHT},
     {static_cast<int>(ALLEGRO_KEY_P), Action::RIGHT},
     {static_cast<int>(ALLEGRO_KEY_Z), Action::SHOOT},
-    {static_cast<int>(ALLEGRO_KEY_SPACE), Action::SHOOT}
-};
+    {static_cast<int>(ALLEGRO_KEY_SPACE), Action::SHOOT}};
 
 const std::unordered_map<int, int> BRICK_HP{
     {static_cast<int>(BrickType::NONE), NULL},
@@ -50,33 +48,19 @@ const std::unordered_map<int, int> BRICK_HP{
     {static_cast<int>(BrickType::MAGENTA), 1},
     {static_cast<int>(BrickType::YELLOW), 1},
     {static_cast<int>(BrickType::SILVER), 2},
-    {static_cast<int>(BrickType::GOLD), std::numeric_limits<int>::max()}
-};
+    {static_cast<int>(BrickType::GOLD), std::numeric_limits<int>::max()}};
 
 const std::unordered_map<int, int> BRICK_VALUE{
-    {static_cast<int>(BrickType::WHITE), 50},
-    {static_cast<int>(BrickType::ORANGE), 60},
-    {static_cast<int>(BrickType::CYAN), 70},
-    {static_cast<int>(BrickType::GREEN), 80},
-    {static_cast<int>(BrickType::RED), 90},
-    {static_cast<int>(BrickType::BLUE), 100},
-    {static_cast<int>(BrickType::MAGENTA), 110},
-    {static_cast<int>(BrickType::YELLOW), 120},
-    {static_cast<int>(BrickType::SILVER), 200}
-};
+    {static_cast<int>(BrickType::WHITE), 50},    {static_cast<int>(BrickType::ORANGE), 60},
+    {static_cast<int>(BrickType::CYAN), 70},     {static_cast<int>(BrickType::GREEN), 80},
+    {static_cast<int>(BrickType::RED), 90},      {static_cast<int>(BrickType::BLUE), 100},
+    {static_cast<int>(BrickType::MAGENTA), 110}, {static_cast<int>(BrickType::YELLOW), 120},
+    {static_cast<int>(BrickType::SILVER), 200}};
 
-const std::unordered_map<int, BrickType> BRICK_ID {
-    {1, BrickType::WHITE},
-    {2, BrickType::ORANGE},
-    {3, BrickType::CYAN},
-    {4, BrickType::GREEN},
-    {5, BrickType::RED},
-    {6, BrickType::BLUE},
-    {7, BrickType::MAGENTA},
-    {8, BrickType::YELLOW},
-    {9, BrickType::SILVER},
-    {0, BrickType::GOLD}
-};
+const std::unordered_map<int, BrickType> BRICK_ID{
+    {1, BrickType::WHITE},  {2, BrickType::ORANGE}, {3, BrickType::CYAN},    {4, BrickType::GREEN},
+    {5, BrickType::RED},    {6, BrickType::BLUE},   {7, BrickType::MAGENTA}, {8, BrickType::YELLOW},
+    {9, BrickType::SILVER}, {0, BrickType::GOLD}};
 
 const std::unordered_map<BrickType, std::string> BRICK_TEXTURE_PATH = {
     {BrickType::WHITE, "./assets/bricks/white.png"},
@@ -88,8 +72,7 @@ const std::unordered_map<BrickType, std::string> BRICK_TEXTURE_PATH = {
     {BrickType::MAGENTA, "./assets/bricks/magenta.png"},
     {BrickType::YELLOW, "./assets/bricks/yellow.png"},
     {BrickType::SILVER, "./assets/bricks/silver.png"},
-    {BrickType::GOLD, "./assets/bricks/gold.png"}
-};
+    {BrickType::GOLD, "./assets/bricks/gold.png"}};
 
 const std::string DAMAGED_SILVER_TEXTURE = "./assets/bricks/damaged_silver.png";
 
@@ -112,7 +95,8 @@ const int PLAYER_DEFAULT_HEALTH = 3;
 
 const float RACKET_WIDTH = 200;
 const float RACKET_HEIGHT = 20;
-const Position2D RACKET_DEFAULT_POSITION = Position2D((GAME_WIDTH - RACKET_WIDTH) / 2, (GAME_HEIGHT / 8) * 7);
+const Position2D RACKET_DEFAULT_POSITION =
+    Position2D((GAME_WIDTH - RACKET_WIDTH) / 2, (GAME_HEIGHT / 8) * 7);
 const float RACKET_DEFAULT_SENSIBILITY = 10;
 const std::string RACKET_TEXTURE_PATH = "./assets/racket.png";
 
@@ -138,7 +122,6 @@ const std::string PLAYER_BONUS_TEXTURE = "./assets/bonus/player_bonus.png";
 const std::string RESIZE_BONUS_TEXTURE = "./assets/bonus/resize_bonus.png";
 const std::string SLOW_BONUS_TEXTURE = "./assets/bonus/slow_bonus.png";
 
-
 const float LASER_THICKNESS = 10.0;
 const float LASER_LENGTH = 1000.0;
 
@@ -151,4 +134,3 @@ const int BLUE_BRICK_REWARD = 100;
 const int MAGENTA_BRICK_REWARD = 110;
 const int YELLOW_BRICK_REWARD = 120;
 const int SILVER_BRICK_REWARD = 200;
-
