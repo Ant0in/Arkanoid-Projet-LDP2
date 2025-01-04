@@ -64,7 +64,7 @@ int main() {
     al_register_event_source(event_queue, al_get_keyboard_event_source());
     al_start_timer(timer);
 
-    GameBox* gamebox = LevelReader::initializeGameBoard(LevelReader::parseRawFile(LevelReader::readFile("./src/maps/1.map")));
+    GameBox* gamebox = LevelReader::initializeGameBoard(LevelReader::parseRawFile(LevelReader::readFile("./maps/1.map")));
     GameController controller = GameController();
     Player* player = new Player(PLAYER_DEFAULT_HEALTH, controller);
     GameGUI gui = GameGUI(display, font, gamebox, player);
