@@ -122,4 +122,5 @@ void Player::reset() {
     this->setHp(PLAYER_DEFAULT_HEALTH);
     this->getScore().setValue(0);
     this->setHasBallStored(true);
+    this->setCanShootLaser(false);
 }

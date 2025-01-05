@@ -270,6 +270,7 @@ void GameEngine::handleLevelSwitch(LevelManager& manager, GameBox*& gamebox, Pla
 
     // Reset player bonus + add previously lost balls
     player.setBonus(nullptr);
+    player.setCanShootLaser(false);
     player.getController().updateUserAction(0);
     player.incrementHp(saved_balls);
 }
