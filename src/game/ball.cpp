@@ -54,6 +54,7 @@ Position2D Ball::calculateNewPosition() {
 }
 
 bool Ball::operator==(Ball* other) const {
+    // written to help with removing ball from a vector
     return (getCenterPosition() == other->getCenterPosition()) &&
            (getRadius() == other->getRadius()) && (getHitbox() == other->getHitbox()) &&
            (getVelocity() == other->getVelocity()) && (getSpeed() == other->getSpeed());

@@ -109,6 +109,7 @@ int Brick::getBrickValue() {
 }
 
 bool Brick::operator==(Brick* other) const {
+    // written to help with removing brick from a vector
     return (getPosition() == other->getPosition()) && (getHeight() == other->getHeight()) &&
            (getWidth() == other->getWidth()) && (getBrickType() == other->getBrickType()) &&
            (getBonus() == other->getBonus()) && (getHP() == other->getHP()) &&

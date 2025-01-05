@@ -1,6 +1,7 @@
 #include "game_box.hpp"
 
 GameBox::~GameBox() {
+    // custom destructor to take care of pointers vectors
     delete getRacket();
     for (auto ball : getBalls()) {
         delete ball;
@@ -35,6 +36,9 @@ void GameBox::initializeWalls() {
     Position2D p = getPosition();
     float      w = getWidth();
     float      h = getHeight();
+
+    // walls are on the side, we make the calculations with the wall thickness and the gamebox
+    // hitbox
 
     _leftWall = SolidRectangle(
         Position2D(p.getX() - BOX_WALLS_THICKNESS, p.getY()), BOX_WALLS_THICKNESS, h);
@@ -166,6 +170,7 @@ bool GameBox::isObjectOutOfBounds(const SolidInterface& object) const {
 }
 
 WallType GameBox::isObjectCollidingWithWalls(const SolidInterface& object) {
+    // checks if object is colliding with walls, if not -> returns WallType::NONE
     if (CollisionHelper::isColliding(object, getLeftWall())) {
         return WallType::LEFT;
     } else if (CollisionHelper::isColliding(object, getRightWall())) {
@@ -182,7 +187,8 @@ WallType GameBox::isObjectCollidingWithWalls(const SolidInterface& object) {
 bool GameBox::tryMoveRacket(const Position2D& p) {
     Racket* rk   = getRacket();
     Racket  temp = Racket(p, rk->getWidth(), rk->getHeight(), rk->getSensibility());
-
+    // if the temporary racket is colliding with walls, then we don't move the racket
+    // also returns a bool for debug purposes (could be used to assign a "failed move sfx")
     if (isObjectCollidingWithWalls(temp.getHitbox()) == WallType::NONE) {
         getRacket()->setPosition(p);
         return true;
@@ -221,8 +227,10 @@ void GameBox::resizeRacket(float factor) {
 
 std::vector<bool> GameBox::tryMoveBalls() {
     std::vector<Ball*> balls = getBalls();
-    std::vector<bool>  could_move(balls.size(), false);
-
+    // the could_move vector is for debug purposes
+    std::vector<bool> could_move(balls.size(), false);
+    // for each balls, we create a temporary ball, check it's new position and then move it if it's
+    // not colliding with any walls
     for (size_t idx = 0; idx < balls.size(); ++idx) {
         Ball* ball = balls[idx];
 
@@ -238,6 +246,7 @@ std::vector<bool> GameBox::tryMoveBalls() {
             could_move[idx] = false;
             auto [vx, vy]   = ball->getVelocity();
 
+            // collisions are wack, sorry mb gang I'm retarded
             switch (wallCollision) {
                 case WallType::LEFT:
                     ball->setVelocity(-vx, vy);
@@ -249,6 +258,7 @@ std::vector<bool> GameBox::tryMoveBalls() {
                     ball->setVelocity(vx, -vy);
                     break;
                 case WallType::BOTTOM:
+                    // hitting the bottom wall is like dying in my book lol
                     ball->setAlive(false);
                     break;
                 default:
@@ -262,7 +272,7 @@ std::vector<bool> GameBox::tryMoveBalls() {
 void GameBox::tryMoveLasers() {
     std::vector<Laser*> lasers = getLasers();
     for (size_t idx = 0; idx < lasers.size(); ++idx) {
-        // for each laser, move vertically
+        // for each laser, move vertically by it's speed
         Position2D np = lasers.at(idx)->calculateNewPosition();
         lasers.at(idx)->setPosition(np);
     }

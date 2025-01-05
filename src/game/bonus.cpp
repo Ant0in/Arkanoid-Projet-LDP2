@@ -9,7 +9,7 @@ const SolidRectangle& BonusInterface::getHitbox() const {
 
 float BonusInterface::getSize() const {
     assert(getHitbox().getHeight() == getHitbox().getWidth());
-    return getHitbox().getHeight();  // arbitrairement height
+    return getHitbox().getHeight();  // arbitrarily height (== width)
 }
 void BonusInterface::setSize(float s) {
     getHitbox().setHeight(s);
@@ -77,6 +77,7 @@ bool BonusInterface::hasBonusDurationExpired() const {
 }
 
 bool BonusInterface::operator==(BonusInterface* other) const {
+    // written to help with removing bonus from a vector
     return (getPosition() == other->getPosition()) && (getHitbox() == other->getHitbox()) &&
            (getSize() == other->getSize()) && (getDuration() == other->getDuration()) &&
            (getFallingSpeed() == other->getFallingSpeed());
@@ -96,6 +97,7 @@ void BonusInterface::revertLogic(GameBox& gb, Player& player) {
 }
 
 std::tuple<float, float> DuplicationBonus::rotate_velocity(float vx, float vy, float alpha) {
+    // written to help with the logic of the DuplicationBonus (balls are going 3 separate ways)
     float alpha_rad = alpha * static_cast<float>(M_PI) / 180.0f;
     float nvx       = vx * cosf(alpha_rad) - vy * sinf(alpha_rad);
     float nvy       = vx * sinf(alpha_rad) + vy * cosf(alpha_rad);
@@ -180,12 +182,13 @@ void GrabBonus::applyLogic(GameBox& gb, Player& player) {
     if (!isActive() || hasBonusDurationExpired()) {
         return;
     }
-
+    // the grab bonus will not apply if no balls are in the gamebox (or the player's racket)
     if (gb.isBallVectorEmpty() && !player.hasBallStored()) {
         return;
     }
 
     if (gb.doesPlayerHaveMultipleBalls()) {
+        // debug, shouldn't happen
         std::cerr << "Not supposed to apply grab logic with multiple balls" << std::endl;
         return;
     }
@@ -222,6 +225,7 @@ void GrabBonus::applyLogic(GameBox& gb, Player& player) {
 }
 
 void SlowBonus::applyLogic(GameBox& gb, Player& player) {
+    // If bonus is not active or has expired, we skip logic
     (void) player;
 
     if (gb.isBallVectorEmpty()) {
@@ -251,12 +255,14 @@ void SlowBonus::applyLogic(GameBox& gb, Player& player) {
 }
 
 void SlowBonus::revertLogic(GameBox& gb, Player& player) {
+    // reset the player original speed
     (void) player;
     Ball* currentBall = gb.getBalls().at(0);
     currentBall->setSpeed(BALL_SPEED);
 }
 
 void LaserBonus::applyLogic(GameBox& gb, Player& player) {
+    // If bonus is not active or has expired, we skip logic
     (void) gb;
     if (!isActive() || hasBonusDurationExpired()) {
         return;
