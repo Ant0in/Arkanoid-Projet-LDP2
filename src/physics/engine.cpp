@@ -128,6 +128,7 @@ void GameEngine::handleBalls(GameBox*& gamebox, Player& player) {
     if (player.hasGrabTimerExpired()) {
         // std::cout << "Grab timer expired : releasing ball" << std::endl;
         player.setHasGrabTimerExpired(false);
+        player.setHasBallStored(false);
         handleBallSpawn(gamebox);
     }
 }
