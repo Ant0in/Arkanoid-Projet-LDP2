@@ -4,7 +4,13 @@
 
 Arkanoid is a brick-breaking game developed as part of the Programming Language 2 (`INFO-F202`) course. This project uses the Allegro library for graphics and event handling.
 
-For more details, please refer to the document [project-2024.pdf](./pdf/project-2024.pdf).
+For more details, please refer to [`./pdf/project-2024.pdf`](./pdf/project-2024.pdf).
+
+<p align="center">
+  <img src="./pdf/rapport/src/intro.png" alt="Demo of the projet" width="400"/>
+  <br/>
+  <strong>Classic Game of the Arkanoïd Project</strong>
+</p>
 
 ## Features
 
