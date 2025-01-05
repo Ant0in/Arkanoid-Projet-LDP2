@@ -12,7 +12,7 @@ For more details, please refer to the document [project-2024.pdf](./pdf/project-
 - Different types of bricks with varying hit points
 - Various power-ups (duplication, laser, enlargement, etc.)
 - Level and score management
-- Sound and graphical effects
+- Graphical effects
 
 ## Prerequisites
 
