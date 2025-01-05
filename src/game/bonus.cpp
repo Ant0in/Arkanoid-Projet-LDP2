@@ -187,6 +187,7 @@ void GrabBonus::applyLogic(GameBox& gb, Player& player) {
         return;
     }
 
+    // lol what a great function name
     if (gb.doesPlayerHaveMultipleBalls()) {
         // debug, shouldn't happen
         std::cerr << "Not supposed to apply grab logic with multiple balls" << std::endl;

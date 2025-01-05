@@ -14,6 +14,7 @@
 #include "./racket.hpp"
 
 std::vector<std::string> LevelReader::readFile(const std::string& filePath) {
+    // exactly what you'd expect, read a file and return its content as a vector of strings
     std::ifstream file(filePath, std::ios::in);
 
     if (!file.is_open()) {
@@ -36,6 +37,7 @@ std::vector<std::vector<std::string>> LevelReader::parseRawFile(
     std::vector<std::vector<std::string>> board;
 
     for (const auto& line : raw) {
+        // for each line, we will split the string encoding a brick into a vector
         std::istringstream       stream(line);
         std::vector<std::string> row;
         std::string              brick;
@@ -81,6 +83,7 @@ GameBox* LevelReader::initializeGameBoard(const std::vector<std::vector<std::str
             BonusInterface* bonus      = nullptr;
             char            bonus_char = tiles[y][x][1];
 
+            // we use identifiers to determine the bonus type
             if (bonus_char == BONUS_IDENTIFIER.at(BonusType::DUPLICATION)) {
                 bonus = new DuplicationBonus(Position2D(abs_x, abs_y));
             } else if (bonus_char == BONUS_IDENTIFIER.at(BonusType::PLAYER)) {
@@ -94,6 +97,7 @@ GameBox* LevelReader::initializeGameBoard(const std::vector<std::vector<std::str
             } else if (bonus_char == BONUS_IDENTIFIER.at(BonusType::SLOW)) {
                 bonus = new SlowBonus(Position2D(abs_x, abs_y));
             } else {
+                // no bonus, the pointer stays a nullptr
             }
 
             Brick* b =
@@ -107,6 +111,7 @@ GameBox* LevelReader::initializeGameBoard(const std::vector<std::vector<std::str
 }
 
 std::vector<std::string> LevelReader::findEveryMapFilepathInFolder(const std::string& folderPath) {
+    // just browse trough a folder and return all the .map files, sorted by name
     std::vector<std::string> mapFiles;
 
     try {

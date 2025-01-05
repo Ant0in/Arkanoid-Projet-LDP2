@@ -6,6 +6,7 @@ bool CollisionHelper::isColliding(const SolidInterface& solid1, const SolidInter
     const SolidCircle*    circ1 = dynamic_cast<const SolidCircle*>(&solid1);
     const SolidCircle*    circ2 = dynamic_cast<const SolidCircle*>(&solid2);
 
+    // we determine which function to use based on the types of the objects (interface)
     if (rect1 && rect2) {
         return rect_vs_rect(*rect1, *rect2);
     } else if (rect1 && circ2) {
@@ -28,6 +29,7 @@ bool CollisionHelper::rect_vs_rect(const SolidRectangle& rect1, const SolidRecta
 }
 
 bool CollisionHelper::rect_vs_circle(const SolidRectangle& rect, const SolidCircle& circle) {
+    // this method destroyed my head to think of, but yeah it's not that hard to figure out yourself
     Position2D circle_center = circle.getPosition();
     float      rect_x        = rect.getPosition().getX();
     float      rect_y        = rect.getPosition().getY();
@@ -42,6 +44,8 @@ bool CollisionHelper::rect_vs_circle(const SolidRectangle& rect, const SolidCirc
 }
 
 bool CollisionHelper::circle_vs_circle(const SolidCircle& circle1, const SolidCircle& circle2) {
+    // this is also doable tbh, just compare the distance between the two centers with the sum of
+    // the radiuses squared
     Position2D center1          = circle1.getPosition();
     Position2D center2          = circle2.getPosition();
     float      distance_squared = static_cast<float>(std::pow(center1.getX() - center2.getX(), 2)) +

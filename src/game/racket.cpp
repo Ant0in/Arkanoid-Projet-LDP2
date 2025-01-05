@@ -44,12 +44,11 @@ Position2D Racket::calculateNewPosition(const Action& action) {
     float y    = getPosition().getY();
     float sens = getSensibility();
 
+    // by default, we don't move the racket
     switch (action) {
         case Action::LEFT:
-            // std::cout<<"left"<<std::endl;
             return Position2D(x - sens, y);
         case Action::RIGHT:
-            // std::cout<<"right"<<std::endl;
             return Position2D(x + sens, y);
         case Action::NONE:
             return Position2D(x, y);

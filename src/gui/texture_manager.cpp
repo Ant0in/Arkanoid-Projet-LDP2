@@ -7,13 +7,13 @@
 std::unordered_map<std::string, ALLEGRO_BITMAP*> TextureManager::textures;
 
 ALLEGRO_BITMAP* TextureManager::getTexture(const std::string& filePath) {
-    // Check if texture is already loaded
+    // check if texture is already loaded
     auto it = textures.find(filePath);
     if (it != textures.end()) {
-        return it->second;  // Return cached texture
+        return it->second;  // return cached texture
     }
 
-    // Load texture and store it
+    // load texture and store it
     ALLEGRO_BITMAP* texture = al_load_bitmap(filePath.c_str());
     if (!texture) {
         std::cerr << "Erreur : Impossible de charger la texture : " << filePath << std::endl;
@@ -25,6 +25,7 @@ ALLEGRO_BITMAP* TextureManager::getTexture(const std::string& filePath) {
 }
 
 void TextureManager::releaseAllTextures() {
+    // allegro stuff
     for (auto& pair : textures) {
         if (pair.second) {
             al_destroy_bitmap(pair.second);

@@ -102,7 +102,8 @@ int main() {
 
     std::cout << "Exiting..." << std::endl;
 
-    // Destroying stuff at the end
+    // Destroying stuff at the end (thanks allegro for being literal DOGSHIT, 130k bytes memory
+    // leak, unfixable LOL)
     TextureManager::releaseAllTextures();
 
     al_shutdown_primitives_addon();

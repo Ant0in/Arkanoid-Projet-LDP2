@@ -160,6 +160,7 @@ void GameEngine::handleCollisionsWithLasers(GameBox*& gamebox, Player& player) {
 }
 
 void GameEngine::handleLasers(GameBox*& gamebox, Player& player) {
+    // OOP-addict aaaaa function smh
     gamebox->tryMoveLasers();
     handleCollisionsWithLasers(gamebox, player);
 }
