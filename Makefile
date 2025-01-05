@@ -2,7 +2,7 @@
 CXXFLAGS += -std=c++2b -Wall -Wextra
 
 # All warnings being treated as errors and debugging flags
-#CXXFLAGS += -Werror -fmax-errors=1 -g
+CXXFLAGS += -Werror -g
 
 # Additional warning flags for robust code
 CXXFLAGS += -Wpedantic
@@ -20,7 +20,7 @@ CXXFLAGS += -Wdouble-promotion
 CXXFLAGS += -Wnon-virtual-dtor 
 CXXFLAGS += -Woverloaded-virtual 
 
-# Memory sanitization flags
+# Memory sanitization flags (DONT ENABLE PLEASE IM BEGGING YOU)
 # CXXFLAGS += -fsanitize=address -fno-omit-frame-pointer
 # LDFLAGS += -fsanitize=address
 

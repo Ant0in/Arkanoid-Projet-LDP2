@@ -1,68 +1,63 @@
-# Basé sur le style Google avec des modifications personnalisées
 BasedOnStyle: Google
 
-# Largeur d'indentation
-IndentWidth: 4                 # Nombre d'espaces pour l'indentation
-TabWidth: 4                    # Largeur d'une tabulation si utilisée
-UseTab: Never                  # Toujours utiliser des espaces
+# indent
+IndentWidth: 4                 
+TabWidth: 4                    
+UseTab: Never                 
 
-# Longueur des lignes
-ColumnLimit: 100               # Limite en caractères par ligne
+ColumnLimit: 100
 
-# Gestion des espaces
-BreakBeforeBraces: Attach      # Les accolades ouvrantes sur la même ligne que la déclaration
-SpacesInParentheses: false     # Pas d'espace autour des parenthèses
-SpacesInSquareBrackets: false  # Pas d'espace autour des crochets
-SpaceAfterCStyleCast: true     # Espace après un cast C-style (e.g., `(int) x`)
+# spaces
+BreakBeforeBraces: Attach
+SpacesInParentheses: false
+SpacesInSquareBrackets: false
+SpaceAfterCStyleCast: true
 
-# Gestion des entrées
-SortIncludes: true             # Trie automatiquement les #include
-IncludeBlocks: Preserve        # Conserve les blocs de #include tels qu'ils sont
+SortIncludes: true             
+IncludeBlocks: Preserve  
 IncludeCategories:
-  - Regex: '^<.*\.h>'          # Place les includes standards en premier
+  - Regex: '^<.*\.h>'    
     Priority: 1
   - Regex: '^"'
     Priority: 2
   - Regex: '.*'
     Priority: 3
 
-# Gestion des lignes vides
-AllowShortBlocksOnASingleLine: false # Empêche les blocs très courts d'être sur une seule ligne
+# blank lines
+AllowShortBlocksOnASingleLine: false
 KeepEmptyLinesAtTheStartOfBlocks: false
-MaxEmptyLinesToKeep: 1         # Conserve un maximum d'une ligne vide entre les sections
+MaxEmptyLinesToKeep: 1
 
-# Gestion des fonctions et des méthodes
-AlwaysBreakAfterReturnType: None             # Ne sépare pas le type de retour pour les déclarations
-EmptyLineBeforeAccessModifier: Always        # Ajoute une ligne avant les modificateurs (public, private, etc.)
+AlwaysBreakAfterReturnType: None            
+EmptyLineBeforeAccessModifier: Always
 
-# Alignement
-AlignConsecutiveAssignments: true            # Aligne les variables déclarées avec des `=`
-AlignConsecutiveDeclarations: true           # Aligne les déclarations successives
-AlignEscapedNewlines: Right                  # Aligne les sauts de ligne échappés à droite
+# align
+AlignConsecutiveAssignments: true           
+AlignConsecutiveDeclarations: true
+AlignEscapedNewlines: Right                 
 
-# Gestion des arguments de fonction
-BinPackArguments: false                      # Arguments sur des lignes séparées si trop longs
-BinPackParameters: false                     # Paramètres sur des lignes séparées si trop longs
-PenaltyBreakFirstLessLess: 10                # Pénalité pour séparer les opérateurs `<<`
+# args
+BinPackArguments: false                      
+BinPackParameters: false                    
+PenaltyBreakFirstLessLess: 10               
 
-# Gestion des blocs
-AllowShortFunctionsOnASingleLine: None       # Les fonctions ne tiennent pas sur une seule ligne
-AllowShortIfStatementsOnASingleLine: false   # Toujours mettre les `if` sur plusieurs lignes
-AllowShortLoopsOnASingleLine: false          # Toujours mettre les `for`, `while` sur plusieurs lignes
+# blocks
+AllowShortFunctionsOnASingleLine: None       
+AllowShortIfStatementsOnASingleLine: false   
+AllowShortLoopsOnASingleLine: false          
 
-# Gestion des commentaires
-CommentPragmas: '^ IWYU pragma:'             # Conserve les pragmas IWYU dans les commentaires
-ReflowComments: true                         # Reformate les commentaires pour qu'ils respectent ColumnLimit
+# comments
+CommentPragmas: '^ IWYU pragma:'             
+ReflowComments: true                       
 
-# Gestion des classes
-ConstructorInitializerAllOnOneLineOrOnePerLine: true # Initialisation de constructeur sur une seule ligne ou séparée
-BreakBeforeInheritanceComma: true                    # Sépare les héritages par des retours à la ligne
+# class
+ConstructorInitializerAllOnOneLineOrOnePerLine: true 
+BreakBeforeInheritanceComma: true                
 
-# Autres options avancées
-DerivePointerAlignment: false               # Respecte l'alignement des pointeurs défini ci-dessous
-PointerAlignment: Left                      # Aligne les pointeurs à gauche (e.g., `int* ptr`)
+DerivePointerAlignment: false               
+PointerAlignment: Left                     
 
-# Débogage et validation
-FixNamespaceComments: true                  # Ajoute des commentaires pour fermer les namespaces
-InsertTrailingCommas: None                  # Pas de virgule finale dans les listes
-SortUsingDeclarations: true                 # Trie les `using` par ordre alphabétique
+# debug
+FixNamespaceComments: true                  
+InsertTrailingCommas: None                
+SortUsingDeclarations: true                
