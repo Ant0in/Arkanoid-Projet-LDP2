@@ -1,15 +1,15 @@
 
-#include "src/game/game_box.hpp"
-#include "src/game/level_manager.hpp"
-#include "src/game/level_reader.hpp"
-#include "src/player/controller.hpp"
-#include "src/player/player.hpp"
+#include "../include/controller.hpp"
+#include "../include/game_box.hpp"
+#include "../include/level_manager.hpp"
+#include "../include/level_reader.hpp"
+#include "../include/player.hpp"
 
-#include "src/common.hpp"
+#include "../include/common.hpp"
 
-#include "src/gui/gui.hpp"
+#include "../include/gui.hpp"
 
-#include "src/physics/engine.hpp"
+#include "../include/engine.hpp"
 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>

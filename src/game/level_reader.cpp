@@ -1,4 +1,4 @@
-#include "level_reader.hpp"
+#include "../../include/level_reader.hpp"
 
 #include <algorithm>
 #include <filesystem>
@@ -7,11 +7,11 @@
 #include <sstream>
 #include <stdexcept>
 
-#include "../common.hpp"
-#include "./ball.hpp"
-#include "./bonus.hpp"
-#include "./brick.hpp"
-#include "./racket.hpp"
+#include "../../include/ball.hpp"
+#include "../../include/bonus.hpp"
+#include "../../include/brick.hpp"
+#include "../../include/common.hpp"
+#include "../../include/racket.hpp"
 
 std::vector<std::string> LevelReader::readFile(const std::string& filePath) {
     // exactly what you'd expect, read a file and return its content as a vector of strings

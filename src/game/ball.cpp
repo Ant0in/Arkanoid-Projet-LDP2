@@ -1,4 +1,4 @@
-#include "ball.hpp"
+#include "../../include/ball.hpp"
 
 SolidCircle& Ball::getHitbox() {
     return _hitbox;

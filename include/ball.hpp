@@ -2,8 +2,8 @@
 
 #include <tuple>
 
-#include "../common.hpp"
-#include "../physics/solid_shapes.hpp"
+#include "common.hpp"
+#include "solid_shapes.hpp"
 
 class Ball {
    private:

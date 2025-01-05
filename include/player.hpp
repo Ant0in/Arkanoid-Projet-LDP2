@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-#include "../game/bonus.hpp"
+#include "bonus.hpp"
 #include "controller.hpp"
 #include "score.hpp"
 

@@ -1,5 +1,5 @@
-#include "./level_manager.hpp"
-#include "./level_reader.hpp"
+#include "../../include/level_manager.hpp"
+#include "../../include/level_reader.hpp"
 
 std::vector<std::string> LevelManager::getLevelsFilepaths() {
     return _LevelsFilepaths;

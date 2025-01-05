@@ -1,4 +1,4 @@
-#include "laser.hpp"
+#include "../../include/laser.hpp"
 
 SolidRectangle& Laser::getHitbox() {
     return _hitbox;

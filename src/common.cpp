@@ -1,4 +1,4 @@
-#include "common.hpp"
+#include "../include/common.hpp"
 
 float Position2D::getX() const {
     return _x;

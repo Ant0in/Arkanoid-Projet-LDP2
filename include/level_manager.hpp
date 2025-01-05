@@ -1,6 +1,6 @@
 #pragma once
 
-#include "./game_box.hpp"
+#include "game_box.hpp"
 
 class LevelManager {
    private:

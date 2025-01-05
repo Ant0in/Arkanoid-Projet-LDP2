@@ -1,4 +1,4 @@
-#include "racket.hpp"
+#include "../../include/racket.hpp"
 
 SolidRectangle& Racket::getHitbox() {
     return _hitbox;

@@ -1,4 +1,4 @@
-#include "score.hpp"
+#include "../../include/score.hpp"
 
 int Score::getValue() const {
     return _value;

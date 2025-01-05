@@ -3,11 +3,12 @@
 #include <cmath>
 #include <tuple>
 
-#include "../common.hpp"
-#include "../physics/solid_shapes.hpp"
-#include "../player/player.hpp"
 #include "ball.hpp"
+#include "common.hpp"
 #include "game_box.hpp"
+#include "player.hpp"
+#include "solid_shapes.hpp"
+
 
 class GameBox;
 class Player;

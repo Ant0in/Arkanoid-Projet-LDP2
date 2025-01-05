@@ -1,4 +1,4 @@
-#include "solid_shapes.hpp"
+#include "../../include/solid_shapes.hpp"
 
 Position2D SolidRectangle::getPosition() const {
     return _position;

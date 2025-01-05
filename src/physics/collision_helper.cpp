@@ -1,4 +1,4 @@
-#include "collision_helper.hpp"
+#include "../../include/collision_helper.hpp"
 
 bool CollisionHelper::isColliding(const SolidInterface& solid1, const SolidInterface& solid2) {
     const SolidRectangle* rect1 = dynamic_cast<const SolidRectangle*>(&solid1);

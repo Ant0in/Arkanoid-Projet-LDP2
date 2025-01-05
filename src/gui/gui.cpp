@@ -1,4 +1,4 @@
-#include "gui.hpp"
+#include "../../include/gui.hpp"
 
 ALLEGRO_DISPLAY* GameGUI::getAllegroDisplay() {
     return _display;

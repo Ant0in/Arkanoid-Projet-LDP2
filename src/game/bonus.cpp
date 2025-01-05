@@ -1,4 +1,4 @@
-#include "bonus.hpp"
+#include "../../include/bonus.hpp"
 
 SolidRectangle& BonusInterface::getHitbox() {
     return _hitbox;

@@ -1,4 +1,4 @@
-#include "player.hpp"
+#include "../../include/player.hpp"
 
 Score Player::readHighScoreFromFile(const std::string& filePath) const {
     std::ifstream file(filePath);

@@ -1,4 +1,4 @@
-#include "controller.hpp"
+#include "../../include/controller.hpp"
 
 const std::unordered_map<int, Action>& GameController::getConfig() const {
     return _config;

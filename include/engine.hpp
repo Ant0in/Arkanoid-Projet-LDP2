@@ -3,14 +3,15 @@
 #include <cmath>
 #include <vector>
 
-#include "../common.hpp"
-#include "../game/ball.hpp"
-#include "../game/brick.hpp"
-#include "../game/game_box.hpp"
-#include "../game/level_manager.hpp"
-#include "../game/racket.hpp"
-#include "../player/controller.hpp"
-#include "../player/score.hpp"
+#include "ball.hpp"
+#include "brick.hpp"
+#include "common.hpp"
+#include "controller.hpp"
+#include "game_box.hpp"
+#include "level_manager.hpp"
+#include "racket.hpp"
+#include "score.hpp"
+
 
 class GameEngine {
    public:

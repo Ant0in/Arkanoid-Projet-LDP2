@@ -6,7 +6,7 @@
 #include <string>
 #include <unordered_map>
 
-#include "../common.hpp"
+#include "common.hpp"
 
 class GameController {
    private:

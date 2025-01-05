@@ -1,4 +1,4 @@
-#include "game_box.hpp"
+#include "../../include/game_box.hpp"
 
 GameBox::~GameBox() {
     // custom destructor to take care of pointers vectors

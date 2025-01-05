@@ -2,9 +2,9 @@
 
 #include <iostream>
 
-#include "../common.hpp"
-#include "../physics/solid_shapes.hpp"
 #include "bonus.hpp"
+#include "common.hpp"
+#include "solid_shapes.hpp"
 
 class BonusInterface;
 

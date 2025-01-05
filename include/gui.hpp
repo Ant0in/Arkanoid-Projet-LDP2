@@ -8,10 +8,10 @@
 #include <string>
 #include <vector>
 
-#include "../common.hpp"
-#include "../game/game_box.hpp"
-#include "../physics/solid_shapes.hpp"
-#include "./texture_manager.hpp"
+#include "common.hpp"
+#include "game_box.hpp"
+#include "solid_shapes.hpp"
+#include "texture_manager.hpp"
 
 class GameGUI {
    private:

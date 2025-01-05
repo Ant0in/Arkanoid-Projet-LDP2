@@ -1,4 +1,4 @@
-#include "brick.hpp"
+#include "../../include/brick.hpp"
 
 int Brick::getBrickHpByType(const BrickType& btype) {
     auto it = BRICK_HP.find(static_cast<int>(btype));

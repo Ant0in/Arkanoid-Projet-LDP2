@@ -3,7 +3,7 @@
 #include <cmath>
 #include <vector>
 
-#include "../common.hpp"
+#include "common.hpp"
 
 class SolidInterface {
    public:

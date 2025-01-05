@@ -1,4 +1,4 @@
-#include "texture_manager.hpp"
+#include "../../include/texture_manager.hpp"
 
 #include <unistd.h>
 
