@@ -225,6 +225,12 @@ void GrabBonus::applyLogic(GameBox& gb, Player& player) {
     }
 }
 
+void GrabBonus::revertLogic(GameBox& gb, Player& player) {
+    (void) gb;
+    (void) player;
+    setGrabTimer(0);
+}
+
 void SlowBonus::applyLogic(GameBox& gb, Player& player) {
     // If bonus is not active or has expired, we skip logic
     (void) player;

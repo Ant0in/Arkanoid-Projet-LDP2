@@ -155,6 +155,7 @@ class GrabBonus : public BonusInterface {
     void setGrabTimer(int t);
     void incrementGrabTimer(int incr);
     void applyLogic(GameBox& gb, Player& player);
+    void revertLogic(GameBox& gb, Player& player);
 };
 
 class SlowBonus : public BonusInterface {
